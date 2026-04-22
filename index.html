@@ -1582,57 +1582,100 @@ let currentSearch = "";
 let allReviewers = [];
 
 // ========================================================================
-// 저장소 (window.storage API 사용)
+// 저장소 (window.storage API 사용, 없거나 실패 시 메모리 fallback)
 // ========================================================================
-async function loadReviewer(reviewerName) {
+const _memoryStore = {};
+
+function hasStorage() {
+  return typeof window !== "undefined" && window.storage && typeof window.storage.get === "function";
+}
+
+async function _storageGet(key) {
+  if (!hasStorage()) {
+    return _memoryStore[key] ? { value: _memoryStore[key] } : null;
+  }
   try {
-    const result = await window.storage.get(`reviewer:${reviewerName}`);
-    return result ? JSON.parse(result.value) : {};
+    return await window.storage.get(key);
+  } catch {
+    // 키가 없거나 에러 — 메모리 fallback 확인
+    return _memoryStore[key] ? { value: _memoryStore[key] } : null;
+  }
+}
+
+async function _storageSet(key, value) {
+  _memoryStore[key] = value;  // 항상 메모리에도 저장 (즉시 사용 가능)
+  if (!hasStorage()) return true;
+  try {
+    await window.storage.set(key, value);
+    return true;
+  } catch (e) {
+    console.warn(`storage.set 실패 (메모리에만 저장됨): ${key}`, e);
+    return false;
+  }
+}
+
+async function _storageList(prefix) {
+  const memKeys = Object.keys(_memoryStore).filter(k => k.startsWith(prefix));
+  if (!hasStorage()) return memKeys;
+  try {
+    const result = await window.storage.list(prefix);
+    const apiKeys = result ? (result.keys || []) : [];
+    return [...new Set([...apiKeys, ...memKeys])];
+  } catch {
+    return memKeys;
+  }
+}
+
+async function loadReviewer(reviewerName) {
+  const result = await _storageGet(`reviewer:${reviewerName}`);
+  if (!result) return {};
+  try {
+    return JSON.parse(result.value);
   } catch {
     return {};
   }
 }
 
 async function saveReviewer(reviewerName, data) {
-  try {
-    await window.storage.set(`reviewer:${reviewerName}`, JSON.stringify(data));
-    return true;
-  } catch (e) {
-    console.error("저장 실패:", e);
-    return false;
-  }
+  return await _storageSet(`reviewer:${reviewerName}`, JSON.stringify(data));
 }
 
 async function loadReviewerList() {
-  try {
-    const result = await window.storage.list("reviewer:");
-    const keys = result ? (result.keys || []) : [];
-    return keys.map(k => k.replace("reviewer:", ""));
-  } catch {
-    return [];
-  }
+  const keys = await _storageList("reviewer:");
+  return keys.map(k => k.replace("reviewer:", ""));
 }
 
 // ========================================================================
 // UI — 초기화
 // ========================================================================
 async function init() {
-  // 기존 심사위원 목록 불러오기
-  allReviewers = await loadReviewerList();
-
-  // 심사위원 선택 강제 (첫 방문이면 모달 열기)
-  const saved = await window.storage.get("current_reviewer").catch(() => null);
-  if (saved && saved.value) {
-    currentReviewer = saved.value;
-    await loadCurrentReviewerData();
-    updateReviewerPill();
-  } else {
-    openReviewerModal(false);
-  }
-
+  // ⚠️ 중요: 이벤트 바인딩은 제일 먼저 — storage 에러가 나더라도 버튼은 동작해야 함
+  bindEvents();
   renderStats();
   renderCompanyGrid();
-  bindEvents();
+
+  // 기존 심사위원 목록 불러오기 (실패해도 앱은 동작)
+  try {
+    allReviewers = await loadReviewerList();
+  } catch (e) {
+    console.warn("심사위원 목록 로드 실패:", e);
+    allReviewers = [];
+  }
+
+  // 저장된 현재 심사위원이 있으면 복원, 없으면 모달 열기
+  let savedReviewer = null;
+  const saved = await _storageGet("current_reviewer");
+  if (saved && saved.value) savedReviewer = saved.value;
+
+  if (savedReviewer) {
+    currentReviewer = savedReviewer;
+    await loadCurrentReviewerData();
+    updateReviewerPill();
+    renderStats();
+    renderCompanyGrid();
+  } else {
+    await openReviewerModal(false);
+  }
 }
 
 async function loadCurrentReviewerData() {
@@ -1652,14 +1695,28 @@ async function openReviewerModal(allowCancel) {
   cancel.style.display = allowCancel ? "block" : "none";
   document.getElementById("reviewerNameInput").value = currentReviewer || "";
 
-  // 기존 심사위원 목록 보여주기
-  allReviewers = await loadReviewerList();
-  if (allReviewers.length > 0) {
+  // ⚠️ 먼저 모달 열기 — storage 실패해도 UI는 동작해야 함
+  modal.classList.add("active");
+  setTimeout(() => document.getElementById("reviewerNameInput").focus(), 100);
+
+  // 기존 심사위원 목록 로드 (실패 시 빈 상태로 처리)
+  try {
+    allReviewers = await loadReviewerList();
+  } catch {
+    allReviewers = [];
+  }
+
+  if (allReviewers && allReviewers.length > 0) {
     list.style.display = "block";
     listBody.innerHTML = "";
     for (const name of allReviewers) {
-      const data = await loadReviewer(name);
-      const scoredCount = Object.keys(data || {}).length;
+      let scoredCount = 0;
+      try {
+        const data = await loadReviewer(name);
+        scoredCount = data ? Object.keys(data).length : 0;
+      } catch {
+        scoredCount = 0;
+      }
       const item = document.createElement("div");
       item.className = "reviewer-list-item";
       item.innerHTML = `<span><i class="fa-solid fa-user" style="color:var(--blue-light);margin-right:8px"></i>${escapeHtml(name)}</span><span class="count">${scoredCount}개사 평가</span>`;
@@ -1669,17 +1726,24 @@ async function openReviewerModal(allowCancel) {
   } else {
     list.style.display = "none";
   }
-
-  modal.classList.add("active");
-  setTimeout(() => document.getElementById("reviewerNameInput").focus(), 100);
 }
 
 async function selectReviewer(name) {
+  // ⚠️ UI 전환을 먼저 수행 — storage 실패해도 페이지는 넘어가야 함
   currentReviewer = name;
-  await window.storage.set("current_reviewer", name);
-  await loadCurrentReviewerData();
   updateReviewerPill();
   closeReviewerModal();
+
+  // storage 작업 (실패해도 앱 동작에는 영향 없음, 메모리 fallback 존재)
+  await _storageSet("current_reviewer", name);
+
+  try {
+    await loadCurrentReviewerData();
+  } catch (e) {
+    console.warn("심사위원 데이터 로드 실패:", e);
+    reviewData = {};
+  }
+
   renderStats();
   renderCompanyGrid();
   if (currentCompany) showDetail(currentCompany);
@@ -2290,7 +2354,12 @@ function bindEvents() {
   document.getElementById("modalConfirm").onclick = async () => {
     const name = document.getElementById("reviewerNameInput").value.trim();
     if (!name) { alert("이름을 입력해주세요."); return; }
-    await selectReviewer(name);
+    try {
+      await selectReviewer(name);
+    } catch (e) {
+      console.error("selectReviewer 에러:", e);
+      alert("오류가 발생했습니다: " + e.message);
+    }
   };
   document.getElementById("modalCancel").onclick = closeReviewerModal;
   document.getElementById("reviewerNameInput").onkeydown = (e) => {
