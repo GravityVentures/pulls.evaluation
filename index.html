@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gravity Ventures — Batch 1기 심사 대시보드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a1530;
+  --bg2: #0f1d40;
+  --bg3: #162750;
+  --panel: #11204a;
+  --panel-light: #1a2d5e;
+  --navy: #0d1b38;
+  --blue: #2563ff;
+  --blue-light: #5b8fff;
+  --blue-soft: rgba(37, 99, 255, 0.12);
+  --silver: #c8d6ec;
+  --silver-dim: #8a9bb8;
+  --white: #f2f6ff;
+  --gray: #5a6a84;
+  --border: rgba(200, 214, 236, 0.1);
+  --border-strong: rgba(200, 214, 236, 0.22);
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --grade-a: #10b981;
+  --grade-b: #3b82f6;
+  --grade-c: #f59e0b;
+  --grade-d: #6b7280;
+  --font-display: 'Bebas Neue', 'Pretendard', sans-serif;
+  --font-serif: 'Fraunces', serif;
+  --font-body: 'Pretendard', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Atmospheric background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 0%, rgba(37, 99, 255, 0.15), transparent 60%),
+    radial-gradient(ellipse 600px 500px at 90% 20%, rgba(91, 143, 255, 0.08), transparent 60%),
+    radial-gradient(ellipse 1000px 700px at 50% 100%, rgba(37, 99, 255, 0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(200, 214, 236, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 214, 236, 0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--blue), var(--blue-light));
+  border-radius: 3px;
+}
+
+/* ====================================================================== */
+/* NAV                                                                    */
+/* ====================================================================== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 21, 48, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--white);
+}
+.nav-brand-mark {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--blue) 0%, #7aa5ff 100%);
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(37, 99, 255, 0.4);
+}
+.nav-brand-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+.nav-brand-sub {
+  font-size: 10px;
+  color: var(--silver-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviewer-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px 8px 10px;
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  border-radius: 100px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--white);
+}
+.reviewer-pill:hover {
+  background: var(--panel-light);
+  border-color: var(--blue);
+}
+.reviewer-pill-avatar {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+  display: grid; place-items: center;
+  font-weight: 700;
+  font-size: 11px;
+}
+.reviewer-pill i { color: var(--silver-dim); font-size: 10px; margin-left: 4px; }
+
+.btn-export {
+  padding: 9px 18px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-export:hover {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  color: var(--blue-light);
+}
+
+/* ====================================================================== */
+/* MAIN CONTAINER                                                         */
+/* ====================================================================== */
+main {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.page-title-block h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+.page-title-block h1 .accent {
+  color: var(--blue-light);
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 0.55em;
+  margin-left: 8px;
+  letter-spacing: 0;
+}
+.page-title-block p {
+  margin-top: 12px;
+  color: var(--silver-dim);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+/* ====================================================================== */
+/* STATS BAR                                                              */
+/* ====================================================================== */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, var(--panel) 0%, var(--bg2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.stat-card:hover { border-color: var(--border-strong); }
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(to bottom, var(--blue), var(--blue-light));
+  opacity: 0.5;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--silver-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 1;
+  color: var(--white);
+}
+.stat-value .unit {
+  font-size: 14px;
+  color: var(--silver-dim);
+  margin-left: 4px;
+  font-family: var(--font-body);
+}
+.stat-sub {
+  font-size: 11px;
+  color: var(--silver-dim);
+  margin-top: 6px;
+}
+
+/* ====================================================================== */
+/* TOOLBAR                                                                */
+/* ====================================================================== */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 240px;
+  position: relative;
+}
+.search-box input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 14px;
+  font-family: var(--font-body);
+  transition: border-color 0.2s;
+}
+.search-box input:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+.search-box i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--silver-dim);
+}
+
+.filter-group {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.filter-chip {
+  padding: 8px 14px;
+  background: transparent;
+  border: none;
+  color: var(--silver-dim);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 7px;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+.filter-chip:hover { color: var(--white); }
+.filter-chip.active {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.sort-select {
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+/* ====================================================================== */
+/* COMPANY GRID                                                           */
+/* ====================================================================== */
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 18px;
+}
+
+.company-card {
+  background: linear-gradient(135deg, var(--panel) 0%, var(--bg2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 210px;
+}
+.company-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(37, 99, 255, 0.06), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.company-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--blue);
+}
+.company-card:hover::before { opacity: 1; }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+}
+.card-status {
+  font-size: 10px;
+  color: var(--silver-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--grade-d);
+}
+.card-status-dot.has-ir { background: var(--success); box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); }
+.card-status-dot.scored { background: var(--blue); box-shadow: 0 0 8px rgba(37, 99, 255, 0.5); }
+
+.card-grade {
+  font-family: var(--font-display);
+  font-size: 26px;
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  letter-spacing: 0;
+}
+.card-grade.none {
+  background: rgba(200, 214, 236, 0.08);
+  color: var(--silver-dim);
+  font-size: 18px;
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+.card-grade.grade-A { background: var(--grade-a); color: var(--white); }
+.card-grade.grade-B { background: var(--grade-b); color: var(--white); }
+.card-grade.grade-C { background: var(--grade-c); color: var(--white); }
+.card-grade.grade-D { background: var(--grade-d); color: var(--white); }
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  position: relative;
+}
+.card-tagline {
+  font-size: 13px;
+  color: var(--silver-dim);
+  line-height: 1.5;
+  position: relative;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  position: relative;
+}
+.meta-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: rgba(200, 214, 236, 0.07);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--silver);
+  white-space: nowrap;
+}
+.meta-tag.sector { background: var(--blue-soft); color: var(--blue-light); border-color: rgba(37, 99, 255, 0.25); }
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+.card-score {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--white);
+}
+.card-score .max { color: var(--silver-dim); font-size: 13px; margin-left: 2px; }
+.card-score.empty { color: var(--silver-dim); font-size: 13px; font-family: var(--font-body); }
+
+.card-cta {
+  font-size: 11px;
+  color: var(--silver-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.company-card:hover .card-cta { color: var(--blue-light); }
+
+/* ====================================================================== */
+/* DETAIL VIEW                                                            */
+/* ====================================================================== */
+.detail-view {
+  display: none;
+  animation: fadeInUp 0.4s ease;
+}
+.detail-view.active { display: block; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--silver);
+  cursor: pointer;
+  font-size: 13px;
+  margin-bottom: 24px;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+}
+.back-btn:hover {
+  background: var(--panel-light);
+  color: var(--white);
+  border-color: var(--border-strong);
+}
+
+.detail-hero {
+  background: linear-gradient(135deg, var(--panel) 0%, var(--bg2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.detail-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(37, 99, 255, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.detail-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.detail-hero h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, 44px);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+.detail-hero-tagline {
+  font-size: 15px;
+  color: var(--silver);
+  line-height: 1.5;
+  margin-top: 10px;
+  max-width: 820px;
+}
+.detail-hero-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  position: relative;
+}
+.detail-hero-meta .meta-tag {
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+/* Detail split layout */
+.detail-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 1200px) {
+  .detail-split { grid-template-columns: 1fr; }
+}
+
+.detail-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(37, 99, 255, 0.1), transparent);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: var(--white);
+}
+.panel-title i { color: var(--blue-light); margin-right: 10px; }
+
+.panel-body { padding: 28px; }
+
+/* IR SUMMARY */
+.ir-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--silver-dim);
+}
+.ir-empty i {
+  font-size: 48px;
+  color: rgba(200, 214, 236, 0.2);
+  margin-bottom: 20px;
+  display: block;
+}
+.ir-empty h4 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.ir-empty p { font-size: 13px; line-height: 1.7; }
+
+.ir-section { margin-bottom: 28px; }
+.ir-section:last-child { margin-bottom: 0; }
+.ir-section h3 {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ir-section h3 .section-num {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--blue-light);
+  width: 24px; height: 24px;
+  background: var(--blue-soft);
+  border-radius: 5px;
+  display: inline-grid;
+  place-items: center;
+}
+.ir-section h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue-light);
+  margin: 16px 0 8px;
+  letter-spacing: 0.02em;
+}
+.ir-section h4:first-child { margin-top: 0; }
+
+.ir-info-grid {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.ir-info-grid dt {
+  color: var(--silver-dim);
+  font-weight: 500;
+}
+.ir-info-grid dd {
+  color: var(--white);
+}
+
+.ir-bullets {
+  list-style: none;
+  padding: 0;
+}
+.ir-bullets li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--silver);
+  margin-bottom: 8px;
+}
+.ir-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+}
+
+.ir-callout {
+  padding: 14px 18px;
+  background: var(--blue-soft);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--silver);
+  margin: 12px 0;
+}
+.ir-callout strong { color: var(--blue-light); }
+
+.ir-market-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 12px 0;
+}
+.ir-market-card {
+  background: rgba(200, 214, 236, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+.ir-market-card .label {
+  font-size: 10px;
+  color: var(--silver-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.ir-market-card .value {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--blue-light);
+  margin-bottom: 4px;
+}
+.ir-market-card .desc {
+  font-size: 11px;
+  color: var(--silver-dim);
+  line-height: 1.3;
+}
+
+.ir-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 12px;
+}
+.ir-table th, .ir-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.ir-table th {
+  background: rgba(200, 214, 236, 0.04);
+  font-weight: 600;
+  color: var(--silver);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.ir-table td { color: var(--silver); }
+.ir-table .highlight { color: var(--blue-light); font-weight: 600; }
+
+.ir-team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0;
+}
+.ir-team-card {
+  background: rgba(200, 214, 236, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+.ir-team-card .name {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.ir-team-card .role {
+  font-size: 10px;
+  color: var(--blue-light);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.ir-team-card ul {
+  list-style: none;
+  padding: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--silver);
+}
+.ir-team-card ul li {
+  padding: 2px 0 2px 10px;
+  position: relative;
+}
+.ir-team-card ul li::before {
+  content: '·';
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--blue-light);
+  font-weight: 900;
+}
+
+.attach-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.attach-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(200, 214, 236, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--silver);
+  text-decoration: none;
+  font-size: 11px;
+  transition: all 0.2s;
+}
+.attach-link:hover {
+  background: var(--blue-soft);
+  color: var(--blue-light);
+  border-color: var(--blue);
+}
+.attach-link i { font-size: 10px; }
+
+/* ====================================================================== */
+/* REVIEW PANEL                                                           */
+/* ====================================================================== */
+.review-intro {
+  background: rgba(37, 99, 255, 0.06);
+  border: 1px solid rgba(37, 99, 255, 0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: var(--silver);
+  line-height: 1.6;
+}
+.review-intro strong { color: var(--blue-light); }
+
+.score-summary {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--bg3), var(--panel));
+  border-radius: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+.score-total-label {
+  font-size: 11px;
+  color: var(--silver-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.score-total-value {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 1;
+  color: var(--white);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.score-total-value .max {
+  font-size: 22px;
+  color: var(--silver-dim);
+}
+.score-total-bar {
+  margin-top: 10px;
+  height: 6px;
+  background: rgba(200, 214, 236, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.score-total-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--blue), var(--blue-light));
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 3px;
+}
+
+.score-grade-display {
+  text-align: center;
+  padding: 20px 12px;
+  border-radius: 10px;
+  background: rgba(200, 214, 236, 0.04);
+}
+.score-grade-letter {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.score-grade-letter.none { color: var(--silver-dim); font-size: 32px; padding-top: 14px; }
+.score-grade-letter.A { color: var(--grade-a); text-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+.score-grade-letter.B { color: var(--grade-b); text-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+.score-grade-letter.C { color: var(--grade-c); text-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
+.score-grade-letter.D { color: var(--grade-d); }
+.score-grade-desc {
+  font-size: 10px;
+  color: var(--silver-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.criterion-group {
+  margin-bottom: 28px;
+}
+.criterion-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border-strong);
+}
+.criterion-group-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.criterion-group-title .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.criterion-group-score {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--blue-light);
+}
+.criterion-group-score .max {
+  color: var(--silver-dim);
+  font-size: 13px;
+}
+
+.criterion-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.criterion-item:last-child { border-bottom: none; }
+
+.criterion-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+.criterion-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+  flex: 1;
+}
+.criterion-name .weight {
+  color: var(--silver-dim);
+  font-size: 11px;
+  margin-left: 6px;
+  font-weight: 400;
+}
+.criterion-guide {
+  font-size: 11px;
+  color: var(--silver-dim);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.score-input-row {
+  display: flex;
+  gap: 4px;
+}
+.score-btn {
+  flex: 1;
+  padding: 10px 0;
+  background: rgba(200, 214, 236, 0.04);
+  border: 1px solid var(--border);
+  color: var(--silver);
+  font-family: var(--font-display);
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+.score-btn:hover {
+  background: var(--blue-soft);
+  color: var(--blue-light);
+  border-color: var(--blue);
+}
+.score-btn.selected {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+  box-shadow: 0 4px 12px rgba(37, 99, 255, 0.3);
+}
+
+.guide-tooltip {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  font-size: 11px;
+  color: var(--silver);
+  line-height: 1.5;
+  border-left: 2px solid var(--blue);
+}
+.criterion-item.expanded .guide-tooltip { display: block; }
+
+.guide-toggle {
+  font-size: 10px;
+  color: var(--silver-dim);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  font-family: var(--font-body);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 8px;
+  transition: color 0.2s;
+}
+.guide-toggle:hover { color: var(--blue-light); }
+.guide-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  font-size: 10px;
+  line-height: 1.4;
+}
+.guide-tier {
+  padding: 8px;
+  border-radius: 5px;
+}
+.guide-tier.t5 { background: rgba(16, 185, 129, 0.1); }
+.guide-tier.t3 { background: rgba(245, 158, 11, 0.1); }
+.guide-tier.t1 { background: rgba(239, 68, 68, 0.1); }
+.guide-tier-label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+.t5 .guide-tier-label { color: var(--grade-a); }
+.t3 .guide-tier-label { color: var(--grade-c); }
+.t1 .guide-tier-label { color: var(--danger); }
+
+/* OPINION */
+.opinion-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border-strong);
+}
+.opinion-section h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.opinion-grid {
+  display: grid;
+  gap: 12px;
+}
+.opinion-field label {
+  display: block;
+  font-size: 11px;
+  color: var(--silver-dim);
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.opinion-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(200, 214, 236, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 70px;
+  transition: border-color 0.2s;
+}
+.opinion-field textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
+.save-indicator {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 20px;
+  background: var(--success);
+  color: white;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.save-indicator.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ====================================================================== */
+/* MODAL                                                                  */
+/* ====================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 25, 0.85);
+  backdrop-filter: blur(12px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 20px;
+}
+.modal-overlay.active {
+  display: flex;
+  animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  padding: 36px;
+  animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal h3 {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+.modal p {
+  color: var(--silver);
+  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.modal input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 15px;
+  font-family: var(--font-body);
+  margin-bottom: 20px;
+}
+.modal input:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+.modal-btn {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+  border: none;
+}
+.modal-btn.primary {
+  background: var(--blue);
+  color: white;
+}
+.modal-btn.primary:hover { background: var(--blue-light); }
+.modal-btn.secondary {
+  background: transparent;
+  color: var(--silver);
+  border: 1px solid var(--border-strong);
+}
+.modal-btn.secondary:hover {
+  background: var(--panel-light);
+  color: var(--white);
+}
+
+.reviewer-list {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.reviewer-list-title {
+  font-size: 11px;
+  color: var(--silver-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.reviewer-list-item {
+  padding: 10px 14px;
+  background: var(--bg2);
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+.reviewer-list-item:hover { background: var(--panel-light); }
+.reviewer-list-item .count {
+  color: var(--silver-dim);
+  font-size: 11px;
+}
+
+@media (max-width: 768px) {
+  nav { padding: 12px 16px; }
+  main { padding: 24px 16px 60px; }
+  .detail-hero { padding: 24px; }
+  .panel-body { padding: 20px; }
+  .ir-market-grid, .ir-team-grid { grid-template-columns: 1fr; }
+  .score-summary { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Reviewer Modal -->
+<div class="modal-overlay" id="reviewerModal">
+  <div class="modal">
+    <h3 id="modalTitle">심사위원 등록</h3>
+    <p id="modalDesc">심사를 시작하려면 이름을 입력해주세요. 이름별로 점수가 개별 저장됩니다.</p>
+    <input type="text" id="reviewerNameInput" placeholder="홍길동" maxlength="20">
+    <div class="modal-actions">
+      <button class="modal-btn secondary" id="modalCancel" style="display:none">취소</button>
+      <button class="modal-btn primary" id="modalConfirm">시작하기</button>
+    </div>
+    <div class="reviewer-list" id="reviewerList" style="display:none">
+      <div class="reviewer-list-title">기존 심사위원</div>
+      <div id="reviewerListBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Save Indicator -->
+<div class="save-indicator" id="saveIndicator">
+  <i class="fa-solid fa-check-circle"></i>
+  <span>저장되었습니다</span>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <a class="nav-brand" onclick="showList()">
+    <div class="nav-brand-mark">GV</div>
+    <div>
+      <div class="nav-brand-text">GRAVITY VENTURES</div>
+      <div class="nav-brand-sub">BATCH 1 · REVIEW DASHBOARD</div>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <button class="reviewer-pill" id="reviewerPill" onclick="openReviewerModal(true)">
+      <div class="reviewer-pill-avatar" id="reviewerAvatar">?</div>
+      <span id="reviewerName">심사위원 선택</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
+    <button class="btn-export" onclick="exportMyScores()">
+      <i class="fa-solid fa-download"></i>
+      <span>내 점수 내보내기</span>
+    </button>
+  </div>
+</nav>
+
+<main>
+  <!-- LIST VIEW -->
+  <div id="listView">
+    <div class="page-header">
+      <div class="page-title-block">
+        <h1>BATCH 1기<span class="accent">심사 대시보드</span></h1>
+        <p>딥테크 · 반도체 소부장 · Physical AI 스타트업 지원 기업 심사</p>
+      </div>
+    </div>
+
+    <div class="stats-bar" id="statsBar"></div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="회사명·분야·소재지 검색...">
+      </div>
+      <div class="filter-group" id="filterGroup">
+        <button class="filter-chip active" data-filter="all">전체</button>
+        <button class="filter-chip" data-filter="Physical AI">Physical AI</button>
+        <button class="filter-chip" data-filter="반도체">반도체</button>
+        <button class="filter-chip" data-filter="의료">헬스케어/의료</button>
+        <button class="filter-chip" data-filter="딥테크">딥테크</button>
+      </div>
+      <select class="sort-select" id="sortSelect">
+        <option value="default">기본 순서</option>
+        <option value="score-desc">총점 높은 순</option>
+        <option value="score-asc">총점 낮은 순</option>
+        <option value="name">회사명 순</option>
+      </select>
+    </div>
+
+    <div class="company-grid" id="companyGrid"></div>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detailView" class="detail-view">
+    <button class="back-btn" onclick="showList()">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>전체 목록으로</span>
+    </button>
+    <div id="detailContent"></div>
+  </div>
+</main>
+
+<script>
+// ========================================================================
+// 데이터
+// ========================================================================
+const COMPANIES = [
+  {no:1, name:"주식회사 에이치오피", brand:"에이치오피", ceo:"장석영", email:"jasper.jang@hopcorporation.com", phone:"010-9181-1806", founded:"2024", age:"1~3년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"hopcorporation.com", source:"IR 발표 후 추천", tagline:"Physical AI · 로보틱스 영역의 신기술 기업"},
+  {no:2, name:"주식회사 웰스케어", brand:"웰스케어", ceo:"이성원", email:"swlee@wellscare.kr", phone:"010-7224-2034", founded:"2018", age:"7년 이상", location:"경기/인천", sector:"의료기기 / 딥테크", web:"wellscare.kr", source:"지인 추천", tagline:"광생체조절(PBM) 응용 웨어러블 마이크로파워 콜드레이저 의료기기"},
+  {no:3, name:"주식회사 웨인힐스브라이언트에이아이", brand:"웨인힐스", ceo:"데이비드곤", email:"ceo@waynehills.co", phone:"010-5417-4111", founded:"2017", age:"7년 이상", location:"해외", sector:"딥테크", web:"waynehills.co", source:"언론/미디어", tagline:"USA 법인 기반 AI 기술 기업"},
+  {no:4, name:"주식회사 프리그로우", brand:"프리그로우", ceo:"김영식", email:"freegrow@freegrow.io", phone:"010-5925-3949", founded:"2019", age:"7년 이상", location:"부산/경남", sector:"Physical AI / 로보틱스", web:"grow-space.io", source:"언론/미디어", tagline:"산업 현장 위치 인프라 기반 공간 데이터 → 운영 데이터 전환 Physical AI 기업"},
+  {no:5, name:"주식회사 건설파트너", brand:"건설파트너", ceo:"이혁", email:"hyuk.lee@conpa.ai", phone:"010-9641-8400", founded:"2025", age:"1년 미만", location:"서울", sector:"딥테크 / 건설 AI SaaS", web:"conpa.ai", source:"SNS", tagline:"10배 빠른 공사비 견적으로 건설사의 수주를 돕는 견적 자동화 SaaS"},
+  {no:6, name:"미트프로이데(Mitfreude)", brand:"미트프로이데", ceo:"김수경", email:"founder@mitfreude.co", phone:"010-4850-0016", founded:"2026", age:"1년 미만", location:"경기/인천", sector:"반도체 소재 / 딥테크", web:"mitfreude.co", source:"SNS", tagline:"반도체 공정용 폐쿼츠를 고성능 광학소재로 전환하는 소부장 딥테크", hasIR:true},
+  {no:7, name:"주식회사 씨쓰리브이", brand:"C3V (MiZi)", ceo:"김종환", email:"allan@cccv.to", phone:"010-3344-5720", founded:"2025.12", age:"1년 미만", location:"부산/경남", sector:"딥테크", web:"cccv.to", source:"SNS", tagline:"ZKP+온체인 검증 기반 MCP용 표준 데이터 트러스트 인프라"},
+  {no:8, name:"트윈위즈", brand:"트윈위즈", ceo:"김창수", email:"ceo@twinwiz.co.kr", phone:"010-9990-9244", founded:"2022", age:"3~7년", location:"부산/경남", sector:"딥테크 / 소재", web:"twinwiz.co.kr", source:"언론/미디어", tagline:"액상 항균·항바이러스·항곰팡이 소재 (한국재료연구원 스핀오프)"},
+  {no:9, name:"주식회사 블록코어", brand:"블록코어", ceo:"김영빈", email:"ybkim@blockcore.co.kr", phone:"010-4338-9585", founded:"2025", age:"1년 미만", location:"서울", sector:"딥테크 / 보안", web:"blockcore.co.kr", source:"류재언 변호사", tagline:"양자보안과 블록체인을 융합한 경량화 양자보안 모듈 개발"},
+  {no:10, name:"주식회사 블루디바이스", brand:"블루디바이스", ceo:"정재민", email:"jmjeong@bluedevice.co.kr", phone:"010-7740-7335", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 디스플레이", web:"bluedevice.co.kr", source:"지인 추천", tagline:"친환경소재를 이용한 안티글레어 처리 (디스플레이·솔라·스마트윈도우)"},
+  {no:11, name:"(주)풀다이브테크놀로지", brand:"풀다이브", ceo:"이형준", email:"plum770@gmail.com", phone:"010-9880-4876", founded:"2016", age:"7년 이상", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"xsentir.com", source:"지인 추천", tagline:"휴머노이드 AI용 정교한 촉각 데이터 수집 유사 촉감 웨어러블"},
+  {no:12, name:"주식회사 아뮤즈", brand:"아뮤즈", ceo:"박정윤", email:"yoon2@amuz.co.kr", phone:"010-4479-5513", founded:"2017", age:"7년 이상", location:"부산/경남", sector:"Physical AI / 로보틱스", web:"amuz.co.kr", source:"지인 추천", tagline:"Physical AI · 로보틱스 영역 기업"},
+  {no:13, name:"(주)틴들로", brand:"틴들로", ceo:"류기원", email:"giwon@tindlo.com", phone:"010-9618-0352", founded:"2025", age:"1년 미만", location:"서울", sector:"SaaS", web:"tindlo.com", source:"검색", tagline:"세계 Top1 의료기관과 NDA 체결한 헬스케어 SaaS 기업"},
+  {no:14, name:"(주)옴니코트", brand:"옴니코트", ceo:"박순홍", email:"shpark@omnicoat.co.kr", phone:"010-2517-9918", founded:"2022", age:"3~7년", location:"대구/경북", sector:"딥테크 / 소재", web:"omnicoat.co.kr", source:"기관추천", tagline:"건식 기반 디지털 프린팅 기술로 건축·가전·기능성 소재 개발"},
+  {no:15, name:"웨어러블에이아이", brand:"Whereable AI", ceo:"백두산", email:"dsbaek@whereable.ai", phone:"010-3181-6760", founded:"2024", age:"1~3년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"whereable.ai", source:"기관추천", tagline:"특수목적차량(SPM)을 위한 AI 기반 자율주행 솔루션 · 서울대/토르드라이브 출신"},
+  {no:16, name:"(주)돌봄드림", brand:"돌봄드림", ceo:"김지훈", email:"expo@dolbomdream.com", phone:"010-5055-2824", founded:"2020", age:"3~7년", location:"대전/충청", sector:"딥테크 / 헬스케어", web:"dolbomdream.com", source:"페이스북", tagline:"공기압-심탄도 센서 기반 비침습 AI 건강관리 모니터링 · Series A 15억 확보"},
+  {no:17, name:"(주)딥플랜트", brand:"딥플랜트", ceo:"김철범", email:"michael@deeplant.com", phone:"010-2684-2665", founded:"2019", age:"3~7년", location:"경기/인천", sector:"딥테크 / 푸드테크", web:"deeplant.com", source:"지인 추천", tagline:"AI 기반 딥테크로 육류의 가치를 재설계하는 푸드테크"},
+  {no:18, name:"도비캔버스 주식회사", brand:"도비캔버스", ceo:"이재훈", email:"dobby@dobby-canvas.com", phone:"010-3498-0223", founded:"2023", age:"1~3년", location:"경기/인천", sector:"딥테크", web:"dobby-canvas.com", source:"기관추천", tagline:"딥테크 기반 기술 기업"},
+  {no:19, name:"주식회사 소금광산(SALTMiNE)", brand:"SALTMiNE", ceo:"유창현", email:"olive@saltmine.io", phone:"010-9433-7410", founded:"2020", age:"3~7년", location:"경기/인천", sector:"딥테크", web:"saltmine.io", source:"기관추천", tagline:"경기 하남 본사 + 충남 천안 부설연구소 기반 딥테크 기업"},
+  {no:20, name:"모아드림(주)", brand:"MoreDream", ceo:"조돈우", email:"dwcho3652@gmail.com", phone:"010-9116-3608", founded:"2024.11", age:"1~3년", location:"서울", sector:"딥테크 / 접근성", web:"themoredream.com", source:"페이스북", tagline:"시각장애인 관련 문제 해결 사업아이템 · TIPS 관심"},
+  {no:21, name:"주식회사 토프모빌리티", brand:"TOFF", ceo:"정찬영", email:"jaden@toffmobility.com", phone:"010-9477-1162", founded:"2023", age:"1~3년", location:"서울", sector:"딥테크 / UAM", web:"toffmobility.com", source:"지인 추천", tagline:"아시아 최초 전기비행기 안전성 인증 · 2024년 매출 18억 흑자전환"},
+  {no:22, name:"(주)오톤도", brand:"오톤도", ceo:"김경묵", email:"boknam@otondo.co.kr", phone:"010-7468-0427", founded:"2024.01", age:"1~3년", location:"서울", sector:"딥테크 / 인테리어 AI", web:"otondo.co.kr", source:"기관추천", tagline:"국내 유일의 Interior Digital Operation System · 인테리어 AI 에이전트"},
+  {no:23, name:"프리딕션", brand:"Prediction", ceo:"김두호", email:"duho.kim@prediction.im", phone:"010-7143-3326", founded:"2024", age:"1~3년", location:"경기/인천", sector:"딥테크 / 모빌리티", web:"prediction.im", source:"기관추천", tagline:"BMS 데이터 기반 AI로 전기차 배터리 이상진단 및 fleet 관리 솔루션"},
+  {no:24, name:"커런시유나이티드", brand:"CU Unit", ceo:"윤민성", email:"myun75@naver.com", phone:"010-7722-1107", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크", web:"cuunit.com", source:"기관추천", tagline:"투자금 3억으로 월거래액 300억 달성 (기관 추천)"},
+  {no:25, name:"주식회사 코파", brand:"COFA", ceo:"박기남", email:"keypark@cofa.co.kr", phone:"010-9245-7848", founded:"2025", age:"1~3년", location:"경기/인천", sector:"반도체 소재", web:"cofa.co.kr", source:"지인 추천", tagline:"반도체 언더필(CUF/HBM) 국산화 · 국내 최초 Qual 대상 제조사"},
+  {no:26, name:"(주)프레쉬아워", brand:"바프독", ceo:"임경호", email:"kyeonghoim@gmail.com", phone:"010-9466-1984", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 펫테크", web:"barfdog.co.kr", source:"지인 추천", tagline:"펫 NGS·PHR 100만건 데이터 기반 AI 맞춤 레시피 정기배송 서비스"},
+  {no:27, name:"(주)에이투어스", brand:"A2US", ceo:"박희진", email:"hjpark1005@a2us.co.kr", phone:"010-7979-5453", founded:"2021", age:"3~7년", location:"대전/충청", sector:"반도체 장비", web:"a2us.co.kr", source:"포스텍홀딩스 추천", tagline:"하이드록실 라디칼 생성 기반 물·공기 정화 기술 · 오존 無 인체 무해"},
+  {no:28, name:"(주)매크로액트", brand:"Macroact", ceo:"강의혁", email:"lihak@macroact.com", phone:"010-9086-6514", founded:"2019", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"macroact.com", source:"기관추천", tagline:"로봇 자율제어·동적 디지털트윈 Physical AI 딥테크 · CES 혁신상 수상"},
+  {no:29, name:"(주)샹떼헬스케어", brand:"SANTE", ceo:"박동준", email:"sante0329@naver.com", phone:"010-2882-5710", founded:"2022", age:"3~7년", location:"부산/경남", sector:"헬스케어 AI", web:"santehealthcare.com", source:"기관추천", tagline:"부산기술창업투자원 추천 헬스케어 AI 기업"},
+  {no:30, name:"주식회사 디코", brand:"DICO", ceo:"황준철", email:"john@dicoinc.co.kr", phone:"010-2203-0800", founded:"2019", age:"3~7년", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"dicoinc.co.kr", source:"지인 추천", tagline:"SOLAI 산업용 이미지 딥러닝 비전검사 · 삼성전기·LG화학 납품"},
+  {no:31, name:"프렉탈테크놀로지 주식회사", brand:"CookieDeal", ceo:"심정훈", email:"joshua.sim@cookiedeal.io", phone:"010-3282-2858", founded:"2023", age:"1~3년", location:"서울", sector:"딥테크 / 데이터", web:"cookiedeal.io", source:"검색", tagline:"비상장기업 데이터 인프라 · Clay·Grata·QICHACHA 벤치마크"},
+  {no:32, name:"니어브레인 주식회사", brand:"NearBrain", ceo:"황정원", email:"jeongwon.hwang@nearbrain.com", phone:"010-2055-1137", founded:"2022", age:"3~7년", location:"서울", sector:"의료기기 / 딥테크", web:"nearbrain.com", source:"기관추천", tagline:"AI 기반 뇌혈류 분석 의료 소프트웨어 개발 기업"}
+];
+
+// 심사 기준
+const CRITERIA = [
+  {group:"1. 팀/창업자 역량", groupShort:"팀 역량", weight:20, color:"#1F4E79", items:[
+    {id:"1-1", name:"창업자 전문성·도메인 경력", pts:5, guide:"해당 기술·산업 분야에서의 실질적 경험·학력·연구 이력",
+     t5:"Top-tier 대학/연구소 박사급 또는 10년+ 경력", t3:"관련 분야 석사급 또는 5~10년 실무", t1:"관련 경력 3년 미만 또는 도메인 미스매치"},
+    {id:"1-2", name:"창업팀 구성 완성도", pts:5, guide:"CTO/CSO·CFO/Sales 등 기능별 팀 균형",
+     t5:"기술·사업·재무 모두 우수 인력 보유", t3:"핵심 포지션 1~2개 공백 있으나 보완 계획", t1:"대표 1인 의존도 높음"},
+    {id:"1-3", name:"실행력·과거 성과 트랙레코드", pts:5, guide:"이전 창업/프로젝트 성과, 추진력",
+     t5:"이전 Exit 또는 스케일업 성공 경험", t3:"개발/상용화 마일스톤 일부 달성", t1:"입증된 실행 이력 부족"},
+    {id:"1-4", name:"딥테크 팀 역량 (R&D·특허)", pts:5, guide:"연구소 보유·특허·핵심 기술 인력 비중",
+     t5:"R&D 50%+ 또는 핵심 특허 다수 보유", t3:"R&D 30~50% 또는 특허 출원 중", t1:"R&D 30% 미만·특허 부재"}
+  ]},
+  {group:"2. 기술 경쟁력", groupShort:"기술", weight:25, color:"#2563FF", items:[
+    {id:"2-1", name:"기술의 독창성·난이도", pts:7, guide:"원천기술 여부, 모방·대체 난이도",
+     t5:"원천기술 보유, 글로벌 수준 난이도", t3:"기존 기술의 의미있는 개선", t1:"범용 기술의 응용 수준"},
+    {id:"2-2", name:"기술 검증 단계(TRL)", pts:6, guide:"TRL 단계(연구 → 시제품 → 양산)",
+     t5:"TRL 7+ (실증·납품 레퍼런스)", t3:"TRL 4~6 (프로토타입 검증)", t1:"TRL 3 이하 (개념 검증)"},
+    {id:"2-3", name:"지식재산권·특허 포트폴리오", pts:6, guide:"국내외 특허 및 IP 방어력",
+     t5:"핵심 기술 PCT/해외 등록, 방어 우수", t3:"국내 특허 출원 완료", t1:"IP 부재·방어력 낮음"},
+    {id:"2-4", name:"경쟁사 대비 차별성", pts:6, guide:"성능·비용·접근성 우위",
+     t5:"벤치마크 대비 2배+ 우위", t3:"일부 항목 우위, 차별 포인트 존재", t1:"차별점 불명확"}
+  ]},
+  {group:"3. 시장성·사업성", groupShort:"시장", weight:20, color:"#2E75B6", items:[
+    {id:"3-1", name:"시장 규모(TAM/SAM/SOM) 타당성", pts:5, guide:"시장 규모 및 산정 논리",
+     t5:"글로벌 TAM 10조+, 정합성 높음", t3:"TAM 1~10조, 근거 자료 부분 제시", t1:"시장 규모 불명확·과장"},
+    {id:"3-2", name:"문제 정의·고객 Pain Point", pts:5, guide:"문제 심각성·고객 지불의사",
+     t5:"검증된 고객 인터뷰·LOI 기반", t3:"합리적 가설+제한된 고객 검증", t1:"가설 기반, 검증 부족"},
+    {id:"3-3", name:"GTM 전략 구체성", pts:5, guide:"초기 고객·채널·레퍼런스",
+     t5:"앵커 고객 확보 또는 상세 GTM", t3:"단계별 계획·일부 실행", t1:"GTM 전략 추상적"},
+    {id:"3-4", name:"글로벌 확장 가능성", pts:5, guide:"제품·규제·해외 진입",
+     t5:"해외 매출 발생·파트너십 체결", t3:"해외 진출 계획·초기 성과", t1:"국내만 타겟"}
+  ]},
+  {group:"4. 비즈니스 모델·수익성", groupShort:"수익성", weight:15, color:"#548235", items:[
+    {id:"4-1", name:"수익 모델·Unit Economics", pts:5, guide:"마진율·CAC/LTV·계약 매출",
+     t5:"LTV/CAC 3x+, 계약 매출 기반", t3:"수익 구조 명확·일부 매출", t1:"수익 구조 추상적"},
+    {id:"4-2", name:"매출·성장률·트랙션", pts:5, guide:"최근 매출·YoY 성장률",
+     t5:"매출 10억+, YoY 100%+", t3:"초기 매출·안정적 성장", t1:"매출 미미·감소세"},
+    {id:"4-3", name:"재무 건전성·Runway", pts:5, guide:"현금 보유·Burn Rate·Runway",
+     t5:"Runway 18개월+, BEP 근접", t3:"Runway 12개월, 후속 논의", t1:"Runway 6개월 미만"}
+  ]},
+  {group:"5. 투자 매력도", groupShort:"투자", weight:10, color:"#BF8F00", items:[
+    {id:"5-1", name:"투자 단계·밸류에이션 적합성", pts:4, guide:"업력·단계 대비 밸류의 합리성",
+     t5:"Seed~Pre-A 합리적 밸류", t3:"시장 평균 수준", t1:"업력 대비 과도한 밸류"},
+    {id:"5-2", name:"후속 투자·Exit 시나리오", pts:3, guide:"후속 VC·M&A/IPO 경로",
+     t5:"TIPS·시리즈A 후속 관심 확보", t3:"일반적 Exit 경로 제시", t1:"시나리오 부재"},
+    {id:"5-3", name:"리스크 요인 대응", pts:3, guide:"리스크 식별·대응 방안",
+     t5:"리스크 식별·대응 명확", t3:"주요 리스크 인지·계획 수립", t1:"리스크 인지 부족"}
+  ]},
+  {group:"6. 배치 프로그램 적합성", groupShort:"프로그램", weight:10, color:"#7030A0", items:[
+    {id:"6-1", name:"TIPS·스케일업 연계 가능성", pts:4, guide:"TIPS·스케일업·딥테크 팁스 적격",
+     t5:"TIPS 추천 즉시 가능, 요건 충족", t3:"요건 대부분 충족·일부 보완", t1:"요건 미달"},
+    {id:"6-2", name:"커뮤니티 기여·시너지", pts:3, guide:"포트폴리오사 협업·시너지",
+     t5:"명확한 시너지 기업군 존재", t3:"일부 협업 가능성", t1:"시너지 낮음"},
+    {id:"6-3", name:"코칭·멘토링 수용도", pts:3, guide:"멘토링 수용도·성장 의지",
+     t5:"적극적 수용·피드백 기반 피봇", t3:"일반적 수준의 수용도", t1:"폐쇄적"}
+  ]}
+];
+
+// 미트프로이데 IR 요약 데이터
+const MITFREUDE_IR = {
+  tagline: "반도체 공정용 폐쿼츠를 고순도 광학소재(Zentium)로 전환하는 소부장 딥테크 스타트업. 크리스탈·랩그로운 다이아몬드 대체 소재로 주얼리·패션 부자재 시장 진입 중.",
+  basicInfo: [
+    ["대표자", "김수경 (Sukyung Kim) — Co-Founder / CEO"],
+    ["설립연도", "2026년 (1년 미만)"],
+    ["분야", "반도체 소재 / 딥테크 (순환 광학 신소재)"],
+    ["소재지", "경기/인천"],
+    ["제품명", "Zentium — Track A(주얼리) / Track B(패션 부자재)"],
+    ["핵심 기술", "폐쿼츠 화학적 재결정화 + 플라즈마 증착 광학 설계"],
+    ["주요 성과", "박선기 작가 협업 11,000개 비즈 양산 (수율 90%, Track B)"],
+    ["국제 검증", "LVMH 스텔라 맥카트니와 NDA/LOI 체결, 2027 Spring Spec-in 논의 中"],
+    ["웹사이트", "https://mitfreude.co/"]
+  ],
+  problem: {
+    title: "기존 광학소재 시장 현황 (회사 주장)",
+    bullets: [
+      "크리스탈(납유리): 2027년 EU DPP(디지털 제품 여권) 의무화 예정. 글로벌 럭셔리 Top100 중 79개사가 EU 본사. 스와로브스키가 2024년 연 7,000억 규모 B2B 소재 공급 중단 명시",
+      "랩그로운 다이아: CBAM(탄소국경조정제도) 확대 영향권. IR 자료 기준 1ct당 탄소배출 511kg (Zentium은 500g으로 비교 제시)"
+    ]
+  },
+  solution: {
+    title: "제품 개요 — Zentium",
+    bullets: [
+      "원재료: 반도체 공정 폐기 99.9999% 고순도 쿼츠. 현재 무상 수급 (원익QnC 등 샌드박스 참여 의향)",
+      "공정: 화학적 분자 재배열(배합) + 플라즈마 증착(광학 설계)",
+      "제시된 성능: 광채 2.2 / 경도 모스 6.5~8 / Lead-Free (RoHS 준수)",
+      "제시된 가격: 1ct당 Track A $35 (IR 기준 LGD $150~400) / Track B $3"
+    ]
+  },
+  market: [
+    {label:"SOM (초기)", value:"27조원", desc:"프리미엄 패션 부자재·주얼리 스톤·커스텀 ODM"},
+    {label:"SAM (중기)", value:"70조원", desc:"시계 글라스·광학 렌즈·럭셔리 용기·공간디자인"},
+    {label:"TAM (장기)", value:"120조원", desc:"EV 내/외장재·의료용 특수유리·태양광 소재"}
+  ],
+  gtm: [
+    {track:"Track A (주얼리 스톤 / Aeterna)", desc:"IR 기준 브랜드 매출총이익률 50~65% → 80~85% 변화 시뮬레이션. 목표 점유율 20% (5조원 시장 기준)"},
+    {track:"Track B (하이엔드 부자재 / Itera)", desc:"스와로브스키 철수 시장 1.5조원 타겟. 목표 점유율 40% (DPP 전환 강제 수요 1,000억 기준)"},
+    {track:"Track A+ODM (커스텀)", desc:"소규모 주얼리 셀러·인플루언서. IR 시장 규모 산정: 500만 명 × 객단가 500만원 = 25조원"}
+  ],
+  traction: {
+    production: [
+      "박선기 작가 (신라호텔 시그니처 작가) 의뢰 11,000개 비즈 생산",
+      "IR 기재 수율 90% (Track B 기준), 신규 프로젝트 전량 납품 명시",
+      "IR 비교 수치: LGD 업계 일반 수율 30% (Zentium 65%+), 연간 5,000만 캐럿 가능성"
+    ],
+    brand: [
+      "Stella McCartney (LVMH 지속가능 자문) — NDA/LOI 체결",
+      "IR 기재: 2027 Spring 컬렉션 공식 소재 검토 中 (UV 본딩 공법 적용 확정)",
+      "IR 기재: 스케일업 단가 협상 진입 (수량 파악·단가 협의 단계)",
+      "CEO Tom Mendenhall 인용문 IR 포함 (출처 별도 확인 필요)"
+    ],
+    other: [
+      "미스 소희 — 블랙핑크·지지 하디드 오뜨꾸띠르 비스포크 협업",
+      "APEC·MWC 글로벌 행사 소재 협업",
+      "KEAB 건축사무소 — 프리미엄 공간디자인 스펙인 논의 中 (CAD 공유)",
+      "City Chain Group (홍콩 상장사, Seiko 유통) — 공동 제안 계약서 준비 中"
+    ]
+  },
+  team: [
+    {name:"Sukyung Kim", role:"CO-FOUNDER / CEO", desc:"Global Scaler", items:["20년차 글로벌 마케터","Techstars London Alumni","칸 국제광고제 등 세계 3대 광고제 수상","UN SDGs·UNEP 한국위 네트워크"]},
+    {name:"Siwon Song", role:"CO-FOUNDER / CPO", desc:"Market Dominator", items:["'금빛제작소'·'푸케' 등 5개 지점 프랜차이즈","투자 없이 순수 매출 성장","주얼리 제작·디자인 관련 특허 30개+","시장 트렌드 기반 광학 설계"]},
+    {name:"Yongseok Lim", role:"CTO", desc:"Deep Tech Guru", items:["한국생산기술연구원(KITECH) 20년","국가 R&D 과제 다수 수행","제35회 전국기능올림픽 주조 금메달","금속재료시험·주조 기능사 (실무 양산)"]}
+  ],
+  plan: [
+    ["구분","2026","2027","2028","2029","2030"],
+    ["매출 목표","1.5억","18억","48억","85억","145억"],
+    ["임직원 수","3명","5명","10명","15명","20명"],
+    ["투자 유치","3억+TIPS","Pre-A 8억","Series A 30억+시설 20억","—","—"]
+  ],
+  facts: [
+    "특허: 출원 2건 (고굴절 광학 유리 제조 방법 / 플라즈마 코팅 처리 방법). 배합비·증착 조건은 영업비밀 처리",
+    "샌드박스: 자원순환 샌드박스 신청 계획, 실증기간 내 타사 진입 불가 구조 주장",
+    "원재료 의향: 원익QnC가 사업장 전체 대상 샌드박스 참여 의향 표명, 스타쿼츠·태림쿼츠 등 무상 수급처",
+    "양산 실증: 박선기 작가 의뢰 11,000개 비즈, 수율 90% 기재",
+    "매출 계획: 2026년 1.5억 → 2030년 145억",
+    "투자 계획: 2026 시드 3억+TIPS → 2027 Pre-A 8억 → 2028 Series A 30억+시설자금 20억"
+  ],
+  checklist: [
+    "법인 설립 2026년 — 현재 실제 재무 상황, 현금 보유고 (IR에 숫자 미기재)",
+    "Stella McCartney LOI 실제 조건 (MOQ, 단가, 배타권) — 원문 확인 필요",
+    "샌드박스 규제 적용 범위 및 기간 — 신청 단계/승인 여부",
+    "원익QnC와의 참여 의향서 형태 — 구두 협의인지 공식 문서인지",
+    "특허 출원 이후 심사 진행 상태 및 해외 PCT 출원 계획",
+    "2028년 스마트팩토리 CAPEX 규모 및 자금 조달 구조",
+    "경쟁사 분석 — LGD 가격 하락 가속 시 Track A 단가 ($35) 방어 가능성",
+    "박선기 작가 납품 건 실제 매출 규모 (수량만 기재)"
+  ]
+};
+
+// ========================================================================
+// 상태 관리
+// ========================================================================
+let currentReviewer = null;
+let currentCompany = null;
+let reviewData = {};  // { companyNo: { scores:{id:score}, opinions:{strength,weakness,risk,comment} } }
+let currentFilter = "all";
+let currentSort = "default";
+let currentSearch = "";
+let allReviewers = [];
+
+// ========================================================================
+// 저장소 (window.storage API 사용)
+// ========================================================================
+async function loadReviewer(reviewerName) {
+  try {
+    const result = await window.storage.get(`reviewer:${reviewerName}`);
+    return result ? JSON.parse(result.value) : {};
+  } catch {
+    return {};
+  }
+}
+
+async function saveReviewer(reviewerName, data) {
+  try {
+    await window.storage.set(`reviewer:${reviewerName}`, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    console.error("저장 실패:", e);
+    return false;
+  }
+}
+
+async function loadReviewerList() {
+  try {
+    const result = await window.storage.list("reviewer:");
+    const keys = result ? (result.keys || []) : [];
+    return keys.map(k => k.replace("reviewer:", ""));
+  } catch {
+    return [];
+  }
+}
+
+// ========================================================================
+// UI — 초기화
+// ========================================================================
+async function init() {
+  // 기존 심사위원 목록 불러오기
+  allReviewers = await loadReviewerList();
+
+  // 심사위원 선택 강제 (첫 방문이면 모달 열기)
+  const saved = await window.storage.get("current_reviewer").catch(() => null);
+  if (saved && saved.value) {
+    currentReviewer = saved.value;
+    await loadCurrentReviewerData();
+    updateReviewerPill();
+  } else {
+    openReviewerModal(false);
+  }
+
+  renderStats();
+  renderCompanyGrid();
+  bindEvents();
+}
+
+async function loadCurrentReviewerData() {
+  if (!currentReviewer) return;
+  reviewData = await loadReviewer(currentReviewer);
+}
+
+// ========================================================================
+// UI — 심사위원 모달
+// ========================================================================
+async function openReviewerModal(allowCancel) {
+  const modal = document.getElementById("reviewerModal");
+  const cancel = document.getElementById("modalCancel");
+  const list = document.getElementById("reviewerList");
+  const listBody = document.getElementById("reviewerListBody");
+
+  cancel.style.display = allowCancel ? "block" : "none";
+  document.getElementById("reviewerNameInput").value = currentReviewer || "";
+
+  // 기존 심사위원 목록 보여주기
+  allReviewers = await loadReviewerList();
+  if (allReviewers.length > 0) {
+    list.style.display = "block";
+    listBody.innerHTML = "";
+    for (const name of allReviewers) {
+      const data = await loadReviewer(name);
+      const scoredCount = Object.keys(data || {}).length;
+      const item = document.createElement("div");
+      item.className = "reviewer-list-item";
+      item.innerHTML = `<span><i class="fa-solid fa-user" style="color:var(--blue-light);margin-right:8px"></i>${escapeHtml(name)}</span><span class="count">${scoredCount}개사 평가</span>`;
+      item.onclick = () => selectReviewer(name);
+      listBody.appendChild(item);
+    }
+  } else {
+    list.style.display = "none";
+  }
+
+  modal.classList.add("active");
+  setTimeout(() => document.getElementById("reviewerNameInput").focus(), 100);
+}
+
+async function selectReviewer(name) {
+  currentReviewer = name;
+  await window.storage.set("current_reviewer", name);
+  await loadCurrentReviewerData();
+  updateReviewerPill();
+  closeReviewerModal();
+  renderStats();
+  renderCompanyGrid();
+  if (currentCompany) showDetail(currentCompany);
+}
+
+function closeReviewerModal() {
+  document.getElementById("reviewerModal").classList.remove("active");
+}
+
+function updateReviewerPill() {
+  document.getElementById("reviewerName").textContent = currentReviewer || "심사위원 선택";
+  document.getElementById("reviewerAvatar").textContent = currentReviewer ? currentReviewer.charAt(0).toUpperCase() : "?";
+}
+
+// ========================================================================
+// UI — 통계
+// ========================================================================
+function calcTotal(companyNo) {
+  const data = reviewData[companyNo];
+  if (!data || !data.scores) return null;
+  const allKeys = CRITERIA.flatMap(g => g.items.map(i => i.id));
+  const filled = allKeys.filter(k => data.scores[k] != null);
+  if (filled.length === 0) return null;
+  let total = 0;
+  for (const g of CRITERIA) {
+    for (const it of g.items) {
+      const s = data.scores[it.id];
+      if (s != null) total += s * it.pts / 5;
+    }
+  }
+  return Math.round(total * 10) / 10;
+}
+
+function calcGroupTotal(companyNo, group) {
+  const data = reviewData[companyNo];
+  if (!data || !data.scores) return null;
+  let total = 0;
+  let has = false;
+  for (const it of group.items) {
+    const s = data.scores[it.id];
+    if (s != null) { total += s * it.pts / 5; has = true; }
+  }
+  return has ? Math.round(total * 10) / 10 : null;
+}
+
+function getGrade(total) {
+  if (total == null) return null;
+  if (total >= 85) return "A";
+  if (total >= 70) return "B";
+  if (total >= 55) return "C";
+  return "D";
+}
+
+function renderStats() {
+  const totalCompanies = COMPANIES.length;
+  let evaluated = 0, gradeA = 0, gradeB = 0, gradeC = 0, gradeD = 0;
+  for (const c of COMPANIES) {
+    const total = calcTotal(c.no);
+    if (total != null) {
+      evaluated++;
+      const g = getGrade(total);
+      if (g === "A") gradeA++;
+      if (g === "B") gradeB++;
+      if (g === "C") gradeC++;
+      if (g === "D") gradeD++;
+    }
+  }
+
+  const bar = document.getElementById("statsBar");
+  bar.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">지원 기업</div>
+      <div class="stat-value">${totalCompanies}<span class="unit">개사</span></div>
+      <div class="stat-sub">Batch 1기 서면 심사 대상</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">평가 진행</div>
+      <div class="stat-value">${evaluated}<span class="unit">/ ${totalCompanies}</span></div>
+      <div class="stat-sub">${currentReviewer ? `${currentReviewer} 심사자` : "심사위원 미선택"}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">A 등급</div>
+      <div class="stat-value" style="color:var(--grade-a)">${gradeA}</div>
+      <div class="stat-sub">85점 이상 · 우선 선발</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">B 등급</div>
+      <div class="stat-value" style="color:var(--grade-b)">${gradeB}</div>
+      <div class="stat-sub">70~84점 · 후보</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">C / D</div>
+      <div class="stat-value"><span style="color:var(--grade-c)">${gradeC}</span> <span style="color:var(--silver-dim);font-size:24px">/</span> <span style="color:var(--grade-d)">${gradeD}</span></div>
+      <div class="stat-sub">재검토 / 부적격</div>
+    </div>
+  `;
+}
+
+// ========================================================================
+// UI — 기업 그리드
+// ========================================================================
+function matchesFilter(c) {
+  if (currentFilter === "all") return true;
+  if (currentFilter === "Physical AI") return c.sector.includes("Physical AI");
+  if (currentFilter === "반도체") return c.sector.includes("반도체");
+  if (currentFilter === "의료") return c.sector.includes("의료") || c.sector.includes("헬스");
+  if (currentFilter === "딥테크") return c.sector.includes("딥테크") || c.sector.includes("SaaS");
+  return true;
+}
+
+function matchesSearch(c) {
+  if (!currentSearch) return true;
+  const q = currentSearch.toLowerCase();
+  return c.name.toLowerCase().includes(q)
+      || c.brand.toLowerCase().includes(q)
+      || c.sector.toLowerCase().includes(q)
+      || c.location.toLowerCase().includes(q)
+      || (c.tagline || "").toLowerCase().includes(q);
+}
+
+function getFilteredCompanies() {
+  let list = COMPANIES.filter(c => matchesFilter(c) && matchesSearch(c));
+  if (currentSort === "score-desc") {
+    list = [...list].sort((a,b) => (calcTotal(b.no) ?? -1) - (calcTotal(a.no) ?? -1));
+  } else if (currentSort === "score-asc") {
+    list = [...list].sort((a,b) => {
+      const ta = calcTotal(a.no), tb = calcTotal(b.no);
+      if (ta == null && tb == null) return 0;
+      if (ta == null) return 1;
+      if (tb == null) return -1;
+      return ta - tb;
+    });
+  } else if (currentSort === "name") {
+    list = [...list].sort((a,b) => a.name.localeCompare(b.name, "ko"));
+  }
+  return list;
+}
+
+function renderCompanyGrid() {
+  const grid = document.getElementById("companyGrid");
+  const list = getFilteredCompanies();
+  if (list.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--silver-dim)">검색 결과가 없습니다</div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(c => {
+    const total = calcTotal(c.no);
+    const grade = getGrade(total);
+    const hasIR = c.hasIR;
+    const scored = total != null;
+
+    let statusText, statusClass;
+    if (scored) { statusText = "평가 완료"; statusClass = "scored"; }
+    else if (hasIR) { statusText = "IR 요약 준비됨"; statusClass = "has-ir"; }
+    else { statusText = "IR 요약 준비 중"; statusClass = ""; }
+
+    return `
+      <div class="company-card" onclick="showDetail(${c.no})">
+        <div class="card-header">
+          <div>
+            <div class="card-status">
+              <div class="card-status-dot ${statusClass}"></div>
+              <span>${statusText}</span>
+            </div>
+          </div>
+          <div class="card-grade ${grade ? 'grade-' + grade : 'none'}">${grade || '—'}</div>
+        </div>
+        <div>
+          <div class="card-title">${escapeHtml(c.brand || c.name)}</div>
+        </div>
+        <div class="card-tagline">${escapeHtml(c.tagline || '')}</div>
+        <div class="card-meta">
+          <span class="meta-tag sector">${escapeHtml(c.sector.split(',')[0].split('/')[0].trim())}</span>
+          <span class="meta-tag">${escapeHtml(c.location)}</span>
+          <span class="meta-tag">${escapeHtml(c.age)}</span>
+        </div>
+        <div class="card-footer">
+          <div class="${scored ? 'card-score' : 'card-score empty'}">
+            ${scored ? `${total}<span class="max">/100</span>` : '미평가'}
+          </div>
+          <div class="card-cta">
+            <span>평가하기</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+// ========================================================================
+// UI — 상세 페이지
+// ========================================================================
+function showDetail(companyNo) {
+  if (!currentReviewer) {
+    openReviewerModal(false);
+    return;
+  }
+  currentCompany = companyNo;
+  const c = COMPANIES.find(x => x.no === companyNo);
+  if (!c) return;
+
+  document.getElementById("listView").style.display = "none";
+  const dv = document.getElementById("detailView");
+  dv.classList.add("active");
+  window.scrollTo(0, 0);
+
+  document.getElementById("detailContent").innerHTML = `
+    <div class="detail-hero">
+      <div class="detail-hero-top">
+        <div>
+          <div style="font-size:11px;color:var(--silver-dim);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px">#${String(c.no).padStart(2,'0')} · ${escapeHtml(c.sector)}</div>
+          <h2>${escapeHtml(c.name)}</h2>
+          <div class="detail-hero-tagline">${escapeHtml(c.tagline || '')}</div>
+        </div>
+      </div>
+      <div class="detail-hero-meta">
+        <span class="meta-tag"><i class="fa-solid fa-user" style="margin-right:6px;color:var(--blue-light)"></i>${escapeHtml(c.ceo)}</span>
+        <span class="meta-tag"><i class="fa-solid fa-calendar" style="margin-right:6px;color:var(--blue-light)"></i>설립 ${escapeHtml(c.founded)} · ${escapeHtml(c.age)}</span>
+        <span class="meta-tag"><i class="fa-solid fa-location-dot" style="margin-right:6px;color:var(--blue-light)"></i>${escapeHtml(c.location)}</span>
+        <span class="meta-tag"><i class="fa-solid fa-envelope" style="margin-right:6px;color:var(--blue-light)"></i>${escapeHtml(c.email)}</span>
+        <span class="meta-tag"><i class="fa-solid fa-globe" style="margin-right:6px;color:var(--blue-light)"></i><a href="https://${c.web}" target="_blank" style="color:inherit;text-decoration:none">${escapeHtml(c.web)}</a></span>
+        <span class="meta-tag"><i class="fa-solid fa-door-open" style="margin-right:6px;color:var(--blue-light)"></i>${escapeHtml(c.source)}</span>
+      </div>
+    </div>
+
+    <div class="detail-split">
+      <div class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title"><i class="fa-solid fa-file-lines"></i>IR 자료 요약</div>
+        </div>
+        <div class="panel-body">${renderIRContent(c)}</div>
+      </div>
+
+      <div class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title"><i class="fa-solid fa-clipboard-check"></i>심사 평가</div>
+          <div style="font-size:11px;color:var(--silver-dim);letter-spacing:0.1em;text-transform:uppercase">${escapeHtml(currentReviewer)}</div>
+        </div>
+        <div class="panel-body">${renderReviewPanel(c)}</div>
+      </div>
+    </div>
+  `;
+
+  bindScoreEvents(companyNo);
+  updateScoreSummary(companyNo);
+}
+
+function renderIRContent(c) {
+  if (c.hasIR && c.no === 6) {
+    return renderMitfreudeIR();
+  }
+
+  // 기본: 지원서 기반 간단 요약
+  return `
+    <div class="ir-empty">
+      <i class="fa-solid fa-file-circle-exclamation"></i>
+      <h4>IR 요약 준비 중</h4>
+      <p>이 회사의 IR 덱 요약은 아직 준비되지 않았습니다.<br>
+      아래는 지원서 기반 기본 정보입니다.</p>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">i</span>지원서 기반 정보</h3>
+      <dl class="ir-info-grid">
+        <dt>회사명</dt><dd>${escapeHtml(c.name)}</dd>
+        <dt>대표자</dt><dd>${escapeHtml(c.ceo)}</dd>
+        <dt>설립연도</dt><dd>${escapeHtml(c.founded)} (${escapeHtml(c.age)})</dd>
+        <dt>분야</dt><dd>${escapeHtml(c.sector)}</dd>
+        <dt>소재지</dt><dd>${escapeHtml(c.location)}</dd>
+        <dt>웹사이트</dt><dd><a href="https://${c.web}" target="_blank" style="color:var(--blue-light)">${escapeHtml(c.web)}</a></dd>
+        <dt>유입 경로</dt><dd>${escapeHtml(c.source)}</dd>
+      </dl>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">ii</span>자기 소개 (지원서 기재)</h3>
+      <div class="ir-callout">
+        ${escapeHtml(c.tagline || "기업 소개 없음")}
+      </div>
+    </div>
+  `;
+}
+
+function renderMitfreudeIR() {
+  const ir = MITFREUDE_IR;
+  return `
+    <div class="ir-callout">
+      <strong>한줄 소개</strong><br>${escapeHtml(ir.tagline)}
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">1</span>기본 정보</h3>
+      <dl class="ir-info-grid">
+        ${ir.basicInfo.map(([k,v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join("")}
+      </dl>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">2</span>Problem &amp; Solution</h3>
+      <h4>${escapeHtml(ir.problem.title)}</h4>
+      <ul class="ir-bullets">${ir.problem.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+      <h4>${escapeHtml(ir.solution.title)}</h4>
+      <ul class="ir-bullets">${ir.solution.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">3</span>시장 &amp; GTM 전략</h3>
+      <h4>시장 규모</h4>
+      <div class="ir-market-grid">
+        ${ir.market.map(m => `
+          <div class="ir-market-card">
+            <div class="label">${escapeHtml(m.label)}</div>
+            <div class="value">${escapeHtml(m.value)}</div>
+            <div class="desc">${escapeHtml(m.desc)}</div>
+          </div>`).join("")}
+      </div>
+      <h4>GTM 전략 — Track A/B 이원화</h4>
+      ${ir.gtm.map(g => `
+        <div style="margin-bottom:10px">
+          <div style="font-size:12px;font-weight:600;color:var(--blue-light);margin-bottom:2px">${escapeHtml(g.track)}</div>
+          <div style="font-size:12px;color:var(--silver);line-height:1.5">${escapeHtml(g.desc)}</div>
+        </div>
+      `).join("")}
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">4</span>트랙션 &amp; 시장 검증</h3>
+      <h4>양산 이력</h4>
+      <ul class="ir-bullets">${ir.traction.production.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+      <h4>글로벌 브랜드 협의 현황</h4>
+      <ul class="ir-bullets">${ir.traction.brand.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+      <h4>기타 협의·노출 이력</h4>
+      <ul class="ir-bullets">${ir.traction.other.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">5</span>팀 구성</h3>
+      <div class="ir-team-grid">
+        ${ir.team.map(t => `
+          <div class="ir-team-card">
+            <div class="name">${escapeHtml(t.name)}</div>
+            <div class="role">${escapeHtml(t.role)} · ${escapeHtml(t.desc)}</div>
+            <ul>${t.items.map(i => `<li>${escapeHtml(i)}</li>`).join("")}</ul>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">6</span>성장 계획 &amp; 투자 유치</h3>
+      <table class="ir-table">
+        <thead>
+          <tr>${ir.plan[0].map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr>
+        </thead>
+        <tbody>
+          ${ir.plan.slice(1).map(row => `
+            <tr>${row.map((v, i) => i === 0 ? `<td style="color:var(--silver-dim);font-weight:600">${escapeHtml(v)}</td>` : `<td class="${row[0]==='매출 목표' && i === row.length-1 ? 'highlight' : ''}">${escapeHtml(v)}</td>`).join("")}</tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">7</span>IR 자료 주요 팩트</h3>
+      <h4>IR에 명시된 주요 수치·근거</h4>
+      <ul class="ir-bullets">${ir.facts.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+      <h4>추가 확인이 필요할 수 있는 항목</h4>
+      <ul class="ir-bullets">${ir.checklist.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+    </div>
+  `;
+}
+
+function renderReviewPanel(c) {
+  const data = reviewData[c.no] || { scores: {}, opinions: {} };
+
+  return `
+    <div class="review-intro">
+      <strong>평가 방식:</strong> 각 세부 항목을 1~5점으로 평가합니다 (5=우수 / 3=보통 / 1=미흡). 배점에 따라 자동 가중 계산되어 100점 만점의 총점이 산출됩니다.
+    </div>
+
+    <div class="score-summary">
+      <div>
+        <div class="score-total-label">총점</div>
+        <div class="score-total-value"><span id="scoreTotalValue">0</span><span class="max">/ 100</span></div>
+        <div class="score-total-bar"><div class="score-total-bar-fill" id="scoreBar" style="width:0%"></div></div>
+      </div>
+      <div class="score-grade-display">
+        <div class="score-grade-letter none" id="scoreGradeLetter">—</div>
+        <div class="score-grade-desc" id="scoreGradeDesc">미평가</div>
+      </div>
+    </div>
+
+    ${CRITERIA.map(group => `
+      <div class="criterion-group">
+        <div class="criterion-group-header">
+          <div class="criterion-group-title">
+            <span class="dot" style="background:${group.color}"></span>
+            <span>${escapeHtml(group.group)}</span>
+          </div>
+          <div class="criterion-group-score">
+            <span id="groupScore-${group.groupShort}">0</span><span class="max">/${group.weight}</span>
+          </div>
+        </div>
+        ${group.items.map(item => {
+          const s = data.scores[item.id];
+          return `
+            <div class="criterion-item" id="item-${item.id}">
+              <div class="criterion-head">
+                <div class="criterion-name">${escapeHtml(item.name)}<span class="weight">(${item.pts}점)</span></div>
+              </div>
+              <div class="criterion-guide">${escapeHtml(item.guide)}</div>
+              <div class="score-input-row">
+                ${[1,2,3,4,5].map(n => `
+                  <button class="score-btn ${s === n ? 'selected' : ''}" data-item="${item.id}" data-score="${n}">${n}</button>
+                `).join("")}
+              </div>
+              <button class="guide-toggle" onclick="document.getElementById('item-${item.id}').classList.toggle('expanded')">
+                <i class="fa-solid fa-circle-info" style="margin-right:4px"></i>평가 기준 보기
+              </button>
+              <div class="guide-tooltip">
+                <div class="guide-tiers">
+                  <div class="guide-tier t5"><div class="guide-tier-label">5점</div>${escapeHtml(item.t5)}</div>
+                  <div class="guide-tier t3"><div class="guide-tier-label">3점</div>${escapeHtml(item.t3)}</div>
+                  <div class="guide-tier t1"><div class="guide-tier-label">1점</div>${escapeHtml(item.t1)}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    `).join("")}
+
+    <div class="opinion-section">
+      <h3><i class="fa-solid fa-pen-to-square" style="color:var(--blue-light);margin-right:8px"></i>심사 의견</h3>
+      <div class="opinion-grid">
+        <div class="opinion-field">
+          <label>강점 (Strength)</label>
+          <textarea id="op-strength" data-field="strength" placeholder="회사의 주요 강점을 기재...">${escapeHtml(data.opinions?.strength || '')}</textarea>
+        </div>
+        <div class="opinion-field">
+          <label>약점 (Weakness)</label>
+          <textarea id="op-weakness" data-field="weakness" placeholder="우려되는 약점을 기재...">${escapeHtml(data.opinions?.weakness || '')}</textarea>
+        </div>
+        <div class="opinion-field">
+          <label>리스크 (Risk)</label>
+          <textarea id="op-risk" data-field="risk" placeholder="주요 리스크 요인을 기재...">${escapeHtml(data.opinions?.risk || '')}</textarea>
+        </div>
+        <div class="opinion-field">
+          <label>종합 의견</label>
+          <textarea id="op-comment" data-field="comment" placeholder="배치 프로그램 참여 추천/비추천 등 종합 의견...">${escapeHtml(data.opinions?.comment || '')}</textarea>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function bindScoreEvents(companyNo) {
+  document.querySelectorAll(".score-btn").forEach(btn => {
+    btn.onclick = async () => {
+      const itemId = btn.dataset.item;
+      const score = parseInt(btn.dataset.score);
+
+      if (!reviewData[companyNo]) reviewData[companyNo] = { scores: {}, opinions: {} };
+      reviewData[companyNo].scores[itemId] = score;
+
+      // UI 업데이트
+      document.querySelectorAll(`.score-btn[data-item="${itemId}"]`).forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+
+      updateScoreSummary(companyNo);
+      await persistData();
+    };
+  });
+
+  document.querySelectorAll("textarea[data-field]").forEach(ta => {
+    let timer;
+    ta.oninput = () => {
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        if (!reviewData[companyNo]) reviewData[companyNo] = { scores: {}, opinions: {} };
+        if (!reviewData[companyNo].opinions) reviewData[companyNo].opinions = {};
+        reviewData[companyNo].opinions[ta.dataset.field] = ta.value;
+        await persistData();
+      }, 600);
+    };
+  });
+}
+
+function updateScoreSummary(companyNo) {
+  const total = calcTotal(companyNo);
+  const totalDisplay = total != null ? total : 0;
+  document.getElementById("scoreTotalValue").textContent = totalDisplay;
+  document.getElementById("scoreBar").style.width = `${Math.min(totalDisplay, 100)}%`;
+
+  const grade = getGrade(total);
+  const letter = document.getElementById("scoreGradeLetter");
+  const desc = document.getElementById("scoreGradeDesc");
+  letter.className = "score-grade-letter " + (grade || "none");
+  letter.textContent = grade || "—";
+  desc.textContent = grade === "A" ? "우선 선발" : grade === "B" ? "후보 선발" : grade === "C" ? "재검토" : grade === "D" ? "부적격" : "미평가";
+
+  // 그룹별 합계
+  for (const group of CRITERIA) {
+    const gs = calcGroupTotal(companyNo, group);
+    const el = document.getElementById(`groupScore-${group.groupShort}`);
+    if (el) el.textContent = gs != null ? gs : 0;
+  }
+}
+
+async function persistData() {
+  if (!currentReviewer) return;
+  const ok = await saveReviewer(currentReviewer, reviewData);
+  if (ok) showSaveIndicator();
+}
+
+function showSaveIndicator() {
+  const el = document.getElementById("saveIndicator");
+  el.classList.add("show");
+  clearTimeout(window._saveT);
+  window._saveT = setTimeout(() => el.classList.remove("show"), 1800);
+}
+
+function showList() {
+  currentCompany = null;
+  document.getElementById("listView").style.display = "block";
+  document.getElementById("detailView").classList.remove("active");
+  renderStats();
+  renderCompanyGrid();
+}
+
+// ========================================================================
+// UI — 엑셀 내보내기 (CSV)
+// ========================================================================
+function exportMyScores() {
+  if (!currentReviewer) {
+    alert("먼저 심사위원을 선택해주세요.");
+    return;
+  }
+
+  const allItems = CRITERIA.flatMap(g => g.items);
+  const headers = ["번호", "회사명", "분야", "업력", "대표자"];
+  allItems.forEach(it => headers.push(`${it.id}. ${it.name}(${it.pts}점)`));
+  headers.push("총점(100)", "등급", "강점", "약점", "리스크", "종합의견");
+
+  const rows = [headers];
+  for (const c of COMPANIES) {
+    const d = reviewData[c.no] || {};
+    const scores = d.scores || {};
+    const ops = d.opinions || {};
+    const total = calcTotal(c.no);
+    const row = [c.no, c.name, c.sector, c.age, c.ceo];
+    allItems.forEach(it => row.push(scores[it.id] ?? ""));
+    row.push(total ?? "", getGrade(total) ?? "", ops.strength || "", ops.weakness || "", ops.risk || "", ops.comment || "");
+    rows.push(row);
+  }
+
+  // CSV 생성 (UTF-8 BOM 추가로 한글 엑셀 호환)
+  const csv = "\uFEFF" + rows.map(r =>
+    r.map(v => {
+      const s = String(v).replace(/"/g, '""');
+      return /[",\n]/.test(s) ? `"${s}"` : s;
+    }).join(",")
+  ).join("\n");
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `Gravity_심사점수_${currentReviewer}_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ========================================================================
+// Utilities
+// ========================================================================
+function escapeHtml(s) {
+  if (s == null) return "";
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function bindEvents() {
+  document.getElementById("searchInput").oninput = (e) => {
+    currentSearch = e.target.value;
+    renderCompanyGrid();
+  };
+  document.getElementById("sortSelect").onchange = (e) => {
+    currentSort = e.target.value;
+    renderCompanyGrid();
+  };
+  document.querySelectorAll(".filter-chip").forEach(chip => {
+    chip.onclick = () => {
+      document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      currentFilter = chip.dataset.filter;
+      renderCompanyGrid();
+    };
+  });
+  document.getElementById("modalConfirm").onclick = async () => {
+    const name = document.getElementById("reviewerNameInput").value.trim();
+    if (!name) { alert("이름을 입력해주세요."); return; }
+    await selectReviewer(name);
+  };
+  document.getElementById("modalCancel").onclick = closeReviewerModal;
+  document.getElementById("reviewerNameInput").onkeydown = (e) => {
+    if (e.key === "Enter") document.getElementById("modalConfirm").click();
+  };
+}
+
+// 시작
+init();
+</script>
+</body>
+</html>
