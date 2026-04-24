@@ -1008,6 +1008,29 @@ main {
   line-height: 1.5;
 }
 
+.criterion-subpoints {
+  list-style: none;
+  padding: 12px 16px;
+  margin: 0 0 12px;
+  background: rgba(37, 99, 255, 0.06);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 8px 8px 0;
+}
+.criterion-subpoints li {
+  font-size: 12px;
+  color: var(--silver);
+  line-height: 1.6;
+  padding: 3px 0;
+}
+.criterion-item.has-subpoints {
+  padding: 20px 0;
+  background: linear-gradient(to right, rgba(31, 78, 121, 0.06), transparent);
+  margin: 0 -10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px;
+}
+
 .score-input-row {
   display: flex;
   gap: 4px;
@@ -1422,61 +1445,60 @@ const COMPANIES = [
   {no:32, name:"니어브레인 주식회사", brand:"NearBrain", ceo:"황정원", email:"jeongwon.hwang@nearbrain.com", phone:"010-2055-1137", founded:"2022", age:"3~7년", location:"서울", sector:"의료기기 / 딥테크", web:"nearbrain.com", source:"기관추천", tagline:"AI 기반 뇌혈류 분석 의료 소프트웨어 개발 기업"}
 ];
 
-// 심사 기준
+// 심사 기준 (최대 단순화: 4개 영역 × 통합 평가 1개씩 / 총 100점)
 const CRITERIA = [
-  {group:"1. 팀/창업자 역량", groupShort:"팀 역량", weight:20, color:"#1F4E79", items:[
-    {id:"1-1", name:"창업자 전문성·도메인 경력", pts:5, guide:"해당 기술·산업 분야에서의 실질적 경험·학력·연구 이력",
-     t5:"Top-tier 대학/연구소 박사급 또는 10년+ 경력", t3:"관련 분야 석사급 또는 5~10년 실무", t1:"관련 경력 3년 미만 또는 도메인 미스매치"},
-    {id:"1-2", name:"창업팀 구성 완성도", pts:5, guide:"CTO/CSO·CFO/Sales 등 기능별 팀 균형",
-     t5:"기술·사업·재무 모두 우수 인력 보유", t3:"핵심 포지션 1~2개 공백 있으나 보완 계획", t1:"대표 1인 의존도 높음"},
-    {id:"1-3", name:"실행력·과거 성과 트랙레코드", pts:5, guide:"이전 창업/프로젝트 성과, 추진력",
-     t5:"이전 Exit 또는 스케일업 성공 경험", t3:"개발/상용화 마일스톤 일부 달성", t1:"입증된 실행 이력 부족"},
-    {id:"1-4", name:"딥테크 팀 역량 (R&D·특허)", pts:5, guide:"연구소 보유·특허·핵심 기술 인력 비중",
-     t5:"R&D 50%+ 또는 핵심 특허 다수 보유", t3:"R&D 30~50% 또는 특허 출원 중", t1:"R&D 30% 미만·특허 부재"}
+  {group:"1. 팀/창업자 역량", groupShort:"팀", weight:25, color:"#1F4E79", items:[
+    {id:"1-1", name:"팀 종합 평가", pts:25,
+     guide:"아래 4가지 요소를 종합하여 한 번에 평가합니다",
+     subPoints:[
+       "① 창업자 전문성·도메인 경력 — 해당 기술·산업 분야에서의 실질적 경험·학력·연구 이력",
+       "② 창업팀 구성 완성도 — CTO/CSO·CFO/Sales 등 기능별 팀 균형",
+       "③ 실행력·과거 성과 트랙레코드 — 이전 창업/프로젝트 성과, 추진력",
+       "④ 딥테크 팀 역량 (R&D·특허) — 연구소 보유·특허·핵심 기술 인력 비중"
+     ],
+     t5:"4가지 요소 모두 우수 — 도메인 전문성·팀 구성·실행력·딥테크 역량이 전반적으로 강함",
+     t3:"2~3가지 요소는 우수, 일부 요소는 보완 필요",
+     t1:"대부분 요소에서 미흡, 핵심 공백 존재"}
   ]},
-  {group:"2. 기술 경쟁력", groupShort:"기술", weight:25, color:"#2563FF", items:[
-    {id:"2-1", name:"기술의 독창성·난이도", pts:7, guide:"원천기술 여부, 모방·대체 난이도",
-     t5:"원천기술 보유, 글로벌 수준 난이도", t3:"기존 기술의 의미있는 개선", t1:"범용 기술의 응용 수준"},
-    {id:"2-2", name:"기술 검증 단계(TRL)", pts:6, guide:"TRL 단계(연구 → 시제품 → 양산)",
-     t5:"TRL 7+ (실증·납품 레퍼런스)", t3:"TRL 4~6 (프로토타입 검증)", t1:"TRL 3 이하 (개념 검증)"},
-    {id:"2-3", name:"지식재산권·특허 포트폴리오", pts:6, guide:"국내외 특허 및 IP 방어력",
-     t5:"핵심 기술 PCT/해외 등록, 방어 우수", t3:"국내 특허 출원 완료", t1:"IP 부재·방어력 낮음"},
-    {id:"2-4", name:"경쟁사 대비 차별성", pts:6, guide:"성능·비용·접근성 우위",
-     t5:"벤치마크 대비 2배+ 우위", t3:"일부 항목 우위, 차별 포인트 존재", t1:"차별점 불명확"}
+  {group:"2. 기술 경쟁력", groupShort:"기술", weight:30, color:"#2563FF", items:[
+    {id:"2-1", name:"기술 종합 평가", pts:30,
+     guide:"아래 4가지 요소를 종합하여 한 번에 평가합니다",
+     subPoints:[
+       "① 기술의 독창성·난이도 — 원천기술 여부, 모방·대체 난이도, 딥테크 수준",
+       "② 기술 검증 단계(TRL) — 연구 → 시제품 → 상용화 → 양산 단계",
+       "③ 지식재산권·특허 포트폴리오 — 국내외 특허 등록/출원, IP 방어력",
+       "④ 경쟁사 대비 차별성 — 국내외 경쟁사 대비 성능·비용·접근성 우위"
+     ],
+     t5:"4가지 요소 모두 우수 — 원천기술 보유, TRL 7+, 해외 IP, 명확한 차별성",
+     t3:"2~3가지 요소는 우수, 일부 요소는 보완 필요",
+     t1:"대부분 요소에서 미흡, 진입장벽·차별성 부족"}
   ]},
-  {group:"3. 시장성·사업성", groupShort:"시장", weight:20, color:"#2E75B6", items:[
-    {id:"3-1", name:"시장 규모(TAM/SAM/SOM) 타당성", pts:5, guide:"시장 규모 및 산정 논리",
-     t5:"글로벌 TAM 10조+, 정합성 높음", t3:"TAM 1~10조, 근거 자료 부분 제시", t1:"시장 규모 불명확·과장"},
-    {id:"3-2", name:"문제 정의·고객 Pain Point", pts:5, guide:"문제 심각성·고객 지불의사",
-     t5:"검증된 고객 인터뷰·LOI 기반", t3:"합리적 가설+제한된 고객 검증", t1:"가설 기반, 검증 부족"},
-    {id:"3-3", name:"GTM 전략 구체성", pts:5, guide:"초기 고객·채널·레퍼런스",
-     t5:"앵커 고객 확보 또는 상세 GTM", t3:"단계별 계획·일부 실행", t1:"GTM 전략 추상적"},
-    {id:"3-4", name:"글로벌 확장 가능성", pts:5, guide:"제품·규제·해외 진입",
-     t5:"해외 매출 발생·파트너십 체결", t3:"해외 진출 계획·초기 성과", t1:"국내만 타겟"}
+  {group:"3. 시장성·사업모델", groupShort:"시장", weight:30, color:"#2E75B6", items:[
+    {id:"3-1", name:"시장·사업모델 종합 평가", pts:30,
+     guide:"아래 6가지 요소를 종합하여 한 번에 평가합니다",
+     subPoints:[
+       "① 시장 규모(TAM/SAM/SOM) 타당성 — 시장 규모 및 산정 논리",
+       "② 문제 정의·고객 Pain Point — 문제의 심각성, 고객 지불의사",
+       "③ GTM 전략·글로벌 확장 가능성 — 초기 고객·채널·해외 진입",
+       "④ 수익 모델·단위경제성(Unit Economics) — 마진율·CAC/LTV·계약 매출",
+       "⑤ 매출·성장률·트랙션 — 최근 매출, 전년 대비 성장률",
+       "⑥ 재무 건전성·Runway — 현금 보유·Burn Rate·자금 계획"
+     ],
+     t5:"6가지 요소 모두 우수 — 대형 시장, 검증된 Pain Point, 해외 트랙션, 탄탄한 재무",
+     t3:"3~4가지 요소는 우수, 일부 요소는 보완 필요",
+     t1:"대부분 요소에서 미흡, 시장·사업모델 불확실"}
   ]},
-  {group:"4. 비즈니스 모델·수익성", groupShort:"수익성", weight:15, color:"#548235", items:[
-    {id:"4-1", name:"수익 모델·Unit Economics", pts:5, guide:"마진율·CAC/LTV·계약 매출",
-     t5:"LTV/CAC 3x+, 계약 매출 기반", t3:"수익 구조 명확·일부 매출", t1:"수익 구조 추상적"},
-    {id:"4-2", name:"매출·성장률·트랙션", pts:5, guide:"최근 매출·YoY 성장률",
-     t5:"매출 10억+, YoY 100%+", t3:"초기 매출·안정적 성장", t1:"매출 미미·감소세"},
-    {id:"4-3", name:"재무 건전성·Runway", pts:5, guide:"현금 보유·Burn Rate·Runway",
-     t5:"Runway 18개월+, BEP 근접", t3:"Runway 12개월, 후속 논의", t1:"Runway 6개월 미만"}
-  ]},
-  {group:"5. 투자 매력도", groupShort:"투자", weight:10, color:"#BF8F00", items:[
-    {id:"5-1", name:"투자 단계·밸류에이션 적합성", pts:4, guide:"업력·단계 대비 밸류의 합리성",
-     t5:"Seed~Pre-A 합리적 밸류", t3:"시장 평균 수준", t1:"업력 대비 과도한 밸류"},
-    {id:"5-2", name:"후속 투자·Exit 시나리오", pts:3, guide:"후속 VC·M&A/IPO 경로",
-     t5:"TIPS·시리즈A 후속 관심 확보", t3:"일반적 Exit 경로 제시", t1:"시나리오 부재"},
-    {id:"5-3", name:"리스크 요인 대응", pts:3, guide:"리스크 식별·대응 방안",
-     t5:"리스크 식별·대응 명확", t3:"주요 리스크 인지·계획 수립", t1:"리스크 인지 부족"}
-  ]},
-  {group:"6. 배치 프로그램 적합성", groupShort:"프로그램", weight:10, color:"#7030A0", items:[
-    {id:"6-1", name:"TIPS·스케일업 연계 가능성", pts:4, guide:"TIPS·스케일업·딥테크 팁스 적격",
-     t5:"TIPS 추천 즉시 가능, 요건 충족", t3:"요건 대부분 충족·일부 보완", t1:"요건 미달"},
-    {id:"6-2", name:"커뮤니티 기여·시너지", pts:3, guide:"포트폴리오사 협업·시너지",
-     t5:"명확한 시너지 기업군 존재", t3:"일부 협업 가능성", t1:"시너지 낮음"},
-    {id:"6-3", name:"코칭·멘토링 수용도", pts:3, guide:"멘토링 수용도·성장 의지",
-     t5:"적극적 수용·피드백 기반 피봇", t3:"일반적 수준의 수용도", t1:"폐쇄적"}
+  {group:"4. 투자 매력도", groupShort:"투자", weight:15, color:"#BF8F00", items:[
+    {id:"4-1", name:"투자 매력 종합 평가", pts:15,
+     guide:"아래 3가지 요소를 종합하여 한 번에 평가합니다",
+     subPoints:[
+       "① 투자 단계·밸류에이션 적합성 — 업력·단계 대비 밸류의 합리성",
+       "② 후속 투자·Exit 시나리오 — 후속 VC 파이프라인, M&A/IPO 경로",
+       "③ 리스크 요인 식별·대응 — 핵심 리스크 인지와 대응 방안"
+     ],
+     t5:"3가지 요소 모두 우수 — 합리적 밸류, 명확한 Exit 경로, 리스크 관리 체계",
+     t3:"2가지 요소는 우수, 일부 요소는 보완 필요",
+     t1:"대부분 요소에서 미흡, 투자 매력도 낮음"}
   ]}
 ];
 
@@ -2151,12 +2173,18 @@ function renderReviewPanel(c) {
         </div>
         ${group.items.map(item => {
           const s = data.scores[item.id];
+          const hasSubPoints = item.subPoints && item.subPoints.length > 0;
           return `
-            <div class="criterion-item" id="item-${item.id}">
+            <div class="criterion-item ${hasSubPoints ? 'has-subpoints' : ''}" id="item-${item.id}">
               <div class="criterion-head">
                 <div class="criterion-name">${escapeHtml(item.name)}<span class="weight">(${item.pts}점)</span></div>
               </div>
               <div class="criterion-guide">${escapeHtml(item.guide)}</div>
+              ${hasSubPoints ? `
+                <ul class="criterion-subpoints">
+                  ${item.subPoints.map(sp => `<li>${escapeHtml(sp)}</li>`).join("")}
+                </ul>
+              ` : ""}
               <div class="score-input-row">
                 ${[1,2,3,4,5].map(n => `
                   <button class="score-btn ${s === n ? 'selected' : ''}" data-item="${item.id}" data-score="${n}">${n}</button>
@@ -2180,23 +2208,9 @@ function renderReviewPanel(c) {
 
     <div class="opinion-section">
       <h3><i class="fa-solid fa-pen-to-square" style="color:var(--blue-light);margin-right:8px"></i>심사 의견</h3>
-      <div class="opinion-grid">
-        <div class="opinion-field">
-          <label>강점 (Strength)</label>
-          <textarea id="op-strength" data-field="strength" placeholder="회사의 주요 강점을 기재...">${escapeHtml(data.opinions?.strength || '')}</textarea>
-        </div>
-        <div class="opinion-field">
-          <label>약점 (Weakness)</label>
-          <textarea id="op-weakness" data-field="weakness" placeholder="우려되는 약점을 기재...">${escapeHtml(data.opinions?.weakness || '')}</textarea>
-        </div>
-        <div class="opinion-field">
-          <label>리스크 (Risk)</label>
-          <textarea id="op-risk" data-field="risk" placeholder="주요 리스크 요인을 기재...">${escapeHtml(data.opinions?.risk || '')}</textarea>
-        </div>
-        <div class="opinion-field">
-          <label>종합 의견</label>
-          <textarea id="op-comment" data-field="comment" placeholder="배치 프로그램 참여 추천/비추천 등 종합 의견...">${escapeHtml(data.opinions?.comment || '')}</textarea>
-        </div>
+      <div class="opinion-field">
+        <label>종합 의견 (강점 · 약점 · 리스크 · 추천 여부 등 자유 기재)</label>
+        <textarea id="op-comment" data-field="comment" placeholder="강점, 약점, 리스크, 배치 프로그램 추천 여부 등 심사 의견을 자유롭게 기재해주세요." style="min-height: 180px;">${escapeHtml(data.opinions?.comment || data.opinions?.strength || '')}</textarea>
       </div>
     </div>
   `;
@@ -2288,7 +2302,7 @@ function exportMyScores() {
   const allItems = CRITERIA.flatMap(g => g.items);
   const headers = ["번호", "회사명", "분야", "업력", "대표자"];
   allItems.forEach(it => headers.push(`${it.id}. ${it.name}(${it.pts}점)`));
-  headers.push("총점(100)", "등급", "강점", "약점", "리스크", "종합의견");
+  headers.push("총점(100)", "등급", "심사 의견");
 
   const rows = [headers];
   for (const c of COMPANIES) {
@@ -2298,7 +2312,7 @@ function exportMyScores() {
     const total = calcTotal(c.no);
     const row = [c.no, c.name, c.sector, c.age, c.ceo];
     allItems.forEach(it => row.push(scores[it.id] ?? ""));
-    row.push(total ?? "", getGrade(total) ?? "", ops.strength || "", ops.weakness || "", ops.risk || "", ops.comment || "");
+    row.push(total ?? "", getGrade(total) ?? "", ops.comment || ops.strength || "");
     rows.push(row);
   }
 
