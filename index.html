@@ -1124,14 +1124,15 @@ main {
 }
 .score-btn {
   flex: 1;
-  padding: 10px 0;
+  padding: 12px 0;
   background: rgba(200, 214, 236, 0.04);
   border: 1px solid var(--border);
   color: var(--silver);
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 18px;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 8px;
   transition: all 0.15s;
 }
 .score-btn:hover {
@@ -1581,7 +1582,7 @@ const COMPANIES = [
   {no:20, name:"모아드림(주)", brand:"MoreDream", ceo:"조돈우", email:"dwcho3652@gmail.com", phone:"010-9116-3608", founded:"2024.11", age:"1~3년", location:"서울", sector:"딥테크 / 접근성", web:"themoredream.com", source:"페이스북", tagline:"시각장애인 관련 문제 해결 사업아이템 · TIPS 관심"},
   {no:21, name:"주식회사 토프모빌리티", brand:"TOFF", ceo:"정찬영", email:"jaden@toffmobility.com", phone:"010-9477-1162", founded:"2023", age:"1~3년", location:"서울", sector:"딥테크 / UAM", web:"toffmobility.com", source:"지인 추천", tagline:"아시아 최초 전기비행기 안전성 인증 · 2024년 매출 18억 흑자전환"},
   {no:22, name:"(주)오톤도", brand:"오톤도", ceo:"김경묵", email:"boknam@otondo.co.kr", phone:"010-7468-0427", founded:"2024.01", age:"1~3년", location:"서울", sector:"딥테크 / 인테리어 AI", web:"otondo.co.kr", source:"기관추천", tagline:"국내 유일의 Interior Digital Operation System · 인테리어 AI 에이전트"},
-  {no:23, name:"프리딕션", brand:"Prediction", ceo:"김두호", email:"duho.kim@prediction.im", phone:"010-7143-3326", founded:"2024", age:"1~3년", location:"경기/인천", sector:"딥테크 / 모빌리티", web:"prediction.im", source:"기관추천", tagline:"BMS 데이터 기반 AI로 전기차 배터리 이상진단 및 fleet 관리 솔루션"},
+  {no:23, name:"주식회사 프리딕션", brand:"Prediction", ceo:"김두호", email:"duho.kim@prediction.im", phone:"010-7143-3326", founded:"2024", age:"1~3년", location:"경기/인천", sector:"전동화 모빌리티", web:"eview.im", source:"기관추천", tagline:"배터리 선제적 이상진단·가치평가 AI 파운데이션 모델 기반 전기차 Fleet 운용 효율관리 SaaS"},
   {no:24, name:"커런시유나이티드", brand:"CU Unit", ceo:"윤민성", email:"myun75@naver.com", phone:"010-7722-1107", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크", web:"cuunit.com", source:"기관추천", tagline:"투자금 3억으로 월거래액 300억 달성 (기관 추천)"},
   {no:25, name:"주식회사 코파", brand:"COFA", ceo:"박기남", email:"keypark@cofa.co.kr", phone:"010-9245-7848", founded:"2025", age:"1~3년", location:"경기/인천", sector:"반도체 소재", web:"cofa.co.kr", source:"지인 추천", tagline:"반도체 언더필(CUF/HBM) 국산화 · 국내 최초 Qual 대상 제조사"},
   {no:26, name:"(주)프레쉬아워", brand:"바프독", ceo:"임경호", email:"kyeonghoim@gmail.com", phone:"010-9466-1984", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 펫테크", web:"barfdog.co.kr", source:"지인 추천", tagline:"펫 NGS·PHR 100만건 데이터 기반 AI 맞춤 레시피 정기배송 서비스"},
@@ -1590,7 +1591,24 @@ const COMPANIES = [
   {no:29, name:"(주)샹떼헬스케어", brand:"SANTE", ceo:"박동준", email:"sante0329@naver.com", phone:"010-2882-5710", founded:"2022", age:"3~7년", location:"부산/경남", sector:"헬스케어 AI", web:"santehealthcare.com", source:"기관추천", tagline:"부산기술창업투자원 추천 헬스케어 AI 기업"},
   {no:30, name:"주식회사 디코", brand:"DICO", ceo:"황준철", email:"john@dicoinc.co.kr", phone:"010-2203-0800", founded:"2019", age:"3~7년", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"dicoinc.co.kr", source:"지인 추천", tagline:"SOLAI 산업용 이미지 딥러닝 비전검사 · 삼성전기·LG화학 납품"},
   {no:31, name:"프렉탈테크놀로지 주식회사", brand:"CookieDeal", ceo:"심정훈", email:"joshua.sim@cookiedeal.io", phone:"010-3282-2858", founded:"2023", age:"1~3년", location:"서울", sector:"딥테크 / 데이터", web:"cookiedeal.io", source:"검색", tagline:"비상장기업 데이터 인프라 · Clay·Grata·QICHACHA 벤치마크"},
-  {no:32, name:"니어브레인 주식회사", brand:"NearBrain", ceo:"황정원", email:"jeongwon.hwang@nearbrain.com", phone:"010-2055-1137", founded:"2022", age:"3~7년", location:"서울", sector:"의료기기 / 딥테크", web:"nearbrain.com", source:"기관추천", tagline:"AI 기반 뇌혈류 분석 의료 소프트웨어 개발 기업"}
+  {no:32, name:"니어브레인 주식회사", brand:"NearBrain", ceo:"황정원", email:"jeongwon.hwang@nearbrain.com", phone:"010-2055-1137", founded:"2022", age:"3~7년", location:"서울", sector:"의료기기 / 딥테크", web:"nearbrain.com", source:"기관추천", tagline:"AI 기반 뇌혈류 분석 의료 소프트웨어 개발 기업"},
+  {no:33, name:"주식회사 사이클로이드", brand:"사이클로이드", ceo:"권준일", email:"jun@ba-dream.com", phone:"010-2968-1685", founded:"2023", age:"1~3년", location:"서울", sector:"모빌리티", web:"ba-dream.com", source:"기관추천", tagline:"모빌리티 영역 기술 기업"},
+  {no:34, name:"(주)에스앤이컴퍼니", brand:"B·good", ceo:"이정수", email:"jslee@bgood.co.kr", phone:"010-3786-4608", founded:"2020", age:"3~7년", location:"서울", sector:"딥테크 / Ag-tech", web:"bgood.co.kr", source:"기관추천", tagline:"농산물 생육·작황·가격 진단 및 예측 기반 AI 에이전트 B·good"},
+  {no:35, name:"주식회사 원인터내셔널", brand:"MUːN", ceo:"변철원", email:"woninternationalinc@gmail.com", phone:"010-7343-0112", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크 / 비전 AI", web:"woninternational.com", source:"지인 추천", tagline:"비전 AI 기반 자동 출입문 솔루션 MUːN 개발"},
+  {no:36, name:"주식회사 펨토리", brand:"펨토리", ceo:"이승훈", email:"ceo@femtory.com", phone:"010-5140-0400", founded:"2021", age:"3~7년", location:"대전/충청", sector:"반도체 부품 / 딥테크", web:"femtory.com", source:"지인 추천", tagline:"반도체 부품 분야 딥테크 기업"},
+  {no:37, name:"주식회사 바이브존", brand:"VIBEZONE", ceo:"박상범", email:"sbpark@vibezone.kr", phone:"010-3383-8232", founded:"2020", age:"3~7년", location:"서울", sector:"플랫폼 / 콘텐츠", web:"vibezone.kr", source:"언론/미디어", tagline:"TV 전용 K팝 인터랙티브 홈 콘서트 플랫폼"},
+  {no:38, name:"(주)트라이큐빅스코리아", brand:"Tricubics", ceo:"김종민", email:"jason.kim@tricubics.com", phone:"010-9890-0604", founded:"2018", age:"7년 이상", location:"대구/경북", sector:"딥테크 / Edge AI", web:"tricubics.com", source:"기관추천", tagline:"국내 최고의 버티컬 영상 인식 시장 Edge AI 솔루션"},
+  {no:39, name:"위에이드", brand:"WeAid", ceo:"김대승", email:"reader@weaid.im", phone:"010-9967-2650", founded:"2023", age:"1~3년", location:"광주/전라", sector:"딥테크", web:"weaid.im", source:"검색", tagline:"딥테크 영역 기술 기업"},
+  {no:40, name:"(주)헤시스", brand:"HESYS", ceo:"장상현", email:"jsh@hesysdh.com", phone:"010-3047-3129", founded:"2025", age:"1년 미만", location:"대전/충청", sector:"반도체 부품", web:"", source:"지인 추천", tagline:"반도체 부품 분야 초기 기업"},
+  {no:41, name:"주식회사 플렉스오더 (FlexOrder)", brand:"RoboTalk", ceo:"안호성", email:"ken@flexorder.net", phone:"010-7118-3701", founded:"2022", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"robotalk.io", source:"페이스북", tagline:"호텔 객실용 AI 음성 컨시어지 RoboTalk Hotel · 등록특허 1 + 출원 3건 (PCT·USI 포함)"},
+  {no:42, name:"(주)파운디", brand:"Foundy", ceo:"홍정수", email:"hong@foundy.kr", phone:"010-6320-0544", founded:"2020", age:"3~7년", location:"서울", sector:"글로벌 / 헬스케어 / 라이프스타일", web:"foundy.kr", source:"지인 추천", tagline:"디자인 웰니스 제품 제조·유통·판매 (하드웨어 기반 웰니스·글로벌 헬스테크)"},
+  {no:43, name:"아리카 주식회사", brand:"ARICA", ceo:"박인준", email:"tony.park@aricacorp.net", phone:"010-3290-0350", founded:"2022", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"arica.ai", source:"검색", tagline:"Neuro-Symbolic AI 기반 로봇 운영지능 플랫폼"},
+  {no:44, name:"주식회사 온코인", brand:"Oncoin", ceo:"김필조", email:"pkim@oncoin.co.kr", phone:"010-2794-0284", founded:"2022", age:"3~7년", location:"강원", sector:"딥테크 / 헬스케어", web:"oncoin.co.kr", source:"언론/미디어", tagline:"독자적 종양 바이오마커 플랫폼 · 암 환자 개인 맞춤형 항암제 선별 · 총 12억 투자 유치"},
+  {no:45, name:"주식회사 더에이비오", brand:"슬루 (SleepsLue)", ceo:"강현규", email:"abo.kanghg@gmail.com", phone:"010-3455-9394", founded:"2024", age:"1~3년", location:"서울", sector:"딥테크 / 신소재", web:"sleepslue.com", source:"지인 추천", tagline:"신소재 침구 리빙 제조 회사"},
+  {no:46, name:"오디오가이(주)", brand:"AudioGuy", ceo:"최정훈", email:"audioguy@audioguyrecords.com", phone:"010-8260-3348", founded:"2019", age:"3~7년", location:"서울", sector:"딥테크 / AI 오디오", web:"audioguyrecords.com", source:"기관추천", tagline:"AI 공간음향 기술 기반 K-POP·순수예술 음원 대량 제작·유통 글로벌 음악기술 기업"},
+  {no:47, name:"주식회사 포어텔마이헬스", brand:"ForetellMyHealth", ceo:"안태진", email:"ceo@foretell.bio", phone:"010-5859-0520", founded:"2022", age:"3~7년", location:"대구/경북", sector:"디지털 헬스케어", web:"foretell.bio", source:"기관추천", tagline:"혈소판 RNA 기반 바이오마커 + AI 분석으로 암 비침습 조기 진단"},
+  {no:48, name:"하나네트웍스(주)", brand:"HanaNet", ceo:"오승준", email:"osj8@smaled.com", phone:"010-7369-5055", founded:"2018", age:"7년 이상", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"hananet.co.kr", source:"그래비티벤처스 오픈채팅", tagline:"AI를 클라우드가 아닌 디바이스에서 실행하는 온디바이스 AI 인프라 플랫폼"},
+  {no:49, name:"주식회사 베드락", brand:"Bedrocks", ceo:"권상민", email:"ksm@kwonsangmin.net", phone:"010-5455-4497", founded:"2026", age:"1년 미만", location:"경기/인천", sector:"보험업 AI", web:"bdrcks.com", source:"지인 추천", tagline:"보험업 AI 솔루션 (신규 법인)"}
 ];
 
 // 드라이브 링크 데이터 (지원서 원본)
@@ -1617,7 +1635,7 @@ const COMPANY_LINKS = {
   20: {"IR":"https://drive.google.com/open?id=1zC-iHi15G49BeY3N4wDKMThMwgK6bAil"},  // 모아드림
   21: {"IR":"https://drive.google.com/open?id=1CcK9vtt8VEaruCs8czojhSXraa4gF3O5", "회사소개서":"https://drive.google.com/open?id=1gk_cZ2zHyV5dgm7-UW76Hh3FnFMdgATq", "사업자등록증":"https://drive.google.com/open?id=1BanEsPWIwN7RhfBoQhyAjkENVnbn8pSv", "재무제표":"https://drive.google.com/open?id=1If3ZgHXsYclFfOVFka9xM9txk_3gxgxO", "추가":"https://drive.google.com/open?id=1EmOFlshm9HgUvPMuf1x5UqDEu8LBF9a-"},  // 토프모빌리티
   22: {"IR":"https://drive.google.com/open?id=18yKUuJk8jfrG7iXBPSVtd7t0xb-ozIY4", "회사소개서":"https://drive.google.com/open?id=1swz5a_59lwSyutlOnMs99IlGGO0dVKkQ", "사업자등록증":"https://drive.google.com/open?id=1e8bVYmMIA2chXWBhsyZi1skrKGZFe09V", "재무제표":"https://drive.google.com/open?id=1X2rRYz6NpORd0SSeijWGLGnung0cmcRJ"},  // 오톤도
-  23: {"IR":"https://drive.google.com/open?id=1KeidmdKbxVkn7MZcVMhUnQSQTQQ7yeqF", "사업자등록증":"https://drive.google.com/open?id=1wcvu_qHFv7Ok4dBSpx4an1rMCx8PXId4", "재무제표":"https://drive.google.com/open?id=12BpV0l5SdrRPPswIwVzX9cdmG3jklD08"},  // 프리딕션
+  23: {"IR":"https://drive.google.com/open?id=1PF590xBpXwt38cEyBCGsIlYEStHqVLtg", "사업자등록증":"https://drive.google.com/open?id=1d-LyIg2gmz_nFEN7aVHsvzXo1OXJUVKz"},  // 프리딕션 (4.24 업데이트)
   24: {"IR":"https://drive.google.com/open?id=1mhE4jK7FJghaj5Yrc9C9OXkXxKcBY_3z", "회사소개서":"https://drive.google.com/open?id=19TQV82E9lyg4MtsWNBQfLeKMriTQJJH8", "사업자등록증":"https://drive.google.com/open?id=1cS41M0YcUNaRejz8VK6CunrwU1CfajCk", "재무제표":"https://drive.google.com/open?id=1OuIJf27SuZuFSLoRrpv5saQVONig2mqB"},  // 커런시유나이티드
   25: {"IR":"https://drive.google.com/open?id=1hQAdhS421Q2Mh0sDCxute_BFQbnRCMA9", "회사소개서":"https://drive.google.com/open?id=1H0TXflFbMYrRlmKn01i81tPlSBTGDrYL", "사업자등록증":"https://drive.google.com/open?id=1-FT6z7WyFnhpDrqvhiSxK9pAN9NAvOGt", "재무제표":"https://drive.google.com/open?id=1AseXOJnYNBb7pwjP2yOYOlYJVglUlZpL"},  // 코파
   26: {"IR":"https://drive.google.com/open?id=1ieU2UBwxUxKpQoAhG_MzhKjlJwsqQQUR", "사업자등록증":"https://drive.google.com/open?id=1AQAlodRoTh_rYG1VJpcIE2uajM8nOnaC", "재무제표":"https://drive.google.com/open?id=1NuXaiCEDkP5fs17AdX0nmNRVDNGTXVaB"},  // 프레쉬아워
@@ -1627,13 +1645,30 @@ const COMPANY_LINKS = {
   30: {"IR":"https://drive.google.com/open?id=1FwavRXrwiMgCVCre_nSna1tpkDlk83Ao", "회사소개서":"https://drive.google.com/open?id=1-rhKWC0_6UW_SJmbxVdFq__uMQMvG4O0", "사업자등록증":"https://drive.google.com/open?id=1c17gywS55b-Oxj-cprr8QfJY-Wif_7RJ", "재무제표":"https://drive.google.com/open?id=1K_D_xByikJ94L5j1ocKCJZwTC52t98xc"},  // 디코
   31: {"IR":"https://drive.google.com/open?id=1sVypuYbYsXGuP2SkADv7bOJtPF0aGjiC", "회사소개서":"https://drive.google.com/open?id=1oiFbMiinBiWQ-Gvu62A2nx2uLDKiaRnV", "사업자등록증":"https://drive.google.com/open?id=1Ur3U_34A5LGLROZLtpxdX2gIYJUmkKQ6", "재무제표":"https://drive.google.com/open?id=170ZHcxLJmBIE7VSJbD2Czigd0egDEyXG", "추가":"https://www.linkedin.com/in/jeonghoonsim/"},  // 프렉탈테크놀로지
   32: {"IR":"https://drive.google.com/open?id=1VU0MA-KVSdtY0BrbJvv1m9OS8M1bwCC8", "회사소개서":"https://drive.google.com/open?id=1gejyV639LMb90XXWPgXgYg_RyW9_fynG", "사업자등록증":"https://drive.google.com/open?id=1Pf3HJufgP4lSmLETHnaGgJ6n0ASDLAQn", "재무제표":"https://drive.google.com/open?id=1lBgIMoZEyetyz73Jv_kivShoa-eGw9rz"},  // 니어브레인
+  33: {"IR":"https://drive.google.com/open?id=1DQFGou-B_W5Xgo67-9RHS96yAGaEofGR", "재무제표":"https://drive.google.com/open?id=1SaT9qyPAJN7_JkgniyFoUzPsaMKB6y5E"},  // 사이클로이드
+  34: {"IR":"https://drive.google.com/open?id=1r09DwgeUBkK0LCi2Ac71p6qGc9u0smGW", "회사소개서":"https://drive.google.com/open?id=1uPPXdRt_60vHp_YIQyYd9QjCWhaSej_4", "사업자등록증":"https://drive.google.com/open?id=1JWVfm_Z57BvEBtqJNgS2Y2lTOSvJ39xE", "재무제표":"https://drive.google.com/open?id=1MWqNdxHe8fuFszma7HGqRNKX1Ue21dP8", "추가":"https://drive.google.com/open?id=1yQbgRsE0ANgTgbBVhHgKrV0xcHgLiFS6"},  // 에스앤이컴퍼니
+  35: {"IR":"https://drive.google.com/open?id=1qUB9YKqew2qz14INmkTkueNV3yToDQlr", "사업자등록증":"https://drive.google.com/open?id=1w-LHgsVuko9tYeWBi8xF0sL4auRooSVJ", "재무제표":"https://drive.google.com/open?id=1Yqke51a40KLLwIwaX2AJKWCT95ufslkr"},  // 원인터내셔널
+  36: {"IR":"https://drive.google.com/open?id=16hq_Nckc4Tm5BGrIhTCsvgXYJ7e1y-lH", "재무제표":"https://drive.google.com/open?id=1hxj4RDBuWZKeL6Geov5uHeqG6JB5O51q"},  // 펨토리
+  37: {"IR":"https://drive.google.com/open?id=1GQhDB-qqwNwbIy6umRet0LXGlhs4KBd9", "재무제표":"https://drive.google.com/open?id=1frp9OoLpQXfuFVZwFoCGhSJnG_S-ZyPf", "추가":"https://drive.google.com/open?id=1nhyF_4L8cuAw8ByAnHC9uU_N1TIAyHU6", "기타":"https://drive.google.com/open?id=1h_QIalf8q2_e3Sel9wC7CqTqUpW1S4KO"},  // 바이브존
+  38: {"IR":"https://drive.google.com/open?id=1ph2MbA2ttlB8AvVc0PUT3V7COXFR6mvz", "사업자등록증":"https://drive.google.com/open?id=1JmyQFKce-NDcrqHPu11ATu5FDbyiMOJ9", "재무제표":"https://drive.google.com/open?id=1W23Plopp1InEYo21flg-o_QF6TCj6gN3"},  // 트라이큐빅스
+  39: {"IR":"https://drive.google.com/open?id=1PcoF_zTSKxHP_T4InyRBBKHLex629Qr3", "재무제표":"https://drive.google.com/open?id=1wR4QuTLggFK1x9if5WKAP4aZP-2__haK"},  // 위에이드
+  40: {"IR":"https://drive.google.com/open?id=1yk87c8MLs_4BDP-wksqBerVsMNLpWobP"},  // 헤시스
+  41: {"IR":"https://drive.google.com/open?id=1hhVypvnYLITGaL1pSdViJxezgJT2oROp", "회사소개서":"https://drive.google.com/open?id=1WakB7RUVYcAfVXxqrfGQdduHXM7PMQ_n", "사업자등록증":"https://drive.google.com/open?id=1Qb-BHscBr2ChLCcKx_duKBgrSs2wK8NN", "재무제표":"https://drive.google.com/open?id=1b25ZtDdP3jctb2X7RkEmNg4uif8aKZ3w", "추가":"https://youtu.be/YwM1rBzln8c"},  // 플렉스오더 (RoboTalk)
+  42: {"IR":"https://drive.google.com/open?id=1jwJHZhVAF5k-TBuRwqri_qi8z--NfxQz", "사업자등록증":"https://drive.google.com/open?id=1HEkggPgpEGBfCmExjFze4Rct3ifV0hxb", "재무제표":"https://drive.google.com/open?id=1SgbbWRVgKPO7INX8xF6fp3LbDuFu3VJt"},  // 파운디
+  43: {"IR":"https://drive.google.com/open?id=1iHSim3HmysaY_idWrHZwQw3l-YkH14ys", "회사소개서":"https://drive.google.com/open?id=10aT2sgh66c6zlT1AzmesRKJfB4OqxZv6", "사업자등록증":"https://drive.google.com/open?id=1ZALHI27iXtNfZgqUsnoyS7cPNQqHzfaC", "재무제표":"https://drive.google.com/open?id=1dM8unMZB_YQYil0ZLhdPxN8ZeNOCo3Mk"},  // 아리카
+  44: {"IR":"https://drive.google.com/open?id=1rSSxa0T7lHLDCjMVKn7jHhL-6i76vgFB", "회사소개서":"https://drive.google.com/open?id=1MwTQ8x_Xkbc1wyc-9y-7yWez0f2os7xG", "사업자등록증":"https://drive.google.com/open?id=1i7Ln-9-iTjHR1DRmb5YJpZ8Q5KRRRhkB", "재무제표":"https://drive.google.com/open?id=1BwEnJd2HlGpfjVarQzRR3cIGYMgg4PLW", "추가":"https://drive.google.com/open?id=1kXkiJlbfxP8_VH8P9ss0JFaOBgpLFOnx"},  // 온코인
+  45: {"IR":"https://drive.google.com/open?id=18plk522wuWICEuYYkzN8-M50fpno-ju2", "회사소개서":"https://drive.google.com/open?id=17bFUmBOXq6cMbtP-H2s1ok6fFHBY6-H6", "사업자등록증":"https://drive.google.com/open?id=18zNmQH99hOdDBZHMJn4FPApYaxqQRthY", "재무제표":"https://drive.google.com/open?id=1gP5eZPrI0qo8G8EQDT2EYDk0ORs_6vm2"},  // 더에이비오
+  46: {"IR":"https://drive.google.com/open?id=18F4Hhts36fAm91KtTq8EUChTcMUCmbnF", "사업자등록증":"https://drive.google.com/open?id=1Ki9rWtMh_MO_OHZYcJ7nlo7LzBRm8n-E", "재무제표":"https://drive.google.com/open?id=1eDB2O_IYscWmMGm4Aw0apQwy2d1sWV13"},  // 오디오가이
+  47: {"IR":"https://drive.google.com/open?id=1ux_yTEF91py1u2i0-nlkfax5LPAZlwz8", "사업자등록증":"https://drive.google.com/open?id=1PBhtiobXNm798F47GvJ-jkuO8wdRFfWO", "재무제표":"https://drive.google.com/open?id=1VaMo8f3LU-Bs7NFeiibKZXHqVFIgyl1Z"},  // 포어텔마이헬스
+  48: {"IR":"https://drive.google.com/open?id=1u3durVWNfXrggwMwVTavEEBQy92sp17e", "회사소개서":"https://drive.google.com/open?id=1Xi14CLtXzEmOnKLE8K8XuxDpe3fWcXhN", "사업자등록증":"https://drive.google.com/open?id=1ypPqeV8zleK0j_aTGW16BeIDQF_vBwb6", "재무제표":"https://drive.google.com/open?id=1LRrwxbCRUsMbv7tERBlyEIdHeH0N8dFE"},  // 하나네트웍스
+  49: {"IR":"https://drive.google.com/open?id=1EOrReeZ7eVcUn6QV9kctRk19Kc8bvl5G", "사업자등록증":"https://drive.google.com/open?id=11rFbRSYiMeGt8mW1_moOBahTW1e7IIS2", "추가":"https://drive.google.com/open?id=1NuE551o6jwFHDcWWS0ck0-nncBo7rChZ"},  // 베드락
 };
 
 
-// 심사 기준 (최대 단순화: 4개 영역 × 통합 평가 1개씩 / 총 100점)
+// 심사 기준 (5개 영역 × 각 20점 = 100점 / 척도: 0, 5, 10, 15, 20점)
 const CRITERIA = [
-  {group:"1. 팀/창업자 역량", groupShort:"팀", weight:25, color:"#1F4E79", items:[
-    {id:"1-1", name:"팀 종합 평가", pts:25,
+  {group:"1. 팀/창업자 역량", groupShort:"팀", weight:20, color:"#1F4E79", items:[
+    {id:"1-1", name:"팀 종합 평가", pts:20,
      guide:"아래 4가지 요소를 종합하여 한 번에 평가합니다",
      subPoints:[
        "① 창업자 전문성·도메인 경력 — 해당 기술·산업 분야에서의 실질적 경험·학력·연구 이력",
@@ -1645,8 +1680,8 @@ const CRITERIA = [
      t3:"2~3가지 요소는 우수, 일부 요소는 보완 필요",
      t1:"대부분 요소에서 미흡, 핵심 공백 존재"}
   ]},
-  {group:"2. 기술 경쟁력", groupShort:"기술", weight:30, color:"#2563FF", items:[
-    {id:"2-1", name:"기술 종합 평가", pts:30,
+  {group:"2. 기술 경쟁력", groupShort:"기술", weight:20, color:"#2563FF", items:[
+    {id:"2-1", name:"기술 종합 평가", pts:20,
      guide:"아래 4가지 요소를 종합하여 한 번에 평가합니다",
      subPoints:[
        "① 기술의 독창성·난이도 — 원천기술 여부, 모방·대체 난이도, 딥테크 수준",
@@ -1658,34 +1693,45 @@ const CRITERIA = [
      t3:"2~3가지 요소는 우수, 일부 요소는 보완 필요",
      t1:"대부분 요소에서 미흡, 진입장벽·차별성 부족"}
   ]},
-  {group:"3. 시장성·사업모델", groupShort:"시장", weight:30, color:"#2E75B6", items:[
-    {id:"3-1", name:"시장·사업모델 종합 평가", pts:30,
-     guide:"아래 6가지 요소를 종합하여 한 번에 평가합니다",
+  {group:"3. 시장성·사업모델", groupShort:"시장", weight:20, color:"#2E75B6", items:[
+    {id:"3-1", name:"시장·사업모델 종합 평가", pts:20,
+     guide:"아래 3가지 요소를 종합하여 한 번에 평가합니다",
      subPoints:[
        "① 시장 규모(TAM/SAM/SOM) 타당성 — 시장 규모 및 산정 논리",
        "② 문제 정의·고객 Pain Point — 문제의 심각성, 고객 지불의사",
-       "③ GTM 전략·글로벌 확장 가능성 — 초기 고객·채널·해외 진입",
-       "④ 수익 모델·단위경제성(Unit Economics) — 마진율·CAC/LTV·계약 매출",
-       "⑤ 매출·성장률·트랙션 — 최근 매출, 전년 대비 성장률",
-       "⑥ 재무 건전성·Runway — 현금 보유·Burn Rate·자금 계획"
+       "③ GTM 전략·글로벌 확장 가능성 — 초기 고객·채널·해외 진입"
      ],
-     t5:"6가지 요소 모두 우수 — 대형 시장, 검증된 Pain Point, 해외 트랙션, 탄탄한 재무",
-     t3:"3~4가지 요소는 우수, 일부 요소는 보완 필요",
-     t1:"대부분 요소에서 미흡, 시장·사업모델 불확실"}
+     t5:"3가지 요소 모두 우수 — 대형 시장, 검증된 Pain Point, 명확한 GTM·해외 확장성",
+     t3:"2가지 요소는 우수, 일부 보완 필요",
+     t1:"대부분 요소에서 미흡, 시장·사업 방향 불확실"}
   ]},
-  {group:"4. 투자 매력도", groupShort:"투자", weight:15, color:"#BF8F00", items:[
-    {id:"4-1", name:"투자 매력 종합 평가", pts:15,
+  {group:"4. 매출 성장성", groupShort:"매출", weight:20, color:"#548235", items:[
+    {id:"4-1", name:"매출 성장성 종합 평가", pts:20,
      guide:"아래 3가지 요소를 종합하여 한 번에 평가합니다",
      subPoints:[
-       "① 투자 단계·밸류에이션 적합성 — 업력·단계 대비 밸류의 합리성",
-       "② 후속 투자·Exit 시나리오 — 후속 VC 파이프라인, M&A/IPO 경로",
-       "③ 리스크 요인 식별·대응 — 핵심 리스크 인지와 대응 방안"
+       "① 수익 모델·단위경제성(Unit Economics) — 마진율·CAC/LTV·계약 매출",
+       "② 매출·성장률·트랙션 — 최근 매출, 전년 대비 성장률",
+       "③ 재무 건전성·Runway — 현금 보유·Burn Rate·자금 계획"
      ],
-     t5:"3가지 요소 모두 우수 — 합리적 밸류, 명확한 Exit 경로, 리스크 관리 체계",
-     t3:"2가지 요소는 우수, 일부 요소는 보완 필요",
+     t5:"3가지 요소 모두 우수 — 견고한 Unit Economics, 고성장 매출, Runway 18개월+",
+     t3:"2가지 요소는 우수, 일부 보완 필요",
+     t1:"대부분 요소에서 미흡, 매출 성장성 불확실"}
+  ]},
+  {group:"5. 투자 매력도", groupShort:"투자", weight:20, color:"#BF8F00", items:[
+    {id:"5-1", name:"투자 매력도 종합 평가", pts:20,
+     guide:"아래 2가지 요소를 종합하여 한 번에 평가합니다",
+     subPoints:[
+       "① 팁스 / 스케일업 팁스 추천 가능성 — TIPS·스케일업·딥테크 팁스 적격 여부",
+       "② 후속 투자 및 Exit 가능성 — 후속 VC 파이프라인, M&A/IPO 경로"
+     ],
+     t5:"2가지 요소 모두 우수 — TIPS 추천 즉시 가능, 후속 투자·Exit 경로 명확",
+     t3:"1가지 요소 우수, 나머지 보완 필요",
      t1:"대부분 요소에서 미흡, 투자 매력도 낮음"}
   ]}
 ];
+
+// 점수 척도 (0, 5, 10, 15, 20점)
+const SCORE_SCALE = [0, 5, 10, 15, 20];
 
 // 미트프로이데 IR 요약 데이터
 const MITFREUDE_IR = {
@@ -1978,7 +2024,7 @@ function calcTotal(companyNo) {
   for (const g of CRITERIA) {
     for (const it of g.items) {
       const s = data.scores[it.id];
-      if (s != null) total += s * it.pts / 5;
+      if (s != null) total += s;  // 버튼 값이 곧 실제 점수 (0, 5, 10, 15, 20)
     }
   }
   return Math.round(total * 10) / 10;
@@ -1991,7 +2037,7 @@ function calcGroupTotal(companyNo, group) {
   let has = false;
   for (const it of group.items) {
     const s = data.scores[it.id];
-    if (s != null) { total += s * it.pts / 5; has = true; }
+    if (s != null) { total += s; has = true; }
   }
   return has ? Math.round(total * 10) / 10 : null;
 }
@@ -2205,20 +2251,15 @@ function updateNextButtonLabel(companyNo) {
   const list = getFilteredCompanies();
   const idx = list.findIndex(c => c.no === companyNo);
   const btn = document.getElementById("nextCompanyBtn");
-  const label = document.getElementById("nextCompanyLabel");
-  if (!btn || !label) return;
+  if (!btn) return;
 
   if (idx === -1 || idx >= list.length - 1) {
-    label.textContent = "저장하고 심사 완료";
-    btn.querySelector("i")?.remove();
-    if (!btn.querySelector(".fa-check")) {
-      const check = document.createElement("i");
-      check.className = "fa-solid fa-check";
-      btn.appendChild(check);
-    }
+    // 마지막 기업
+    btn.innerHTML = '<span>저장하고 심사 완료</span><i class="fa-solid fa-check"></i>';
   } else {
     const next = list[idx + 1];
-    label.textContent = `저장하고 다음 심사로 (${next.brand || next.name})`;
+    const nextName = (next.brand || next.name).replace(/[<>"']/g, '');
+    btn.innerHTML = `<span>저장하고 다음 심사로</span><span style="opacity:0.7;font-size:0.9em;margin-left:4px">(${escapeHtml(nextName)})</span><i class="fa-solid fa-arrow-right"></i>`;
   }
 }
 
@@ -2391,7 +2432,7 @@ function renderReviewPanel(c) {
 
   return `
     <div class="review-intro">
-      <strong>평가 방식:</strong> 각 세부 항목을 1~5점으로 평가합니다 (5=우수 / 3=보통 / 1=미흡). 배점에 따라 자동 가중 계산되어 100점 만점의 총점이 산출됩니다.
+      <strong>평가 방식:</strong> 5개 영역을 각각 0·5·10·15·20점 중 하나로 평가합니다 (20=우수 / 10=보통 / 0=미흡). 5개 영역 점수 합계가 100점 만점의 총점이 됩니다.
     </div>
 
     <div class="score-summary">
@@ -2432,7 +2473,7 @@ function renderReviewPanel(c) {
                 </ul>
               ` : ""}
               <div class="score-input-row">
-                ${[1,2,3,4,5].map(n => `
+                ${SCORE_SCALE.map(n => `
                   <button class="score-btn ${s === n ? 'selected' : ''}" data-item="${item.id}" data-score="${n}">${n}</button>
                 `).join("")}
               </div>
@@ -2441,9 +2482,9 @@ function renderReviewPanel(c) {
               </button>
               <div class="guide-tooltip">
                 <div class="guide-tiers">
-                  <div class="guide-tier t5"><div class="guide-tier-label">5점</div>${escapeHtml(item.t5)}</div>
-                  <div class="guide-tier t3"><div class="guide-tier-label">3점</div>${escapeHtml(item.t3)}</div>
-                  <div class="guide-tier t1"><div class="guide-tier-label">1점</div>${escapeHtml(item.t1)}</div>
+                  <div class="guide-tier t5"><div class="guide-tier-label">20점</div>${escapeHtml(item.t5)}</div>
+                  <div class="guide-tier t3"><div class="guide-tier-label">10점</div>${escapeHtml(item.t3)}</div>
+                  <div class="guide-tier t1"><div class="guide-tier-label">0점</div>${escapeHtml(item.t1)}</div>
                 </div>
               </div>
             </div>
