@@ -1453,6 +1453,192 @@ main {
   font-size: 11px;
 }
 
+/* ====================================================================== */
+/* 심사위원 선택 모달 (7명 화이트리스트 + PIN)                              */
+/* ====================================================================== */
+.modal-reviewer-select {
+  max-width: 560px;
+}
+
+.reviewer-select-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 16px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.reviewer-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--white);
+  width: 100%;
+}
+.reviewer-card:hover {
+  background: var(--panel-light);
+  border-color: var(--blue);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 255, 0.15);
+}
+.reviewer-card.current {
+  border-color: var(--blue-light);
+  background: rgba(37, 99, 255, 0.08);
+}
+
+.reviewer-card-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--white);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(37, 99, 255, 0.3);
+}
+
+.reviewer-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.reviewer-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+}
+.reviewer-card-name .reviewer-card-en {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--silver-dim);
+  margin-left: 4px;
+}
+
+.reviewer-card-role {
+  font-size: 11px;
+  color: var(--silver-dim);
+  letter-spacing: 0.03em;
+}
+
+.reviewer-card-count {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-shrink: 0;
+  padding: 6px 12px;
+  background: rgba(200, 214, 236, 0.05);
+  border-radius: 8px;
+}
+.reviewer-card-count .count-badge {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--blue-light);
+  line-height: 1;
+}
+.reviewer-card-count .count-label {
+  font-size: 10px;
+  color: var(--silver-dim);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* PIN 입력 섹션 */
+.pin-selected-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(37, 99, 255, 0.1);
+  border: 1px solid rgba(37, 99, 255, 0.3);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--white);
+}
+.pin-selected-name i {
+  color: var(--blue-light);
+  font-size: 16px;
+}
+.pin-selected-name span {
+  flex: 1;
+  font-weight: 600;
+}
+
+.pin-change-btn {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--silver-dim);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+.pin-change-btn:hover {
+  color: var(--white);
+  border-color: var(--blue);
+}
+
+#pinInput {
+  width: 100%;
+  padding: 18px 20px;
+  background: var(--bg2);
+  border: 2px solid var(--border-strong);
+  border-radius: 12px;
+  color: var(--white);
+  font-size: 24px;
+  font-family: var(--font-display);
+  letter-spacing: 0.8em;
+  text-align: center;
+  transition: border-color 0.2s;
+  font-weight: 400;
+}
+#pinInput:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: var(--panel-light);
+}
+
+.pin-error {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: var(--danger);
+  font-size: 13px;
+}
+
+.shake {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97);
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
 @media (max-width: 768px) {
   nav { padding: 12px 16px; }
   main { padding: 24px 16px 60px; }
@@ -1467,17 +1653,28 @@ main {
 
 <!-- Reviewer Modal -->
 <div class="modal-overlay" id="reviewerModal">
-  <div class="modal">
-    <h3 id="modalTitle">심사위원 등록</h3>
-    <p id="modalDesc">심사를 시작하려면 이름을 입력해주세요. 이름별로 점수가 개별 저장됩니다.</p>
-    <input type="text" id="reviewerNameInput" placeholder="홍길동" maxlength="20">
-    <div class="modal-actions">
-      <button class="modal-btn secondary" id="modalCancel" style="display:none">취소</button>
-      <button class="modal-btn primary" id="modalConfirm">시작하기</button>
-    </div>
-    <div class="reviewer-list" id="reviewerList" style="display:none">
-      <div class="reviewer-list-title">기존 심사위원</div>
-      <div id="reviewerListBody"></div>
+  <div class="modal modal-reviewer-select">
+    <h3 id="modalTitle">심사위원 선택</h3>
+    <p id="modalDesc">본인의 이름을 선택하고 PIN 코드를 입력해주세요.</p>
+
+    <div class="reviewer-select-grid" id="reviewerSelectGrid"></div>
+
+    <div id="pinSection" style="display:none">
+      <div class="pin-selected-name">
+        <i class="fa-solid fa-user-check"></i>
+        <span id="pinSelectedName"></span>
+        <button class="pin-change-btn" onclick="resetReviewerSelection()">변경</button>
+      </div>
+      <label style="font-size:12px;color:var(--silver-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:16px;display:block;margin-bottom:8px">PIN 코드 입력 (4자리)</label>
+      <input type="password" id="pinInput" placeholder="● ● ● ●" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+      <div id="pinError" class="pin-error" style="display:none">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>PIN 코드가 일치하지 않습니다</span>
+      </div>
+      <div class="modal-actions" style="margin-top:20px">
+        <button class="modal-btn secondary" onclick="resetReviewerSelection()">뒤로</button>
+        <button class="modal-btn primary" id="modalConfirm">입장하기</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1733,6 +1930,19 @@ const CRITERIA = [
 // 점수 척도 (0, 5, 10, 15, 20점)
 const SCORE_SCALE = [0, 5, 10, 15, 20];
 
+// ========================================================================
+// 심사위원 화이트리스트 (7명) — PIN은 개인 전화번호 끝 4자리
+// ========================================================================
+const ALLOWED_REVIEWERS = [
+  {name: "정주용", englishName: "Perry Jung",  pin: "6625", role: "대표 / Founder / CIO · 투자본부",         email: "perry@gravityventures.kr"},
+  {name: "김샛별", englishName: "Jessy Kim",   pin: "4228", role: "대표 / Founder / CEO · 업무총괄",         email: "jessy@gravityventures.kr"},
+  {name: "류재언", englishName: "Jaeeon Ryoo", pin: "2096", role: "전략이사 / Founder / CSO · 경영기획본부", email: "ryoo.cso@gravityventures.kr"},
+  {name: "김대홍", englishName: "Jay Kim",     pin: "7885", role: "부사장 · AC본부",                          email: "jay@gravityventures.kr"},
+  {name: "김성하", englishName: "Sean Kim",    pin: "4268", role: "투자본부 본부장 | 상무",                   email: "sean@gravityventures.kr"},
+  {name: "최미란", englishName: "Ella Choi",   pin: "1819", role: "AC본부 본부장 | 이사",                     email: "ella@gravityventures.kr"},
+  {name: "박세웅", englishName: "Glenn Park",  pin: "4499", role: "투자본부 팀장",                            email: "glenn@gravityventures.kr"}
+];
+
 // 미트프로이데 IR 요약 데이터
 const MITFREUDE_IR = {
   tagline: "반도체 공정용 폐쿼츠를 고순도 광학소재(Zentium)로 전환하는 소부장 딥테크 스타트업. 크리스탈·랩그로운 다이아몬드 대체 소재로 주얼리·패션 부자재 시장 진입 중.",
@@ -1915,18 +2125,21 @@ async function init() {
     allReviewers = [];
   }
 
-  // 저장된 현재 심사위원이 있으면 복원, 없으면 모달 열기
+  // 저장된 현재 심사위원이 있으면 복원 (단, 허용 리스트에 있을 때만)
   let savedReviewer = null;
   const saved = await _storageGet("current_reviewer");
   if (saved && saved.value) savedReviewer = saved.value;
 
-  if (savedReviewer) {
+  const isAllowed = savedReviewer && ALLOWED_REVIEWERS.some(r => r.name === savedReviewer);
+
+  if (isAllowed) {
     currentReviewer = savedReviewer;
     await loadCurrentReviewerData();
     updateReviewerPill();
     renderStats();
     renderCompanyGrid();
   } else {
+    // 허용되지 않은 이름이거나 첫 방문 → 선택 모달
     await openReviewerModal(false);
   }
 }
@@ -1937,57 +2150,105 @@ async function loadCurrentReviewerData() {
 }
 
 // ========================================================================
-// UI — 심사위원 모달
+// UI — 심사위원 선택 모달 (7명 화이트리스트 + PIN)
 // ========================================================================
+let pendingReviewer = null;  // PIN 입력 단계에서 임시 선택된 심사위원
+
 async function openReviewerModal(allowCancel) {
   const modal = document.getElementById("reviewerModal");
-  const cancel = document.getElementById("modalCancel");
-  const list = document.getElementById("reviewerList");
-  const listBody = document.getElementById("reviewerListBody");
+  const grid = document.getElementById("reviewerSelectGrid");
+  const pinSection = document.getElementById("pinSection");
 
-  cancel.style.display = allowCancel ? "block" : "none";
-  document.getElementById("reviewerNameInput").value = currentReviewer || "";
+  // 초기 상태: 카드 선택 화면
+  pinSection.style.display = "none";
+  grid.style.display = "grid";
+  document.getElementById("pinError").style.display = "none";
+  document.getElementById("pinInput").value = "";
+  pendingReviewer = null;
 
-  // ⚠️ 먼저 모달 열기 — storage 실패해도 UI는 동작해야 함
+  // 모달 열기
   modal.classList.add("active");
-  setTimeout(() => document.getElementById("reviewerNameInput").focus(), 100);
 
-  // 기존 심사위원 목록 로드 (실패 시 빈 상태로 처리)
-  try {
-    allReviewers = await loadReviewerList();
-  } catch {
-    allReviewers = [];
-  }
-
-  if (allReviewers && allReviewers.length > 0) {
-    list.style.display = "block";
-    listBody.innerHTML = "";
-    for (const name of allReviewers) {
-      let scoredCount = 0;
-      try {
-        const data = await loadReviewer(name);
-        scoredCount = data ? Object.keys(data).length : 0;
-      } catch {
-        scoredCount = 0;
-      }
-      const item = document.createElement("div");
-      item.className = "reviewer-list-item";
-      item.innerHTML = `<span><i class="fa-solid fa-user" style="color:var(--blue-light);margin-right:8px"></i>${escapeHtml(name)}</span><span class="count">${scoredCount}개사 평가</span>`;
-      item.onclick = () => selectReviewer(name);
-      listBody.appendChild(item);
+  // 각 심사위원별 평가 진행 상황 로드
+  const progressMap = {};
+  for (const rv of ALLOWED_REVIEWERS) {
+    try {
+      const data = await loadReviewer(rv.name);
+      progressMap[rv.name] = data ? Object.keys(data).length : 0;
+    } catch {
+      progressMap[rv.name] = 0;
     }
-  } else {
-    list.style.display = "none";
   }
+
+  // 7명 카드 렌더링
+  grid.innerHTML = ALLOWED_REVIEWERS.map(rv => {
+    const count = progressMap[rv.name] || 0;
+    const isCurrent = rv.name === currentReviewer;
+    const englishName = rv.englishName ? `<span class="reviewer-card-en">${escapeHtml(rv.englishName)}</span>` : '';
+    return `
+      <button class="reviewer-card ${isCurrent ? 'current' : ''}" data-reviewer="${escapeHtml(rv.name)}">
+        <div class="reviewer-card-avatar">${escapeHtml(rv.name.charAt(0))}</div>
+        <div class="reviewer-card-info">
+          <div class="reviewer-card-name">${escapeHtml(rv.name)} ${englishName}</div>
+          <div class="reviewer-card-role">${escapeHtml(rv.role || '')}</div>
+        </div>
+        <div class="reviewer-card-count">
+          ${count > 0 ? `<span class="count-badge">${count}</span><span class="count-label">평가</span>` : '<span class="count-label">미평가</span>'}
+        </div>
+      </button>
+    `;
+  }).join("");
+
+  // 카드 클릭 이벤트
+  grid.querySelectorAll(".reviewer-card").forEach(card => {
+    card.onclick = () => showPinInput(card.dataset.reviewer);
+  });
+}
+
+function showPinInput(reviewerName) {
+  pendingReviewer = reviewerName;
+  document.getElementById("reviewerSelectGrid").style.display = "none";
+  document.getElementById("pinSection").style.display = "block";
+  document.getElementById("pinSelectedName").textContent = reviewerName;
+  document.getElementById("pinError").style.display = "none";
+  document.getElementById("pinInput").value = "";
+  setTimeout(() => document.getElementById("pinInput").focus(), 100);
+}
+
+function resetReviewerSelection() {
+  pendingReviewer = null;
+  document.getElementById("pinSection").style.display = "none";
+  document.getElementById("reviewerSelectGrid").style.display = "grid";
+  document.getElementById("pinError").style.display = "none";
+  document.getElementById("pinInput").value = "";
+}
+
+async function verifyPinAndEnter() {
+  if (!pendingReviewer) return;
+  const pin = document.getElementById("pinInput").value.trim();
+  const rv = ALLOWED_REVIEWERS.find(r => r.name === pendingReviewer);
+
+  if (!rv || rv.pin !== pin) {
+    // PIN 오류
+    document.getElementById("pinError").style.display = "flex";
+    const input = document.getElementById("pinInput");
+    input.classList.add("shake");
+    setTimeout(() => input.classList.remove("shake"), 500);
+    input.select();
+    return;
+  }
+
+  // 성공 - 입장
+  await selectReviewer(pendingReviewer);
 }
 
 async function selectReviewer(name) {
-  // ⚠️ UI 전환을 먼저 수행 — storage 실패해도 페이지는 넘어가야 함
+  // UI 전환 먼저
   currentReviewer = name;
   updateReviewerPill();
   closeReviewerModal();
 
-  // storage 작업 (실패해도 앱 동작에는 영향 없음, 메모리 fallback 존재)
+  // storage 작업
   await _storageSet("current_reviewer", name);
 
   try {
@@ -2697,19 +2958,28 @@ function bindEvents() {
       renderCompanyGrid();
     };
   });
+  // PIN 검증 및 입장
   document.getElementById("modalConfirm").onclick = async () => {
-    const name = document.getElementById("reviewerNameInput").value.trim();
-    if (!name) { alert("이름을 입력해주세요."); return; }
     try {
-      await selectReviewer(name);
+      await verifyPinAndEnter();
     } catch (e) {
-      console.error("selectReviewer 에러:", e);
+      console.error("입장 에러:", e);
       alert("오류가 발생했습니다: " + e.message);
     }
   };
-  document.getElementById("modalCancel").onclick = closeReviewerModal;
-  document.getElementById("reviewerNameInput").onkeydown = (e) => {
-    if (e.key === "Enter") document.getElementById("modalConfirm").click();
+  // PIN 입력 중 Enter 키 지원 & 숫자만 입력
+  const pinInput = document.getElementById("pinInput");
+  pinInput.oninput = (e) => {
+    // 숫자만 허용
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    // 에러 숨김
+    document.getElementById("pinError").style.display = "none";
+  };
+  pinInput.onkeydown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      document.getElementById("modalConfirm").click();
+    }
   };
 }
 
