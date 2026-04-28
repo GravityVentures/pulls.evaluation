@@ -1736,11 +1736,27 @@ main {
   font-weight: 600;
 }
 
-/* 카드 좌측 보더 — 글렌 등급별 */
-.company-card.glenn-A { border-left: 3px solid var(--glenn-a); }
-.company-card.glenn-B { border-left: 3px solid var(--glenn-b); }
-.company-card.glenn-C { border-left: 3px solid var(--glenn-c); }
-.company-card.glenn-D { border-left: 3px solid var(--glenn-d); }
+/* 카드 — Glenn 추천 (A/B/C) 박스 전체 보라 톤 강조 */
+.company-card.glenn-A,
+.company-card.glenn-B,
+.company-card.glenn-C {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.10) 0%, rgba(168, 85, 247, 0.04) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-left: 3px solid var(--glenn-a);
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.08), 0 4px 14px rgba(168, 85, 247, 0.05);
+}
+.company-card.glenn-A::before,
+.company-card.glenn-B::before,
+.company-card.glenn-C::before {
+  background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.18), transparent 60%);
+}
+.company-card.glenn-A:hover,
+.company-card.glenn-B:hover,
+.company-card.glenn-C:hover {
+  border-color: rgba(168, 85, 247, 0.7);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--glenn-a), 0 0 24px rgba(168, 85, 247, 0.18);
+  transform: translateY(-2px);
+}
 
 /* 카드 글렌 배지 (좌측 상단) */
 .glenn-badge {
@@ -1754,10 +1770,11 @@ main {
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
-.glenn-badge.glenn-A { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
-.glenn-badge.glenn-B { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.4); }
-.glenn-badge.glenn-C { background: rgba(217, 119, 6, 0.15); color: #fbbf24; border: 1px solid rgba(217, 119, 6, 0.4); }
-.glenn-badge.glenn-D { background: rgba(75, 85, 99, 0.2); color: var(--silver-dim); border: 1px solid rgba(75, 85, 99, 0.5); }
+/* A/B/C 등급 모두 보라 배지로 통일, D는 표시 안 함 */
+.glenn-badge.glenn-A,
+.glenn-badge.glenn-B,
+.glenn-badge.glenn-C { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+.glenn-badge.glenn-D { display: none; }
 
 /* 기 투자기업 골드 배지 */
 .portfolio-badge {
@@ -1806,10 +1823,7 @@ main {
   font-family: inherit;
 }
 .glenn-filter-row .filter-chip-glenn:hover { color: var(--white); border-color: var(--blue); }
-.glenn-filter-row .filter-chip-glenn.active.glenn-A { background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: var(--glenn-a); }
-.glenn-filter-row .filter-chip-glenn.active.glenn-B { background: rgba(6, 182, 212, 0.2); color: #22d3ee; border-color: var(--glenn-b); }
-.glenn-filter-row .filter-chip-glenn.active.glenn-C { background: rgba(217, 119, 6, 0.2); color: #fbbf24; border-color: var(--glenn-c); }
-.glenn-filter-row .filter-chip-glenn.active.glenn-D { background: rgba(75, 85, 99, 0.3); color: var(--silver); border-color: var(--glenn-d); }
+.glenn-filter-row .filter-chip-glenn.active.glenn-recommend { background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: var(--glenn-a); }
 .glenn-filter-row .filter-chip-glenn.active.glenn-portfolio { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: var(--portfolio); }
 .glenn-filter-row .filter-chip-glenn.active.glenn-all { background: var(--blue); color: var(--white); border-color: var(--blue); }
 .glenn-filter-row-label {
@@ -1833,9 +1847,9 @@ main {
   gap: 18px;
   flex-wrap: wrap;
 }
-.glenn-detail-panel.grade-A { border-color: rgba(168, 85, 247, 0.4); }
-.glenn-detail-panel.grade-B { border-color: rgba(6, 182, 212, 0.4); }
-.glenn-detail-panel.grade-C { border-color: rgba(217, 119, 6, 0.4); }
+.glenn-detail-panel.grade-A,
+.glenn-detail-panel.grade-B,
+.glenn-detail-panel.grade-C { border-color: rgba(168, 85, 247, 0.4); }
 .glenn-detail-panel.grade-D { border-color: rgba(75, 85, 99, 0.5); }
 
 .glenn-detail-score {
@@ -1858,9 +1872,9 @@ main {
   font-size: 36px;
   line-height: 1;
 }
-.glenn-detail-score-value.A { color: #c084fc; }
-.glenn-detail-score-value.B { color: #22d3ee; }
-.glenn-detail-score-value.C { color: #fbbf24; }
+.glenn-detail-score-value.A,
+.glenn-detail-score-value.B,
+.glenn-detail-score-value.C { color: #c084fc; }
 .glenn-detail-score-value.D { color: var(--silver-dim); }
 .glenn-detail-score-grade {
   font-size: 11px;
@@ -1940,6 +1954,63 @@ main {
 .stat-card.glenn-stat .stat-glenn-cell .num.D { color: var(--silver-dim); }
 .stat-card.glenn-stat .stat-glenn-cell .num.P { color: #fbbf24; }
 
+
+/* 백업 버튼 (JSON 내보내기/불러오기) */
+.backup-btn-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+}
+.backup-btn {
+  background: rgba(168, 85, 247, 0.08);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  color: #c084fc;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  letter-spacing: 0.02em;
+}
+.backup-btn:hover {
+  background: rgba(168, 85, 247, 0.16);
+  border-color: rgba(168, 85, 247, 0.55);
+  color: #d8b4fe;
+}
+.backup-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.backup-btn i { font-size: 11px; }
+
+/* 저장 상태 안내 (헤더 우측) */
+.storage-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  color: var(--silver-dim);
+  letter-spacing: 0.05em;
+  margin-left: 12px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+}
+.storage-status i { color: var(--success); font-size: 9px; }
+.storage-status.warning {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #fbbf24;
+}
+.storage-status.warning i { color: #fbbf24; }
+
 </style>
 </head>
 <body>
@@ -1948,7 +2019,7 @@ main {
 <div class="modal-overlay" id="reviewerModal">
   <div class="modal modal-reviewer-select">
     <h3 id="modalTitle">심사위원 선택</h3>
-    <p id="modalDesc">본인의 이름을 선택하고 PIN 코드를 입력해주세요.</p>
+    <p id="modalDesc">본인의 이름을 선택하고 휴대폰 번호 마지막 4자리를 입력해주세요.</p>
 
     <div class="reviewer-select-grid" id="reviewerSelectGrid"></div>
 
@@ -1958,11 +2029,11 @@ main {
         <span id="pinSelectedName"></span>
         <button class="pin-change-btn" onclick="resetReviewerSelection()">변경</button>
       </div>
-      <label style="font-size:12px;color:var(--silver-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:16px;display:block;margin-bottom:8px">PIN 코드 입력 (4자리)</label>
+      <label style="font-size:12px;color:var(--silver-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:16px;display:block;margin-bottom:8px">휴대폰 번호 마지막 4자리</label>
       <input type="password" id="pinInput" placeholder="● ● ● ●" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
       <div id="pinError" class="pin-error" style="display:none">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <span>PIN 코드가 일치하지 않습니다</span>
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <span>휴대폰 번호 마지막 4자리를 입력해주세요</span>
       </div>
       <div class="modal-actions" style="margin-top:20px">
         <button class="modal-btn secondary" onclick="resetReviewerSelection()">뒤로</button>
@@ -1988,14 +2059,28 @@ main {
     </div>
   </a>
   <div class="nav-actions">
+    <span class="storage-status" id="storageStatus" title="이 브라우저에 자동 저장됩니다">
+      <i class="fa-solid fa-circle"></i>
+      <span id="storageStatusText">자동 저장 중</span>
+    </span>
     <button class="reviewer-pill" id="reviewerPill" onclick="openReviewerModal(true)">
       <div class="reviewer-pill-avatar" id="reviewerAvatar">?</div>
       <span id="reviewerName">심사위원 선택</span>
       <i class="fa-solid fa-chevron-down"></i>
     </button>
-    <button class="btn-export" onclick="exportMyScores()">
+    <div class="backup-btn-group">
+      <button class="backup-btn" onclick="exportReviewerData()" title="현재 심사 진행 상태를 JSON 파일로 백업합니다 (다른 컴퓨터로 옮길 때 사용)">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>백업 저장</span>
+      </button>
+      <button class="backup-btn" onclick="triggerImportFile()" title="이전에 백업한 JSON 파일을 불러옵니다">
+        <i class="fa-solid fa-file-arrow-up"></i>
+        <span>백업 복원</span>
+      </button>
+    </div>
+    <button class="btn-export" onclick="exportMyScores()" title="심사 결과를 CSV 파일(Excel)로 내보냅니다">
       <i class="fa-solid fa-download"></i>
-      <span>내 점수 내보내기</span>
+      <span>CSV 내보내기</span>
     </button>
   </div>
 </nav>
@@ -2012,7 +2097,7 @@ main {
 
     <div class="glenn-notice">
       <i class="fa-solid fa-circle-info"></i>
-      <div><strong>Glenn이 1차 분류한 결과가 카드 색상으로 표시됩니다.</strong> 시간이 부족하시면 A·B 등급(18개사)부터 우선 검토해주세요. 단, 이는 <em>참고용</em>이며 모든 심사위원의 독립적 판단을 우선합니다. <span style="color:var(--silver-dim);font-size:11.5px;">A: 보라 / B: 청록 / C: 호박 / D: 회색 · 골드 별 ★ = 기 투자기업</span></div>
+      <div><strong>보라색 카드는 Glenn이 검토를 권장한 기업입니다 (44개사).</strong> 시간이 부족하시면 보라 카드부터 우선 검토해주세요. 단, 이는 <em>참고용</em>이며 모든 심사위원의 독립적 판단을 우선합니다. <span style="color:var(--silver-dim);font-size:11.5px;">★ 골드 배지 = 기 투자기업</span></div>
     </div>
 
     <div class="stats-bar" id="statsBar"></div>
@@ -2022,27 +2107,15 @@ main {
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="searchInput" placeholder="회사명·분야·소재지 검색...">
       </div>
-      <div style="display:flex;flex-direction:column;gap:0;flex:1;min-width:0">
-        <div class="filter-group" id="filterGroup">
-          <button class="filter-chip active" data-filter="all">전체</button>
-          <button class="filter-chip" data-filter="Physical AI">Physical AI</button>
-          <button class="filter-chip" data-filter="반도체">반도체</button>
-          <button class="filter-chip" data-filter="의료">헬스케어/의료</button>
-          <button class="filter-chip" data-filter="딥테크">딥테크</button>
-        </div>
-        <div class="glenn-filter-row" id="glennFilterRow">
-          <span class="glenn-filter-row-label">Glenn 분류</span>
-          <button class="filter-chip-glenn active glenn-all" data-glenn="all">전체</button>
-          <button class="filter-chip-glenn glenn-A" data-glenn="A">A · 4개</button>
-          <button class="filter-chip-glenn glenn-B" data-glenn="B">B · 14개</button>
-          <button class="filter-chip-glenn glenn-C" data-glenn="C">C · 26개</button>
-          <button class="filter-chip-glenn glenn-D" data-glenn="D">D · 38개</button>
-          <button class="filter-chip-glenn glenn-portfolio" data-glenn="portfolio"><i class="fa-solid fa-star" style="font-size:9px;margin-right:3px"></i>기 투자기업 · 5개</button>
-        </div>
+      <div class="filter-group" id="filterGroup">
+        <button class="filter-chip active" data-filter="all">전체</button>
+        <button class="filter-chip" data-filter="Physical AI">Physical AI</button>
+        <button class="filter-chip" data-filter="반도체">반도체</button>
+        <button class="filter-chip" data-filter="의료">헬스케어/의료</button>
+        <button class="filter-chip" data-filter="딥테크">딥테크</button>
       </div>
       <select class="sort-select" id="sortSelect">
-        <option value="glenn-desc" selected>Glenn 점수 높은 순</option>
-        <option value="glenn-grade">Glenn 등급별</option>
+        <option value="glenn-desc" selected>Glenn 추천 우선</option>
         <option value="default">기본 순서</option>
         <option value="score-desc">심사 총점 높은 순</option>
         <option value="score-asc">심사 총점 낮은 순</option>
@@ -2545,48 +2618,209 @@ let currentSearch = "";
 let allReviewers = [];
 
 // ========================================================================
-// 저장소 (window.storage API 사용, 없거나 실패 시 메모리 fallback)
+// 저장소 — 우선순위: localStorage > window.storage(Claude) > memory
+// GitHub Pages 등 외부 호스팅 환경에서는 localStorage에 자동 저장됨
 // ========================================================================
 const _memoryStore = {};
+const STORAGE_PREFIX = "gravity_batch1:";  // localStorage 네임스페이스
 
-function hasStorage() {
-  return typeof window !== "undefined" && window.storage && typeof window.storage.get === "function";
-}
-
-async function _storageGet(key) {
-  if (!hasStorage()) {
-    return _memoryStore[key] ? { value: _memoryStore[key] } : null;
-  }
+function hasLocalStorage() {
   try {
-    return await window.storage.get(key);
-  } catch {
-    // 키가 없거나 에러 — 메모리 fallback 확인
-    return _memoryStore[key] ? { value: _memoryStore[key] } : null;
-  }
-}
-
-async function _storageSet(key, value) {
-  _memoryStore[key] = value;  // 항상 메모리에도 저장 (즉시 사용 가능)
-  if (!hasStorage()) return true;
-  try {
-    await window.storage.set(key, value);
+    if (typeof window === "undefined" || !window.localStorage) return false;
+    // 실제 쓰기 가능한지 검증 (Safari private mode 대응)
+    const testKey = STORAGE_PREFIX + "__test__";
+    window.localStorage.setItem(testKey, "1");
+    window.localStorage.removeItem(testKey);
     return true;
-  } catch (e) {
-    console.warn(`storage.set 실패 (메모리에만 저장됨): ${key}`, e);
+  } catch {
     return false;
   }
 }
 
+function hasClaudeStorage() {
+  return typeof window !== "undefined" && window.storage && typeof window.storage.get === "function";
+}
+
+const _USE_LOCAL = hasLocalStorage();
+
+async function _storageGet(key) {
+  // 1순위: localStorage
+  if (_USE_LOCAL) {
+    try {
+      const v = window.localStorage.getItem(STORAGE_PREFIX + key);
+      if (v !== null) return { value: v };
+    } catch (e) { console.warn("localStorage get 실패", e); }
+  }
+  // 2순위: Claude window.storage
+  if (hasClaudeStorage()) {
+    try {
+      const result = await window.storage.get(key);
+      if (result) return result;
+    } catch {}
+  }
+  // 3순위: 메모리
+  return _memoryStore[key] ? { value: _memoryStore[key] } : null;
+}
+
+async function _storageSet(key, value) {
+  _memoryStore[key] = value;  // 메모리는 항상 즉시 갱신
+  // 1순위: localStorage
+  if (_USE_LOCAL) {
+    try {
+      window.localStorage.setItem(STORAGE_PREFIX + key, value);
+      return true;
+    } catch (e) {
+      console.warn(`localStorage set 실패: ${key}`, e);
+    }
+  }
+  // 2순위: Claude window.storage
+  if (hasClaudeStorage()) {
+    try {
+      await window.storage.set(key, value);
+      return true;
+    } catch (e) {
+      console.warn(`window.storage.set 실패: ${key}`, e);
+    }
+  }
+  return false;
+}
+
 async function _storageList(prefix) {
   const memKeys = Object.keys(_memoryStore).filter(k => k.startsWith(prefix));
-  if (!hasStorage()) return memKeys;
-  try {
-    const result = await window.storage.list(prefix);
-    const apiKeys = result ? (result.keys || []) : [];
-    return [...new Set([...apiKeys, ...memKeys])];
-  } catch {
-    return memKeys;
+  let allKeys = [...memKeys];
+  // 1순위: localStorage
+  if (_USE_LOCAL) {
+    try {
+      const lsKeys = [];
+      for (let i = 0; i < window.localStorage.length; i++) {
+        const k = window.localStorage.key(i);
+        if (k && k.startsWith(STORAGE_PREFIX + prefix)) {
+          lsKeys.push(k.slice(STORAGE_PREFIX.length));
+        }
+      }
+      allKeys.push(...lsKeys);
+    } catch (e) { console.warn("localStorage list 실패", e); }
   }
+  // 2순위: Claude window.storage 병합
+  if (hasClaudeStorage()) {
+    try {
+      const result = await window.storage.list(prefix);
+      const apiKeys = result ? (result.keys || []) : [];
+      allKeys.push(...apiKeys);
+    } catch {}
+  }
+  return [...new Set(allKeys)];
+}
+
+// ============================================================
+// JSON 내보내기/불러오기 — 심사 결과 백업 및 컴퓨터 간 이동
+// ============================================================
+function updateStorageStatus() {
+  const status = document.getElementById("storageStatus");
+  const text = document.getElementById("storageStatusText");
+  if (!status || !text) return;
+  if (_USE_LOCAL) {
+    status.classList.remove("warning");
+    text.textContent = "이 브라우저에 자동 저장 중";
+    status.title = "심사 결과가 이 브라우저(localStorage)에 자동 저장됩니다. 다른 컴퓨터·브라우저에서는 표시되지 않으니, 백업 저장으로 JSON 파일을 받아두세요.";
+  } else if (hasClaudeStorage()) {
+    status.classList.remove("warning");
+    text.textContent = "Claude 환경에 저장 중";
+  } else {
+    status.classList.add("warning");
+    text.textContent = "⚠ 저장 불가 (메모리만)";
+    status.title = "이 브라우저에서 저장이 불가능합니다. 새로고침하면 점수가 사라집니다. 다른 브라우저(Chrome 권장)에서 열거나 시크릿 모드를 해제해주세요.";
+  }
+}
+
+async function exportReviewerData() {
+  if (!currentReviewer) {
+    alert("먼저 심사위원으로 로그인해주세요.");
+    return;
+  }
+  try {
+    const data = await loadReviewer(currentReviewer);
+    const payload = {
+      meta: {
+        exportedAt: new Date().toISOString(),
+        reviewer: currentReviewer,
+        version: "1.0",
+        batch: "Gravity Ventures Batch 1기"
+      },
+      data: data
+    };
+    const json = JSON.stringify(payload, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const dt = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = `심사결과_${currentReviewer}_${dt}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showSaveIndicator("심사 결과를 JSON 파일로 저장했습니다");
+  } catch (e) {
+    alert("내보내기 중 오류가 발생했습니다: " + e.message);
+  }
+}
+
+async function importReviewerData(file) {
+  if (!file) return;
+  if (!currentReviewer) {
+    alert("먼저 심사위원으로 로그인해주세요.");
+    return;
+  }
+  try {
+    const text = await file.text();
+    const payload = JSON.parse(text);
+    if (!payload || !payload.data || !payload.meta) {
+      alert("올바른 형식의 백업 파일이 아닙니다.");
+      return;
+    }
+    const importedReviewer = payload.meta.reviewer;
+    if (importedReviewer !== currentReviewer) {
+      const ok = confirm(
+        `이 파일은 "${importedReviewer}" 심사위원의 데이터입니다.\n` +
+        `현재 로그인된 심사위원은 "${currentReviewer}"입니다.\n\n` +
+        `현재 심사위원(${currentReviewer})의 데이터로 덮어쓸까요?`
+      );
+      if (!ok) return;
+    }
+    // 기존 데이터와 병합 여부
+    const existing = await loadReviewer(currentReviewer);
+    const existingCount = Object.keys(existing).filter(k => k.startsWith("company:")).length;
+    if (existingCount > 0) {
+      const ok = confirm(
+        `현재 ${existingCount}개 기업의 평가 데이터가 있습니다.\n` +
+        `불러온 파일의 데이터로 덮어쓸까요?\n\n` +
+        `(불러온 파일에 없는 기업의 데이터는 그대로 유지됩니다)`
+      );
+      if (!ok) return;
+    }
+    // 병합 — 불러온 데이터가 우선
+    const merged = { ...existing, ...payload.data };
+    await saveReviewer(currentReviewer, merged);
+    await loadCurrentReviewerData();
+    renderStats();
+    renderCompanyGrid();
+    const importedCount = Object.keys(payload.data).filter(k => k.startsWith("company:")).length;
+    showSaveIndicator(`${importedCount}개 기업 평가 데이터를 불러왔습니다`);
+  } catch (e) {
+    alert("불러오기 중 오류가 발생했습니다: " + e.message);
+  }
+}
+
+function triggerImportFile() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "application/json,.json";
+  input.onchange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) importReviewerData(file);
+  };
+  input.click();
 }
 
 async function loadReviewer(reviewerName) {
@@ -2614,6 +2848,7 @@ async function loadReviewerList() {
 async function init() {
   // ⚠️ 중요: 이벤트 바인딩은 제일 먼저 — storage 에러가 나더라도 버튼은 동작해야 함
   bindEvents();
+  updateStorageStatus();  // 저장 환경 표시
   renderStats();
   renderCompanyGrid();
 
@@ -2848,16 +3083,10 @@ function renderStats() {
       <div class="stat-value">${evaluated}<span class="unit">/ ${totalCompanies}</span></div>
       <div class="stat-sub">${currentReviewer ? `${currentReviewer} 심사자` : "심사위원 미선택"}</div>
     </div>
-    <div class="stat-card glenn-stat">
-      <div class="stat-label">Glenn 1차 분류 <span style="font-size:9px;color:var(--silver-dim);font-weight:400">참고용</span></div>
-      <div class="stat-value">
-        <div class="stat-glenn-cell"><span class="num A">${gA}</span><span class="label">A</span></div>
-        <div class="stat-glenn-cell"><span class="num B">${gB}</span><span class="label">B</span></div>
-        <div class="stat-glenn-cell"><span class="num C">${gC}</span><span class="label">C</span></div>
-        <div class="stat-glenn-cell"><span class="num D">${gD}</span><span class="label">D</span></div>
-        <div class="stat-glenn-cell"><span class="num P"><i class="fa-solid fa-star" style="font-size:14px"></i></span><span class="label">${gP} PF</span></div>
-      </div>
-      <div class="stat-sub">A·B 우선 검토 권장 (${gA + gB}개)</div>
+    <div class="stat-card">
+      <div class="stat-label">Glenn 추천 <span style="font-size:9px;color:var(--silver-dim);font-weight:400">참고용</span></div>
+      <div class="stat-value" style="color:#c084fc">${gA + gB + gC}<span class="unit">/ ${totalCompanies}</span></div>
+      <div class="stat-sub">검토 권장 기업 (보라 카드)</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">심사 등급 (A/B/C/D)</div>
@@ -2890,7 +3119,7 @@ function matchesFilter(c) {
 function matchesGlennFilter(c) {
   if (currentGlennFilter === "all") return true;
   if (currentGlennFilter === "portfolio") return c.isPortfolio === true;
-  if (["A","B","C","D"].includes(currentGlennFilter)) return c.glennGrade === currentGlennFilter;
+  if (currentGlennFilter === "recommend") return ["A","B","C"].includes(c.glennGrade);
   return true;
 }
 
@@ -2959,7 +3188,8 @@ function renderCompanyGrid() {
     else { statusText = "IR 요약 준비 중"; statusClass = ""; }
 
     const glennCls = c.glennGrade ? `glenn-${c.glennGrade}` : '';
-    const glennBadge = c.glennGrade ? `<span class="glenn-badge glenn-${c.glennGrade}">Glenn ${c.glennGrade} · ${c.glennScore}</span>` : '';
+    const isRecommend = c.glennGrade && c.glennGrade !== 'D';
+    const glennBadge = isRecommend ? `<span class="glenn-badge glenn-${c.glennGrade}"><i class="fa-solid fa-sparkles" style="font-size:9px;margin-right:4px"></i>Glenn 추천</span>` : '';
     const portfolioBadge = c.isPortfolio ? `<span class="portfolio-badge"><i class="fa-solid fa-star"></i>Portfolio</span>` : '';
 
     return `
@@ -3077,23 +3307,21 @@ function updateNextButtonLabel(companyNo) {
 function renderGlennDetailPanel(c) {
   if (!c.glennGrade) return '';
   const grade = c.glennGrade;
-  const score = c.glennScore;
   const note = c.glennNote;
   const isPortfolio = c.isPortfolio;
-
-  const gradeLabel = {A:"최우선 검토", B:"우선 검토", C:"추가 검토 가능", D:"1차 심사 제외 권고"}[grade] || "";
+  const isRecommend = grade !== 'D';
 
   return `
     <div class="glenn-detail-panel grade-${grade}">
       <div class="glenn-detail-score">
-        <div class="glenn-detail-score-label">Glenn 1차</div>
-        <div class="glenn-detail-score-value ${grade}">${score}</div>
-        <div class="glenn-detail-score-grade">${grade}등급</div>
+        <div class="glenn-detail-score-label">Glenn</div>
+        <div class="glenn-detail-score-value ${grade}" style="font-size:24px;line-height:1.2;text-align:center">${isRecommend ? '<i class="fa-solid fa-sparkles"></i>' : '<i class="fa-solid fa-minus"></i>'}</div>
+        <div class="glenn-detail-score-grade">${isRecommend ? '추천' : '제외 권고'}</div>
       </div>
       <div class="glenn-detail-content">
         <div class="glenn-detail-header">
           <span class="glenn-detail-title">Glenn 1차 사전 분류</span>
-          <span class="glenn-badge glenn-${grade}">${gradeLabel}</span>
+          ${isRecommend ? `<span class="glenn-badge glenn-${grade}"><i class="fa-solid fa-sparkles" style="font-size:9px;margin-right:4px"></i>검토 권장</span>` : ''}
           ${isPortfolio ? `<span class="portfolio-badge"><i class="fa-solid fa-star"></i>기 투자기업</span>` : ''}
         </div>
         ${note ? `<div class="glenn-detail-note"><div class="note-label">Glenn의 의견</div>${escapeHtml(note)}</div>` : ''}
