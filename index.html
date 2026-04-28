@@ -35,6 +35,11 @@
   --grade-b: #3b82f6;
   --grade-c: #f59e0b;
   --grade-d: #6b7280;
+  --glenn-a: #a855f7;
+  --glenn-b: #06b6d4;
+  --glenn-c: #d97706;
+  --glenn-d: #4b5563;
+  --portfolio: #f59e0b;
   --font-display: 'Bebas Neue', 'Pretendard', sans-serif;
   --font-serif: 'Fraunces', serif;
   --font-body: 'Pretendard', sans-serif;
@@ -833,6 +838,61 @@ main {
   left: 0; top: 0;
   color: var(--blue-light);
   font-weight: 900;
+}
+
+/* 온코인 IR용 추가 스타일 (간략 카드 + 자금 테이블 + 체크리스트 강조) */
+.ir-team-card .ir-team-role {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue-light);
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+.ir-team-card .ir-team-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--silver);
+}
+
+.ir-funding-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 12.5px;
+}
+.ir-funding-table th,
+.ir-funding-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.ir-funding-table th {
+  background: rgba(37, 99, 255, 0.08);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.ir-funding-table tbody tr:hover {
+  background: rgba(200, 214, 236, 0.03);
+}
+
+.ir-checklist {
+  background: rgba(255, 200, 100, 0.04);
+  border: 1px solid rgba(255, 200, 100, 0.15);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-top: 18px;
+}
+.ir-checklist h3 .section-num {
+  background: rgba(255, 200, 100, 0.2);
+  color: #f0c060;
+}
+.ir-checklist .ir-bullets li::before {
+  color: #f0c060;
 }
 
 .attach-links {
@@ -1647,6 +1707,239 @@ main {
   .ir-market-grid, .ir-team-grid { grid-template-columns: 1fr; }
   .score-summary { grid-template-columns: 1fr; }
 }
+
+
+
+/* ========== Glenn 1차 분류 시각 레이어 ========== */
+
+/* 안내문구 */
+.glenn-notice {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(6, 182, 212, 0.06));
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 12.5px;
+  color: var(--silver);
+  line-height: 1.55;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.glenn-notice i {
+  color: #c084fc;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.glenn-notice strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* 카드 좌측 보더 — 글렌 등급별 */
+.company-card.glenn-A { border-left: 3px solid var(--glenn-a); }
+.company-card.glenn-B { border-left: 3px solid var(--glenn-b); }
+.company-card.glenn-C { border-left: 3px solid var(--glenn-c); }
+.company-card.glenn-D { border-left: 3px solid var(--glenn-d); }
+
+/* 카드 글렌 배지 (좌측 상단) */
+.glenn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 10px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.glenn-badge.glenn-A { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+.glenn-badge.glenn-B { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.4); }
+.glenn-badge.glenn-C { background: rgba(217, 119, 6, 0.15); color: #fbbf24; border: 1px solid rgba(217, 119, 6, 0.4); }
+.glenn-badge.glenn-D { background: rgba(75, 85, 99, 0.2); color: var(--silver-dim); border: 1px solid rgba(75, 85, 99, 0.5); }
+
+/* 기 투자기업 골드 배지 */
+.portfolio-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.portfolio-badge i { font-size: 9px; }
+
+/* 카드 헤더 영역 재배치 — 배지 영역 추가 */
+.card-glenn-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+/* 글렌 등급 필터 행 */
+.glenn-filter-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+.glenn-filter-row .filter-chip-glenn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--silver-dim);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.glenn-filter-row .filter-chip-glenn:hover { color: var(--white); border-color: var(--blue); }
+.glenn-filter-row .filter-chip-glenn.active.glenn-A { background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: var(--glenn-a); }
+.glenn-filter-row .filter-chip-glenn.active.glenn-B { background: rgba(6, 182, 212, 0.2); color: #22d3ee; border-color: var(--glenn-b); }
+.glenn-filter-row .filter-chip-glenn.active.glenn-C { background: rgba(217, 119, 6, 0.2); color: #fbbf24; border-color: var(--glenn-c); }
+.glenn-filter-row .filter-chip-glenn.active.glenn-D { background: rgba(75, 85, 99, 0.3); color: var(--silver); border-color: var(--glenn-d); }
+.glenn-filter-row .filter-chip-glenn.active.glenn-portfolio { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: var(--portfolio); }
+.glenn-filter-row .filter-chip-glenn.active.glenn-all { background: var(--blue); color: var(--white); border-color: var(--blue); }
+.glenn-filter-row-label {
+  font-size: 10px;
+  color: var(--silver-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  align-self: center;
+  margin-right: 4px;
+}
+
+/* 상세페이지 — 글렌 1차 분류 패널 */
+.glenn-detail-panel {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.06), rgba(6, 182, 212, 0.04));
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.glenn-detail-panel.grade-A { border-color: rgba(168, 85, 247, 0.4); }
+.glenn-detail-panel.grade-B { border-color: rgba(6, 182, 212, 0.4); }
+.glenn-detail-panel.grade-C { border-color: rgba(217, 119, 6, 0.4); }
+.glenn-detail-panel.grade-D { border-color: rgba(75, 85, 99, 0.5); }
+
+.glenn-detail-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+  padding-right: 18px;
+  border-right: 1px solid var(--border);
+}
+.glenn-detail-score-label {
+  font-size: 10px;
+  color: var(--silver-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.glenn-detail-score-value {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1;
+}
+.glenn-detail-score-value.A { color: #c084fc; }
+.glenn-detail-score-value.B { color: #22d3ee; }
+.glenn-detail-score-value.C { color: #fbbf24; }
+.glenn-detail-score-value.D { color: var(--silver-dim); }
+.glenn-detail-score-grade {
+  font-size: 11px;
+  color: var(--silver);
+  margin-top: 4px;
+  letter-spacing: 0.1em;
+}
+
+.glenn-detail-content {
+  flex: 1;
+  min-width: 220px;
+}
+.glenn-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.glenn-detail-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.05em;
+}
+.glenn-detail-note {
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid var(--blue-light);
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  color: var(--silver);
+  line-height: 1.6;
+  margin-top: 6px;
+}
+.glenn-detail-note .note-label {
+  font-size: 10px;
+  color: var(--silver-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.glenn-detail-disclaimer {
+  font-size: 11px;
+  color: var(--silver-dim);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* 통계 바 — Glenn 1차 분류 카드 */
+.stat-card.glenn-stat .stat-value {
+  font-size: 22px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.stat-card.glenn-stat .stat-glenn-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 6px;
+}
+.stat-card.glenn-stat .stat-glenn-cell .num {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1;
+}
+.stat-card.glenn-stat .stat-glenn-cell .label {
+  font-size: 9px;
+  color: var(--silver-dim);
+  letter-spacing: 0.1em;
+  margin-top: 3px;
+}
+.stat-card.glenn-stat .stat-glenn-cell .num.A { color: #c084fc; }
+.stat-card.glenn-stat .stat-glenn-cell .num.B { color: #22d3ee; }
+.stat-card.glenn-stat .stat-glenn-cell .num.C { color: #fbbf24; }
+.stat-card.glenn-stat .stat-glenn-cell .num.D { color: var(--silver-dim); }
+.stat-card.glenn-stat .stat-glenn-cell .num.P { color: #fbbf24; }
+
 </style>
 </head>
 <body>
@@ -1717,6 +2010,11 @@ main {
       </div>
     </div>
 
+    <div class="glenn-notice">
+      <i class="fa-solid fa-circle-info"></i>
+      <div><strong>Glenn이 1차 분류한 결과가 카드 색상으로 표시됩니다.</strong> 시간이 부족하시면 A·B 등급(18개사)부터 우선 검토해주세요. 단, 이는 <em>참고용</em>이며 모든 심사위원의 독립적 판단을 우선합니다. <span style="color:var(--silver-dim);font-size:11.5px;">A: 보라 / B: 청록 / C: 호박 / D: 회색 · 골드 별 ★ = 기 투자기업</span></div>
+    </div>
+
     <div class="stats-bar" id="statsBar"></div>
 
     <div class="toolbar">
@@ -1724,17 +2022,30 @@ main {
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="searchInput" placeholder="회사명·분야·소재지 검색...">
       </div>
-      <div class="filter-group" id="filterGroup">
-        <button class="filter-chip active" data-filter="all">전체</button>
-        <button class="filter-chip" data-filter="Physical AI">Physical AI</button>
-        <button class="filter-chip" data-filter="반도체">반도체</button>
-        <button class="filter-chip" data-filter="의료">헬스케어/의료</button>
-        <button class="filter-chip" data-filter="딥테크">딥테크</button>
+      <div style="display:flex;flex-direction:column;gap:0;flex:1;min-width:0">
+        <div class="filter-group" id="filterGroup">
+          <button class="filter-chip active" data-filter="all">전체</button>
+          <button class="filter-chip" data-filter="Physical AI">Physical AI</button>
+          <button class="filter-chip" data-filter="반도체">반도체</button>
+          <button class="filter-chip" data-filter="의료">헬스케어/의료</button>
+          <button class="filter-chip" data-filter="딥테크">딥테크</button>
+        </div>
+        <div class="glenn-filter-row" id="glennFilterRow">
+          <span class="glenn-filter-row-label">Glenn 분류</span>
+          <button class="filter-chip-glenn active glenn-all" data-glenn="all">전체</button>
+          <button class="filter-chip-glenn glenn-A" data-glenn="A">A · 4개</button>
+          <button class="filter-chip-glenn glenn-B" data-glenn="B">B · 14개</button>
+          <button class="filter-chip-glenn glenn-C" data-glenn="C">C · 26개</button>
+          <button class="filter-chip-glenn glenn-D" data-glenn="D">D · 38개</button>
+          <button class="filter-chip-glenn glenn-portfolio" data-glenn="portfolio"><i class="fa-solid fa-star" style="font-size:9px;margin-right:3px"></i>기 투자기업 · 5개</button>
+        </div>
       </div>
       <select class="sort-select" id="sortSelect">
+        <option value="glenn-desc" selected>Glenn 점수 높은 순</option>
+        <option value="glenn-grade">Glenn 등급별</option>
         <option value="default">기본 순서</option>
-        <option value="score-desc">총점 높은 순</option>
-        <option value="score-asc">총점 낮은 순</option>
+        <option value="score-desc">심사 총점 높은 순</option>
+        <option value="score-asc">심사 총점 낮은 순</option>
         <option value="name">회사명 순</option>
       </select>
     </div>
@@ -1757,88 +2068,88 @@ main {
 // 데이터
 // ========================================================================
 const COMPANIES = [
-  {no:1, name:"주식회사 에이치오피", brand:"에이치오피", ceo:"장석영", email:"jasper.jang@hopcorporation.com", phone:"010-9181-1806", founded:"2024", age:"1~3년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"hopcorporation.com", source:"IR 발표 후 추천", tagline:"Physical AI · 로보틱스 영역의 신기술 기업"},
-  {no:2, name:"주식회사 웰스케어", brand:"웰스케어", ceo:"이성원", email:"swlee@wellscare.kr", phone:"010-7224-2034", founded:"2018", age:"7년 이상", location:"경기/인천", sector:"의료기기 / 딥테크", web:"wellscare.kr", source:"지인 추천", tagline:"광생체조절(PBM) 응용 웨어러블 마이크로파워 콜드레이저 의료기기"},
-  {no:3, name:"주식회사 웨인힐스브라이언트에이아이", brand:"웨인힐스", ceo:"데이비드곤", email:"ceo@waynehills.co", phone:"010-5417-4111", founded:"2017", age:"7년 이상", location:"해외", sector:"딥테크", web:"waynehills.co", source:"언론/미디어", tagline:"USA 법인 기반 AI 기술 기업"},
-  {no:4, name:"주식회사 프리그로우", brand:"프리그로우", ceo:"김영식", email:"freegrow@freegrow.io", phone:"010-5925-3949", founded:"2019", age:"7년 이상", location:"부산/경남", sector:"Physical AI / 로보틱스", web:"grow-space.io", source:"언론/미디어", tagline:"산업 현장 위치 인프라 기반 공간 데이터 → 운영 데이터 전환 Physical AI 기업"},
-  {no:5, name:"주식회사 건설파트너", brand:"건설파트너", ceo:"이혁", email:"hyuk.lee@conpa.ai", phone:"010-9641-8400", founded:"2025", age:"1년 미만", location:"서울", sector:"딥테크 / 건설 AI SaaS", web:"conpa.ai", source:"SNS", tagline:"10배 빠른 공사비 견적으로 건설사의 수주를 돕는 견적 자동화 SaaS"},
-  {no:6, name:"미트프로이데(Mitfreude)", brand:"미트프로이데", ceo:"김수경", email:"founder@mitfreude.co", phone:"010-4850-0016", founded:"2026", age:"1년 미만", location:"경기/인천", sector:"반도체 소재 / 딥테크", web:"mitfreude.co", source:"SNS", tagline:"반도체 공정용 폐쿼츠를 고성능 광학소재로 전환하는 소부장 딥테크", hasIR:true},
-  {no:7, name:"주식회사 씨쓰리브이", brand:"C3V (MiZi)", ceo:"김종환", email:"allan@cccv.to", phone:"010-3344-5720", founded:"2025.12", age:"1년 미만", location:"부산/경남", sector:"딥테크", web:"cccv.to", source:"SNS", tagline:"ZKP+온체인 검증 기반 MCP용 표준 데이터 트러스트 인프라"},
-  {no:8, name:"트윈위즈", brand:"트윈위즈", ceo:"김창수", email:"ceo@twinwiz.co.kr", phone:"010-9990-9244", founded:"2022", age:"3~7년", location:"부산/경남", sector:"딥테크 / 소재", web:"twinwiz.co.kr", source:"언론/미디어", tagline:"액상 항균·항바이러스·항곰팡이 소재 (한국재료연구원 스핀오프)"},
-  {no:9, name:"주식회사 블록코어", brand:"블록코어", ceo:"김영빈", email:"ybkim@blockcore.co.kr", phone:"010-4338-9585", founded:"2025", age:"1년 미만", location:"서울", sector:"딥테크 / 보안", web:"blockcore.co.kr", source:"류재언 변호사", tagline:"양자보안과 블록체인을 융합한 경량화 양자보안 모듈 개발"},
-  {no:10, name:"주식회사 블루디바이스", brand:"블루디바이스", ceo:"정재민", email:"jmjeong@bluedevice.co.kr", phone:"010-7740-7335", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 디스플레이", web:"bluedevice.co.kr", source:"지인 추천", tagline:"친환경소재를 이용한 안티글레어 처리 (디스플레이·솔라·스마트윈도우)"},
-  {no:11, name:"(주)풀다이브테크놀로지", brand:"풀다이브", ceo:"이형준", email:"plum770@gmail.com", phone:"010-9880-4876", founded:"2016", age:"7년 이상", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"xsentir.com", source:"지인 추천", tagline:"휴머노이드 AI용 정교한 촉각 데이터 수집 유사 촉감 웨어러블"},
-  {no:12, name:"주식회사 아뮤즈", brand:"아뮤즈", ceo:"박정윤", email:"yoon2@amuz.co.kr", phone:"010-4479-5513", founded:"2017", age:"7년 이상", location:"부산/경남", sector:"Physical AI / 로보틱스", web:"amuz.co.kr", source:"지인 추천", tagline:"Physical AI · 로보틱스 영역 기업"},
-  {no:13, name:"(주)틴들로", brand:"틴들로", ceo:"류기원", email:"giwon@tindlo.com", phone:"010-9618-0352", founded:"2025", age:"1년 미만", location:"서울", sector:"SaaS", web:"tindlo.com", source:"검색", tagline:"세계 Top1 의료기관과 NDA 체결한 헬스케어 SaaS 기업"},
-  {no:14, name:"(주)옴니코트", brand:"옴니코트", ceo:"박순홍", email:"shpark@omnicoat.co.kr", phone:"010-2517-9918", founded:"2022", age:"3~7년", location:"대구/경북", sector:"딥테크 / 소재", web:"omnicoat.co.kr", source:"기관추천", tagline:"건식 기반 디지털 프린팅 기술로 건축·가전·기능성 소재 개발"},
-  {no:15, name:"웨어러블에이아이", brand:"Whereable AI", ceo:"백두산", email:"dsbaek@whereable.ai", phone:"010-3181-6760", founded:"2024", age:"1~3년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"whereable.ai", source:"기관추천", tagline:"특수목적차량(SPM)을 위한 AI 기반 자율주행 솔루션 · 서울대/토르드라이브 출신"},
-  {no:16, name:"(주)돌봄드림", brand:"돌봄드림", ceo:"김지훈", email:"expo@dolbomdream.com", phone:"010-5055-2824", founded:"2020", age:"3~7년", location:"대전/충청", sector:"딥테크 / 헬스케어", web:"dolbomdream.com", source:"페이스북", tagline:"공기압-심탄도 센서 기반 비침습 AI 건강관리 모니터링 · Series A 15억 확보"},
-  {no:17, name:"(주)딥플랜트", brand:"딥플랜트", ceo:"김철범", email:"michael@deeplant.com", phone:"010-2684-2665", founded:"2019", age:"3~7년", location:"경기/인천", sector:"딥테크 / 푸드테크", web:"deeplant.com", source:"지인 추천", tagline:"AI 기반 딥테크로 육류의 가치를 재설계하는 푸드테크"},
-  {no:18, name:"도비캔버스 주식회사", brand:"도비캔버스", ceo:"이재훈", email:"dobby@dobby-canvas.com", phone:"010-3498-0223", founded:"2023", age:"1~3년", location:"경기/인천", sector:"딥테크", web:"dobby-canvas.com", source:"기관추천", tagline:"딥테크 기반 기술 기업"},
-  {no:19, name:"주식회사 소금광산(SALTMiNE)", brand:"SALTMiNE", ceo:"유창현", email:"olive@saltmine.io", phone:"010-9433-7410", founded:"2020", age:"3~7년", location:"경기/인천", sector:"딥테크", web:"saltmine.io", source:"기관추천", tagline:"경기 하남 본사 + 충남 천안 부설연구소 기반 딥테크 기업"},
-  {no:20, name:"모아드림(주)", brand:"MoreDream", ceo:"조돈우", email:"dwcho3652@gmail.com", phone:"010-9116-3608", founded:"2024.11", age:"1~3년", location:"서울", sector:"딥테크 / 접근성", web:"themoredream.com", source:"페이스북", tagline:"시각장애인 관련 문제 해결 사업아이템 · TIPS 관심"},
-  {no:21, name:"주식회사 토프모빌리티", brand:"TOFF", ceo:"정찬영", email:"jaden@toffmobility.com", phone:"010-9477-1162", founded:"2023", age:"1~3년", location:"서울", sector:"딥테크 / UAM", web:"toffmobility.com", source:"지인 추천", tagline:"아시아 최초 전기비행기 안전성 인증 · 2024년 매출 18억 흑자전환"},
-  {no:22, name:"(주)오톤도", brand:"오톤도", ceo:"김경묵", email:"boknam@otondo.co.kr", phone:"010-7468-0427", founded:"2024.01", age:"1~3년", location:"서울", sector:"딥테크 / 인테리어 AI", web:"otondo.co.kr", source:"기관추천", tagline:"국내 유일의 Interior Digital Operation System · 인테리어 AI 에이전트"},
-  {no:23, name:"주식회사 프리딕션", brand:"Prediction", ceo:"김두호", email:"duho.kim@prediction.im", phone:"010-7143-3326", founded:"2024", age:"1~3년", location:"경기/인천", sector:"전동화 모빌리티", web:"eview.im", source:"기관추천", tagline:"배터리 선제적 이상진단·가치평가 AI 파운데이션 모델 기반 전기차 Fleet 운용 효율관리 SaaS"},
-  {no:24, name:"커런시유나이티드", brand:"CU Unit", ceo:"윤민성", email:"myun75@naver.com", phone:"010-7722-1107", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크", web:"cuunit.com", source:"기관추천", tagline:"투자금 3억으로 월거래액 300억 달성 (기관 추천)"},
-  {no:25, name:"주식회사 코파", brand:"COFA", ceo:"박기남", email:"keypark@cofa.co.kr", phone:"010-9245-7848", founded:"2025", age:"1~3년", location:"경기/인천", sector:"반도체 소재", web:"cofa.co.kr", source:"지인 추천", tagline:"반도체 언더필(CUF/HBM) 국산화 · 국내 최초 Qual 대상 제조사"},
-  {no:26, name:"(주)프레쉬아워", brand:"바프독", ceo:"임경호", email:"kyeonghoim@gmail.com", phone:"010-9466-1984", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 펫테크", web:"barfdog.co.kr", source:"지인 추천", tagline:"펫 NGS·PHR 100만건 데이터 기반 AI 맞춤 레시피 정기배송 서비스"},
-  {no:27, name:"(주)에이투어스", brand:"A2US", ceo:"박희진", email:"hjpark1005@a2us.co.kr", phone:"010-7979-5453", founded:"2021", age:"3~7년", location:"대전/충청", sector:"반도체 장비", web:"a2us.co.kr", source:"포스텍홀딩스 추천", tagline:"하이드록실 라디칼 생성 기반 물·공기 정화 기술 · 오존 無 인체 무해"},
-  {no:28, name:"(주)매크로액트", brand:"Macroact", ceo:"강의혁", email:"lihak@macroact.com", phone:"010-9086-6514", founded:"2019", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"macroact.com", source:"기관추천", tagline:"로봇 자율제어·동적 디지털트윈 Physical AI 딥테크 · CES 혁신상 수상"},
-  {no:29, name:"(주)샹떼헬스케어", brand:"SANTE", ceo:"박동준", email:"sante0329@naver.com", phone:"010-2882-5710", founded:"2022", age:"3~7년", location:"부산/경남", sector:"헬스케어 AI", web:"santehealthcare.com", source:"기관추천", tagline:"부산기술창업투자원 추천 헬스케어 AI 기업"},
-  {no:30, name:"주식회사 디코", brand:"DICO", ceo:"황준철", email:"john@dicoinc.co.kr", phone:"010-2203-0800", founded:"2019", age:"3~7년", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"dicoinc.co.kr", source:"지인 추천", tagline:"SOLAI 산업용 이미지 딥러닝 비전검사 · 삼성전기·LG화학 납품"},
-  {no:31, name:"프렉탈테크놀로지 주식회사", brand:"CookieDeal", ceo:"심정훈", email:"joshua.sim@cookiedeal.io", phone:"010-3282-2858", founded:"2023", age:"1~3년", location:"서울", sector:"딥테크 / 데이터", web:"cookiedeal.io", source:"검색", tagline:"비상장기업 데이터 인프라 · Clay·Grata·QICHACHA 벤치마크"},
-  {no:32, name:"니어브레인 주식회사", brand:"NearBrain", ceo:"황정원", email:"jeongwon.hwang@nearbrain.com", phone:"010-2055-1137", founded:"2022", age:"3~7년", location:"서울", sector:"의료기기 / 딥테크", web:"nearbrain.com", source:"기관추천", tagline:"AI 기반 뇌혈류 분석 의료 소프트웨어 개발 기업"},
-  {no:33, name:"주식회사 사이클로이드", brand:"사이클로이드", ceo:"권준일", email:"jun@ba-dream.com", phone:"010-2968-1685", founded:"2023", age:"1~3년", location:"서울", sector:"모빌리티", web:"ba-dream.com", source:"기관추천", tagline:"모빌리티 영역 기술 기업"},
-  {no:34, name:"(주)에스앤이컴퍼니", brand:"B·good", ceo:"이정수", email:"jslee@bgood.co.kr", phone:"010-3786-4608", founded:"2020", age:"3~7년", location:"서울", sector:"딥테크 / Ag-tech", web:"bgood.co.kr", source:"기관추천", tagline:"농산물 생육·작황·가격 진단 및 예측 기반 AI 에이전트 B·good"},
-  {no:35, name:"주식회사 원인터내셔널", brand:"MUːN", ceo:"변철원", email:"woninternationalinc@gmail.com", phone:"010-7343-0112", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크 / 비전 AI", web:"woninternational.com", source:"지인 추천", tagline:"비전 AI 기반 자동 출입문 솔루션 MUːN 개발"},
-  {no:36, name:"주식회사 펨토리", brand:"펨토리", ceo:"이승훈", email:"ceo@femtory.com", phone:"010-5140-0400", founded:"2021", age:"3~7년", location:"대전/충청", sector:"반도체 부품 / 딥테크", web:"femtory.com", source:"지인 추천", tagline:"반도체 부품 분야 딥테크 기업"},
-  {no:37, name:"주식회사 바이브존", brand:"VIBEZONE", ceo:"박상범", email:"sbpark@vibezone.kr", phone:"010-3383-8232", founded:"2020", age:"3~7년", location:"서울", sector:"플랫폼 / 콘텐츠", web:"vibezone.kr", source:"언론/미디어", tagline:"TV 전용 K팝 인터랙티브 홈 콘서트 플랫폼"},
-  {no:38, name:"(주)트라이큐빅스코리아", brand:"Tricubics", ceo:"김종민", email:"jason.kim@tricubics.com", phone:"010-9890-0604", founded:"2018", age:"7년 이상", location:"대구/경북", sector:"딥테크 / Edge AI", web:"tricubics.com", source:"기관추천", tagline:"국내 최고의 버티컬 영상 인식 시장 Edge AI 솔루션"},
-  {no:39, name:"위에이드", brand:"WeAid", ceo:"김대승", email:"reader@weaid.im", phone:"010-9967-2650", founded:"2023", age:"1~3년", location:"광주/전라", sector:"딥테크", web:"weaid.im", source:"검색", tagline:"딥테크 영역 기술 기업"},
-  {no:40, name:"(주)헤시스", brand:"HESYS", ceo:"장상현", email:"jsh@hesysdh.com", phone:"010-3047-3129", founded:"2025", age:"1년 미만", location:"대전/충청", sector:"반도체 부품", web:"", source:"지인 추천", tagline:"반도체 부품 분야 초기 기업"},
-  {no:41, name:"주식회사 플렉스오더 (FlexOrder)", brand:"RoboTalk", ceo:"안호성", email:"ken@flexorder.net", phone:"010-7118-3701", founded:"2022", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"robotalk.io", source:"페이스북", tagline:"호텔 객실용 AI 음성 컨시어지 RoboTalk Hotel · 등록특허 1 + 출원 3건 (PCT·USI 포함)"},
-  {no:42, name:"(주)파운디", brand:"Foundy", ceo:"홍정수", email:"hong@foundy.kr", phone:"010-6320-0544", founded:"2020", age:"3~7년", location:"서울", sector:"글로벌 / 헬스케어 / 라이프스타일", web:"foundy.kr", source:"지인 추천", tagline:"디자인 웰니스 제품 제조·유통·판매 (하드웨어 기반 웰니스·글로벌 헬스테크)"},
-  {no:43, name:"아리카 주식회사", brand:"ARICA", ceo:"박인준", email:"tony.park@aricacorp.net", phone:"010-3290-0350", founded:"2022", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"arica.ai", source:"검색", tagline:"Neuro-Symbolic AI 기반 로봇 운영지능 플랫폼"},
-  {no:44, name:"주식회사 온코인", brand:"Oncoin", ceo:"김필조", email:"pkim@oncoin.co.kr", phone:"010-2794-0284", founded:"2022", age:"3~7년", location:"강원", sector:"딥테크 / 헬스케어", web:"oncoin.co.kr", source:"언론/미디어", tagline:"독자적 종양 바이오마커 플랫폼 · 암 환자 개인 맞춤형 항암제 선별 · 총 12억 투자 유치"},
-  {no:45, name:"주식회사 더에이비오", brand:"슬루 (SleepsLue)", ceo:"강현규", email:"abo.kanghg@gmail.com", phone:"010-3455-9394", founded:"2024", age:"1~3년", location:"서울", sector:"딥테크 / 신소재", web:"sleepslue.com", source:"지인 추천", tagline:"신소재 침구 리빙 제조 회사"},
-  {no:46, name:"오디오가이(주)", brand:"AudioGuy", ceo:"최정훈", email:"audioguy@audioguyrecords.com", phone:"010-8260-3348", founded:"2019", age:"3~7년", location:"서울", sector:"딥테크 / AI 오디오", web:"audioguyrecords.com", source:"기관추천", tagline:"AI 공간음향 기술 기반 K-POP·순수예술 음원 대량 제작·유통 글로벌 음악기술 기업"},
-  {no:47, name:"주식회사 포어텔마이헬스", brand:"ForetellMyHealth", ceo:"안태진", email:"ceo@foretell.bio", phone:"010-5859-0520", founded:"2022", age:"3~7년", location:"대구/경북", sector:"디지털 헬스케어", web:"foretell.bio", source:"기관추천", tagline:"혈소판 RNA 기반 바이오마커 + AI 분석으로 암 비침습 조기 진단"},
-  {no:48, name:"하나네트웍스(주)", brand:"HanaNet", ceo:"오승준", email:"osj8@smaled.com", phone:"010-7369-5055", founded:"2018", age:"7년 이상", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"hananet.co.kr", source:"그래비티벤처스 오픈채팅", tagline:"AI를 클라우드가 아닌 디바이스에서 실행하는 온디바이스 AI 인프라 플랫폼"},
-  {no:49, name:"주식회사 베드락", brand:"Bedrocks", ceo:"권상민", email:"ksm@kwonsangmin.net", phone:"010-5455-4497", founded:"2026", age:"1년 미만", location:"경기/인천", sector:"보험업 AI", web:"bdrcks.com", source:"지인 추천", tagline:"보험업 AI 솔루션 (신규 법인)"},
-  {no:50, name:"(주)에이피그린", brand:"에이피그린", ceo:"박태윤", email:"typark@apgreen.net", phone:"01039511681", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크 / 친환경 에너지", web:"apgreen.net", source:"링크드인", tagline:"C-POX 기반 저전력 온사이트 수소 개질기"},
-  {no:51, name:"(주)휴몬랩", brand:"휴몬랩 (교풀AI)", ceo:"조현상", email:"jo@huemone.com", phone:"010-6572-0214", founded:"2017", age:"7년 이상", location:"서울", sector:"딥테크 / 에듀테크", web:"gyopool.com", source:"류재언 변호사 추천", tagline:"AI 기반 교육 플랫폼 '교풀AI' 개발·운영 에듀테크"},
-  {no:52, name:"주식회사 에이풀", brand:"에이풀 (endoful)", ceo:"박대규", email:"dkpark@aful.io", phone:"01097923369", founded:"2024", age:"1~3년", location:"서울", sector:"딥테크 / 헬스케어 SaaS", web:"aful.io", source:"지인 추천", tagline:"의료기관 감염관리 자동화 SaaS · 내시경 세척·소독 이력 RFID 기반 디지털 전환"},
-  {no:53, name:"(주)마이크로픽스", brand:"마이크로픽스", ceo:"김효진", email:"hjkim@micropix.kr", phone:"010-3010-2594", founded:"2021", age:"3~7년", location:"대전/충청", sector:"Physical AI / 비전 센서", web:"micropix.kr", source:"지인 추천", tagline:"마이크로렌즈 어레이 분광 이미징 기술 — Physical AI 비전센서"},
-  {no:54, name:"피에로컴퍼니", brand:"피에로 (PHONEGO)", ceo:"박민진", email:"jacob@pierrot.company", phone:"010-4735-1891", founded:"2020", age:"3~7년", location:"서울", sector:"딥테크 / AI 인프라", web:"phonego.co.kr", source:"지인 추천", tagline:"AI 기반 글로벌 중고 IT기기 시세 인덱스·거래 인프라"},
-  {no:55, name:"(주)레인보우핀토스미디어", brand:"RAINBOWPINTOSMEDIA", ceo:"김정욱", email:"jwkim@rainbowpintos.com", phone:"01034966601", founded:"2022", age:"3~7년", location:"대전/충청", sector:"광학 홀로그램 / 엔터테크", web:"rainbowpintos.com", source:"기관추천", tagline:"홀로그램 엔터테크 — 광학홀로그램 원천기술 기반 시각 경험"},
-  {no:56, name:"(주)에이인비", brand:"AINB", ceo:"박은영", email:"eunyoung.park@ainbsci.com", phone:"010-4764-6668", founded:"2022", age:"3~7년", location:"경기/인천", sector:"딥테크 / AI 바이오", web:"ainbsci.com", source:"기관추천", tagline:"자체 DB와 AI 모델 기반 항체 신약 후보 발굴 인공지능 바이오테크"},
-  {no:57, name:"딥비전스", brand:"DeepVisions", ceo:"강봉수", email:"bskang@deepvisions.co.kr", phone:"010-9314-0010", founded:"2018", age:"7년 이상", location:"서울", sector:"딥테크 / 비전 AI", web:"deepvisions.co.kr", source:"기관추천", tagline:"비전 AI 기반 환경·농업 데이터 분석 및 현장 문제 해결"},
-  {no:58, name:"알리콘 주식회사", brand:"Alicorn", ceo:"조민희", email:"cho@alicorn.team", phone:"010-2672-6493", founded:"2015", age:"7년 이상", location:"서울", sector:"Physical AI / 공간 운영", web:"alicorn-space.ai", source:"언론/미디어", tagline:"출입·결제·시설제어·보안 통합 Physical AI 공간 운영 플랫폼"},
-  {no:59, name:"주식회사 비티이", brand:"BTE", ceo:"강혁진", email:"hjkang@bte-inc.co.kr", phone:"010-5323-3984", founded:"2020", age:"3~7년", location:"경기/인천", sector:"친환경 에너지 / 수소", web:"bte-inc.co.kr", source:"기관추천", tagline:"수소 모빌리티 충전장비·상업용 수소연료전지 발전기 전주기 솔루션"},
-  {no:60, name:"택로봇(가칭)", brand:"택로봇", ceo:"정하철", email:"hacher99@naver.com", phone:"010-5570-7373", founded:"2026", age:"1년 미만", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"", source:"지인 추천", tagline:"반도체 기반 저가 촉각센서 + 로봇핸드·그리퍼 (창업 예정)"},
-  {no:61, name:"주식회사 하이캣", brand:"HAIcat (NeoSand)", ceo:"김성훈", email:"hunico@naver.com", phone:"010-8505-1436", founded:"2025", age:"1년 미만", location:"부산/경남", sector:"Physical AI / 펫 헬스케어", web:"haicat.co.kr", source:"창업 단톡방", tagline:"반려묘 화장실 접점 배뇨 데이터 측정 Physical AI 헬스케어 디바이스"},
-  {no:62, name:"(주)플라스뽀", brand:"Plaspeau", ceo:"김하리", email:"hkim@plaspeau.com", phone:"010-2515-5687", founded:"2025", age:"1년 미만", location:"대구/경북", sector:"딥테크 / NO 신소재", web:"plaspeau.com", source:"포스텍홀딩스 추천", tagline:"POSTECH 윤건수 교수 연구실 기반 초임계 유체 플라즈마 NO(산화질소) 신소재"},
-  {no:63, name:"주식회사 토마스톤", brand:"ToMaStone", ceo:"이재영", email:"dentaljy@thomastone.co.kr", phone:"01050077061", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 디지털 헬스케어", web:"thomastone.co.kr", source:"지인 추천", tagline:"AI 기반 구강건강 데이터 분석 · 치면착색·구강 이미지 분석 SaaS"},
-  {no:64, name:"주식회사 에이이에이씨바이오", brand:"AEAC bio", ceo:"양효정", email:"hyo@aeacbio.com", phone:"010-3813-8741", founded:"2024", age:"1~3년", location:"대전/충청", sector:"Physical AI / 온디맨드 제조", web:"aeacbio.com", source:"지인 추천", tagline:"AI + 온디맨드 디바이스 기반 실시간 퍼스널 제조 솔루션"},
-  {no:65, name:"(주) 이머틱스", brand:"이머틱스", ceo:"김기운", email:"kku900304@naver.com", phone:"01067365121", founded:"2025", age:"1~3년", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"", source:"검색", tagline:"촉각 물리지능 AI 모델 + 로봇·우주·의료 산업 사업화"},
-  {no:66, name:"주식회사 알오지스틱스", brand:"ROgistics", ceo:"최낙은", email:"nakeeun@rogistics.co.kr", phone:"01054878124", founded:"2023", age:"3~7년", location:"대구/경북", sector:"Physical AI / 물류 로보틱스", web:"rogistics.co.kr", source:"기관추천", tagline:"국내 최초 좌·우 105도 굴절 무인지게차 로봇시스템"},
-  {no:67, name:"주식회사 업사이트", brand:"Upsight", ceo:"임강후", email:"khooo.kr@upsight.co.kr", phone:"010-6269-7072", founded:"2021", age:"3~7년", location:"서울", sector:"딥테크 / 건설 AI", web:"upsight.co.kr", source:"지인 추천", tagline:"건설 현장 영상·도면·공정 데이터 통합 AI 플랫폼 · 3D 현장 복원"},
-  {no:68, name:"(주)세라오스", brand:"CeraOss", ceo:"박기현", email:"ceraossceo@gmail.com", phone:"01094792875", founded:"2023", age:"1~3년", location:"경기/인천", sector:"치과용 의료기기", web:"ceraoss.com", source:"지인 추천", tagline:"세라믹·고분자 신개념 임플란트 · 미국 FDA 품목신청 예정"},
-  {no:69, name:"팜펌 주식회사", brand:"Palmfirm", ceo:"권민성", email:"ms.kwon@palmfirm.com", phone:"01042224729", founded:"2019", age:"3~7년", location:"서울", sector:"딥테크 / 헬스케어 AI", web:"palmfirm.com", source:"지인 추천", tagline:"세계 최초 생체신호 기반 식사 자동 감지 AI 플랫폼"},
-  {no:70, name:"주식회사 지에스에프솔루션", brand:"GSF Solution", ceo:"이수연", email:"sylee@gsfsolution.com", phone:"01093600534", founded:"2022", age:"3~7년", location:"대전/충청", sector:"반도체 부품 / 딥테크", web:"gsfsolution.com", source:"기관추천", tagline:"첨단산업 공정·장비 이상 감지 및 예지보전 지능화 솔루션"},
-  {no:71, name:"피플즈리그 주식회사", brand:"PeoplesLeague", ceo:"류건희", email:"gunny@peoplesleague.co.kr", phone:"010-5391-9505", founded:"2021", age:"3~7년", location:"대전/충청", sector:"Physical AI / F&B 휴머노이드", web:"peoplesleague.co.kr", source:"검색", tagline:"패스트푸드 매장 운영 휴머노이드 — F&B 인력난 Physical AI 솔루션"},
-  {no:72, name:"(주)마이샵클라우드", brand:"마이샵클라우드", ceo:"김준우", email:"jun@myshopcloud.com", phone:"010-4894-2715", founded:"2021", age:"3~7년", location:"경기/인천", sector:"딥테크 / 산업 AI", web:"dasiwoorida.com", source:"언론/미디어", tagline:"건해산물 산업 품질·거래·공급망 데이터 기반 AI 솔루션"},
-  {no:73, name:"(주)포하우", brand:"4How", ceo:"구길자", email:"4how2022@naver.com", phone:"010-2543-4901", founded:"2022", age:"3~7년", location:"경기/인천", sector:"Physical AI / 산업 데이터", web:"4how.co.kr", source:"링크드인", tagline:"냉동·초저온 설비 30년 경험 기반 산업 현장 데이터→생산성 연결"},
-  {no:74, name:"클리 주식회사", brand:"Qli (단독닥)", ceo:"박찬호", email:"ch.park@qli.co.kr", phone:"010-5438-1624", founded:"2018", age:"7년 이상", location:"서울", sector:"건축 / 데이터", web:"dandoc.co.kr", source:"언론/미디어", tagline:"단독주택을 위한 관리사무소 운영"},
-  {no:75, name:"주식회사 젠티크엑스", brand:"MungAI (멍우프)", ceo:"남기훈", email:"louisnam@ddnapet.com", phone:"010-9586-3012", founded:"2022", age:"3~7년", location:"대구/경북", sector:"Physical AI / 펫 AI", web:"mungwoofai.com", source:"지인 추천", tagline:"반려동물 AI 행동 분석 모니터링 솔루션"},
-  {no:76, name:"(주)코브라", brand:"COBRA", ceo:"임병덕", email:"bdlim@cobrasys.co.kr", phone:"010-2530-2571", founded:"2020", age:"3~7년", location:"대구/경북", sector:"딥테크 / 방산", web:"cobrasys.co.kr", source:"기관추천", tagline:"HW 중심 레이다 → SW 기반 지능형 레이다 혁신 방산 테크"},
-  {no:77, name:"Flux AI Asia Inc.", brand:"CRAISEE", ceo:"강지현", email:"julie@flux-asia.co", phone:"01047389194", founded:"2025", age:"1년 미만", location:"서울", sector:"Generative AI / Creative Workflow", web:"craisee.com", source:"링크드인", tagline:"아시아 거점 생성형 AI 플랫폼 · CRAISEE 글로벌 런칭 (2026.5)"},
-  {no:78, name:"카이로스 모빌리티", brand:"Kairos Mobility", ceo:"김의철", email:"euichuls@gmail.com", phone:"01094318632", founded:"2026", age:"1년 미만", location:"서울", sector:"딥테크 / 모빌리티 AI", web:"", source:"링크드인", tagline:"실도로 데이터 기반 AI 교통 솔루션 · 신흥시장 교통관리 시스템"},
-  {no:79, name:"(주)브이에스엘", brand:"VSL (FIT-VAC)", ceo:"강태욱", email:"sseoo@naver.com", phone:"010-6294-9024", founded:"2022", age:"3~7년", location:"대전/충청", sector:"반도체 / 분석 SW", web:"fit-vac.com", source:"충남청경 추천", tagline:"반도체 제조용 진공 시스템 시뮬레이션 SW 솔루션"},
-  {no:80, name:"(주)마인드포지", brand:"MindForge", ceo:"채규열", email:"kychae@mindforge.kr", phone:"01042032085", founded:"2019", age:"3~7년", location:"서울", sector:"Physical AI / 온디바이스 비전", web:"mindforge.kr", source:"포스텍홀딩스 추천", tagline:"로봇·드론용 온디바이스 Vision AI 전문 기업"},
-  {no:81, name:"크레플 주식회사", brand:"CREFLE", ceo:"이완곤", email:"wg.lee@crefle.com", phone:"01089758320", founded:"2020", age:"3~7년", location:"경기/인천", sector:"Physical AI / 제조 AI", web:"crefle.com", source:"기관추천", tagline:"AI 비전+로봇 제어 기반 제조 현장 자율화 — Manufacturing AI Partner"},
-  {no:82, name:"(주)뉴런소프트", brand:"PassNote", ceo:"최영재", email:"koreasomoon@naver.com", phone:"010-6889-3386", founded:"2024", age:"1~3년", location:"서울", sector:"딥테크 / 에듀테크", web:"passnote.co.kr", source:"기관추천", tagline:"AI 모의고사 플랫폼"}
+  {no:1, name:"주식회사 에이치오피", brand:"에이치오피", ceo:"장석영", email:"jasper.jang@hopcorporation.com", phone:"010-9181-1806", founded:"2024", age:"1~3년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"hopcorporation.com", source:"IR 발표 후 추천", tagline:"Physical AI · 로보틱스 영역의 신기술 기업", hasIR:true, glennScore:85, glennGrade:"A"},
+  {no:2, name:"주식회사 웰스케어", brand:"웰스케어", ceo:"이성원", email:"swlee@wellscare.kr", phone:"010-7224-2034", founded:"2018", age:"7년 이상", location:"경기/인천", sector:"의료기기 / 딥테크", web:"wellscare.kr", source:"지인 추천", tagline:"광생체조절(PBM) 응용 웨어러블 마이크로파워 콜드레이저 의료기기", glennScore:50, glennGrade:"D"},
+  {no:3, name:"주식회사 웨인힐스브라이언트에이아이", brand:"웨인힐스", ceo:"데이비드곤", email:"ceo@waynehills.co", phone:"010-5417-4111", founded:"2017", age:"7년 이상", location:"해외", sector:"딥테크", web:"waynehills.co", source:"언론/미디어", tagline:"USA 법인 기반 AI 기술 기업", glennScore:50, glennGrade:"D"},
+  {no:4, name:"주식회사 프리그로우", brand:"프리그로우", ceo:"김영식", email:"freegrow@freegrow.io", phone:"010-5925-3949", founded:"2019", age:"7년 이상", location:"부산/경남", sector:"Physical AI / 로보틱스", web:"grow-space.io", source:"언론/미디어", tagline:"산업 현장 위치 인프라 기반 공간 데이터 → 운영 데이터 전환 Physical AI 기업", hasIR:true, glennScore:70, glennGrade:"B"},
+  {no:5, name:"주식회사 건설파트너", brand:"건설파트너", ceo:"이혁", email:"hyuk.lee@conpa.ai", phone:"010-9641-8400", founded:"2025", age:"1년 미만", location:"서울", sector:"딥테크 / 건설 AI SaaS", web:"conpa.ai", source:"SNS", tagline:"10배 빠른 공사비 견적으로 건설사의 수주를 돕는 견적 자동화 SaaS", glennScore:50, glennGrade:"D"},
+  {no:6, name:"미트프로이데(Mitfreude)", brand:"미트프로이데", ceo:"김수경", email:"founder@mitfreude.co", phone:"010-4850-0016", founded:"2026", age:"1년 미만", location:"경기/인천", sector:"반도체 소재 / 딥테크", web:"mitfreude.co", source:"SNS", tagline:"반도체 공정용 폐쿼츠를 고성능 광학소재로 전환하는 소부장 딥테크", hasIR:true, glennScore:65, glennGrade:"C", glennNote:"자원순환 모델로 환경펀드 검토가능"},
+  {no:7, name:"주식회사 씨쓰리브이", brand:"C3V (MiZi)", ceo:"김종환", email:"allan@cccv.to", phone:"010-3344-5720", founded:"2025.12", age:"1년 미만", location:"부산/경남", sector:"딥테크", web:"cccv.to", source:"SNS", tagline:"ZKP+온체인 검증 기반 MCP용 표준 데이터 트러스트 인프라", glennScore:50, glennGrade:"D"},
+  {no:8, name:"트윈위즈", brand:"트윈위즈", ceo:"김창수", email:"ceo@twinwiz.co.kr", phone:"010-9990-9244", founded:"2022", age:"3~7년", location:"부산/경남", sector:"딥테크 / 소재", web:"twinwiz.co.kr", source:"언론/미디어", tagline:"액상 항균·항바이러스·항곰팡이 소재 (한국재료연구원 스핀오프)", glennScore:50, glennGrade:"D"},
+  {no:9, name:"주식회사 블록코어", brand:"블록코어", ceo:"김영빈", email:"ybkim@blockcore.co.kr", phone:"010-4338-9585", founded:"2025", age:"1년 미만", location:"서울", sector:"딥테크 / 보안", web:"blockcore.co.kr", source:"류재언 변호사", tagline:"양자보안과 블록체인을 융합한 경량화 양자보안 모듈 개발", glennScore:50, glennGrade:"D", glennNote:"기술 내용을 검증할 수 있는 핵심고객 PoC 결과 등이 있어야 진행가능"},
+  {no:10, name:"주식회사 블루디바이스", brand:"블루디바이스", ceo:"정재민", email:"jmjeong@bluedevice.co.kr", phone:"010-7740-7335", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 디스플레이", web:"bluedevice.co.kr", source:"지인 추천", tagline:"친환경소재를 이용한 안티글레어 처리 (디스플레이·솔라·스마트윈도우)", glennScore:65, glennGrade:"C", glennNote:"과거 한차례 검토했던 기업으로, 해결해야 하는 문제가 치명적인지 검토 필요"},
+  {no:11, name:"(주)풀다이브테크놀로지", brand:"풀다이브", ceo:"이형준", email:"plum770@gmail.com", phone:"010-9880-4876", founded:"2016", age:"7년 이상", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"xsentir.com", source:"지인 추천", tagline:"휴머노이드 AI용 정교한 촉각 데이터 수집 유사 촉감 웨어러블", glennScore:50, glennGrade:"D"},
+  {no:12, name:"주식회사 아뮤즈", brand:"아뮤즈", ceo:"박정윤", email:"yoon2@amuz.co.kr", phone:"010-4479-5513", founded:"2017", age:"7년 이상", location:"부산/경남", sector:"Physical AI / 로보틱스", web:"amuz.co.kr", source:"지인 추천", tagline:"Physical AI · 로보틱스 영역 기업", glennScore:65, glennGrade:"C", glennNote:"산업군은 적정하나 연차 대비 성과가 정확히 확인되지 않음"},
+  {no:13, name:"(주)틴들로", brand:"틴들로", ceo:"류기원", email:"giwon@tindlo.com", phone:"010-9618-0352", founded:"2025", age:"1년 미만", location:"서울", sector:"SaaS", web:"tindlo.com", source:"검색", tagline:"세계 Top1 의료기관과 NDA 체결한 헬스케어 SaaS 기업", glennScore:50, glennGrade:"D"},
+  {no:14, name:"(주)옴니코트", brand:"옴니코트", ceo:"박순홍", email:"shpark@omnicoat.co.kr", phone:"010-2517-9918", founded:"2022", age:"3~7년", location:"대구/경북", sector:"딥테크 / 소재", web:"omnicoat.co.kr", source:"기관추천", tagline:"건식 기반 디지털 프린팅 기술로 건축·가전·기능성 소재 개발", glennScore:55, glennGrade:"C"},
+  {no:15, name:"웨어러블에이아이", brand:"Whereable AI", ceo:"백두산", email:"dsbaek@whereable.ai", phone:"010-3181-6760", founded:"2024", age:"1~3년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"whereable.ai", source:"기관추천", tagline:"특수목적차량(SPM)을 위한 AI 기반 자율주행 솔루션 · 서울대/토르드라이브 출신", hasIR:true, glennScore:60, glennGrade:"C"},
+  {no:16, name:"(주)돌봄드림", brand:"돌봄드림", ceo:"김지훈", email:"expo@dolbomdream.com", phone:"010-5055-2824", founded:"2020", age:"3~7년", location:"대전/충청", sector:"딥테크 / 헬스케어", web:"dolbomdream.com", source:"페이스북", tagline:"공기압-심탄도 센서 기반 비침습 AI 건강관리 모니터링 · Series A 15억 확보", hasIR:true, glennScore:65, glennGrade:"C"},
+  {no:17, name:"(주)딥플랜트", brand:"딥플랜트", ceo:"김철범", email:"michael@deeplant.com", phone:"010-2684-2665", founded:"2019", age:"3~7년", location:"경기/인천", sector:"딥테크 / 푸드테크", web:"deeplant.com", source:"지인 추천", tagline:"AI 기반 딥테크로 육류의 가치를 재설계하는 푸드테크", glennScore:50, glennGrade:"D"},
+  {no:18, name:"도비캔버스 주식회사", brand:"도비캔버스", ceo:"이재훈", email:"dobby@dobby-canvas.com", phone:"010-3498-0223", founded:"2023", age:"1~3년", location:"경기/인천", sector:"딥테크", web:"dobby-canvas.com", source:"기관추천", tagline:"딥테크 기반 기술 기업", glennScore:50, glennGrade:"D"},
+  {no:19, name:"주식회사 소금광산(SALTMiNE)", brand:"SALTMiNE", ceo:"유창현", email:"olive@saltmine.io", phone:"010-9433-7410", founded:"2020", age:"3~7년", location:"경기/인천", sector:"딥테크", web:"saltmine.io", source:"기관추천", tagline:"경기 하남 본사 + 충남 천안 부설연구소 기반 딥테크 기업", glennScore:50, glennGrade:"D"},
+  {no:20, name:"모아드림(주)", brand:"MoreDream", ceo:"조돈우", email:"dwcho3652@gmail.com", phone:"010-9116-3608", founded:"2024.11", age:"1~3년", location:"서울", sector:"딥테크 / 접근성", web:"themoredream.com", source:"페이스북", tagline:"시각장애인 관련 문제 해결 사업아이템 · TIPS 관심", glennScore:50, glennGrade:"D"},
+  {no:21, name:"주식회사 토프모빌리티", brand:"TOFF", ceo:"정찬영", email:"jaden@toffmobility.com", phone:"010-9477-1162", founded:"2023", age:"1~3년", location:"서울", sector:"딥테크 / UAM", web:"toffmobility.com", source:"지인 추천", tagline:"아시아 최초 전기비행기 안전성 인증 · 2024년 매출 18억 흑자전환", hasIR:true, glennScore:65, glennGrade:"C"},
+  {no:22, name:"(주)오톤도", brand:"오톤도", ceo:"김경묵", email:"boknam@otondo.co.kr", phone:"010-7468-0427", founded:"2024.01", age:"1~3년", location:"서울", sector:"딥테크 / 인테리어 AI", web:"otondo.co.kr", source:"기관추천", tagline:"국내 유일의 Interior Digital Operation System · 인테리어 AI 에이전트", glennScore:50, glennGrade:"D"},
+  {no:23, name:"주식회사 프리딕션", brand:"Prediction", ceo:"김두호", email:"duho.kim@prediction.im", phone:"010-7143-3326", founded:"2024", age:"1~3년", location:"경기/인천", sector:"전동화 모빌리티", web:"eview.im", source:"기관추천", tagline:"배터리 선제적 이상진단·가치평가 AI 파운데이션 모델 기반 전기차 Fleet 운용 효율관리 SaaS", hasIR:true, glennScore:60, glennGrade:"C"},
+  {no:24, name:"커런시유나이티드", brand:"CU Unit", ceo:"윤민성", email:"myun75@naver.com", phone:"010-7722-1107", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크", web:"cuunit.com", source:"기관추천", tagline:"투자금 3억으로 월거래액 300억 달성 (기관 추천)", glennScore:50, glennGrade:"D"},
+  {no:25, name:"주식회사 코파", brand:"COFA", ceo:"박기남", email:"keypark@cofa.co.kr", phone:"010-9245-7848", founded:"2025", age:"1~3년", location:"경기/인천", sector:"반도체 소재", web:"cofa.co.kr", source:"지인 추천", tagline:"반도체 언더필(CUF/HBM) 국산화 · 국내 최초 Qual 대상 제조사", hasIR:true, glennScore:65, glennGrade:"C", glennNote:"반도체 소재국산화 측면에서 검토해볼만한 초기기업"},
+  {no:26, name:"(주)프레쉬아워", brand:"바프독", ceo:"임경호", email:"kyeonghoim@gmail.com", phone:"010-9466-1984", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 펫테크", web:"barfdog.co.kr", source:"지인 추천", tagline:"펫 NGS·PHR 100만건 데이터 기반 AI 맞춤 레시피 정기배송 서비스", glennScore:50, glennGrade:"D"},
+  {no:27, name:"(주)에이투어스", brand:"A2US", ceo:"박희진", email:"hjpark1005@a2us.co.kr", phone:"010-7979-5453", founded:"2021", age:"3~7년", location:"대전/충청", sector:"반도체 장비", web:"a2us.co.kr", source:"포스텍홀딩스 추천", tagline:"하이드록실 라디칼 생성 기반 물·공기 정화 기술 · 오존 無 인체 무해", hasIR:true, glennScore:65, glennGrade:"C", glennNote:"딥테크TIPS 선정 기업, 반도체 향 납품기대 가능"},
+  {no:28, name:"(주)매크로액트", brand:"Macroact", ceo:"강의혁", email:"lihak@macroact.com", phone:"010-9086-6514", founded:"2019", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"macroact.com", source:"기관추천", tagline:"로봇 자율제어·동적 디지털트윈 Physical AI 딥테크 · CES 혁신상 수상", hasIR:true, glennScore:50, glennGrade:"D"},
+  {no:29, name:"(주)샹떼헬스케어", brand:"SANTE", ceo:"박동준", email:"sante0329@naver.com", phone:"010-2882-5710", founded:"2022", age:"3~7년", location:"부산/경남", sector:"헬스케어 AI", web:"santehealthcare.com", source:"기관추천", tagline:"부산기술창업투자원 추천 헬스케어 AI 기업", glennScore:55, glennGrade:"C", glennNote:"TIPS 미진행 기업"},
+  {no:30, name:"주식회사 디코", brand:"DICO", ceo:"황준철", email:"john@dicoinc.co.kr", phone:"010-2203-0800", founded:"2019", age:"3~7년", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"dicoinc.co.kr", source:"지인 추천", tagline:"SOLAI 산업용 이미지 딥러닝 비전검사 · 삼성전기·LG화학 납품", hasIR:true, glennScore:75, glennGrade:"B"},
+  {no:31, name:"프렉탈테크놀로지 주식회사", brand:"CookieDeal", ceo:"심정훈", email:"joshua.sim@cookiedeal.io", phone:"010-3282-2858", founded:"2023", age:"1~3년", location:"서울", sector:"딥테크 / 데이터", web:"cookiedeal.io", source:"검색", tagline:"비상장기업 데이터 인프라 · Clay·Grata·QICHACHA 벤치마크", glennScore:50, glennGrade:"D"},
+  {no:32, name:"니어브레인 주식회사", brand:"NearBrain", ceo:"황정원", email:"jeongwon.hwang@nearbrain.com", phone:"010-2055-1137", founded:"2022", age:"3~7년", location:"서울", sector:"의료기기 / 딥테크", web:"nearbrain.com", source:"기관추천", tagline:"AI 기반 뇌혈류 분석 의료 소프트웨어 개발 기업", hasIR:true, glennScore:60, glennGrade:"C"},
+  {no:33, name:"주식회사 사이클로이드", brand:"사이클로이드", ceo:"권준일", email:"jun@ba-dream.com", phone:"010-2968-1685", founded:"2023", age:"1~3년", location:"서울", sector:"모빌리티", web:"ba-dream.com", source:"기관추천", tagline:"모빌리티 영역 기술 기업", hasIR:true, glennScore:65, glennGrade:"C"},
+  {no:34, name:"(주)에스앤이컴퍼니", brand:"B·good", ceo:"이정수", email:"jslee@bgood.co.kr", phone:"010-3786-4608", founded:"2020", age:"3~7년", location:"서울", sector:"딥테크 / Ag-tech", web:"bgood.co.kr", source:"기관추천", tagline:"농산물 생육·작황·가격 진단 및 예측 기반 AI 에이전트 B·good", hasIR:true, glennScore:75, glennGrade:"B"},
+  {no:35, name:"주식회사 원인터내셔널", brand:"MUːN", ceo:"변철원", email:"woninternationalinc@gmail.com", phone:"010-7343-0112", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크 / 비전 AI", web:"woninternational.com", source:"지인 추천", tagline:"비전 AI 기반 자동 출입문 솔루션 MUːN 개발", glennScore:60, glennGrade:"C"},
+  {no:36, name:"주식회사 펨토리", brand:"펨토리", ceo:"이승훈", email:"ceo@femtory.com", phone:"010-5140-0400", founded:"2021", age:"3~7년", location:"대전/충청", sector:"반도체 부품 / 딥테크", web:"femtory.com", source:"지인 추천", tagline:"반도체 부품 분야 딥테크 기업", glennScore:90, glennGrade:"A", isPortfolio:true},
+  {no:37, name:"주식회사 바이브존", brand:"VIBEZONE", ceo:"박상범", email:"sbpark@vibezone.kr", phone:"010-3383-8232", founded:"2020", age:"3~7년", location:"서울", sector:"플랫폼 / 콘텐츠", web:"vibezone.kr", source:"언론/미디어", tagline:"TV 전용 K팝 인터랙티브 홈 콘서트 플랫폼", glennScore:65, glennGrade:"C", glennNote:"좋은 사업일지는 미지수이나 한번 들어보고 싶음"},
+  {no:38, name:"(주)트라이큐빅스코리아", brand:"Tricubics", ceo:"김종민", email:"jason.kim@tricubics.com", phone:"010-9890-0604", founded:"2018", age:"7년 이상", location:"대구/경북", sector:"딥테크 / Edge AI", web:"tricubics.com", source:"기관추천", tagline:"국내 최고의 버티컬 영상 인식 시장 Edge AI 솔루션", glennScore:50, glennGrade:"D", glennNote:"사업연차가 오래 됐으며, 기술로 타겟가능한 어플리케이션이 부족해 확장성 제한 우려"},
+  {no:39, name:"위에이드", brand:"WeAid", ceo:"김대승", email:"reader@weaid.im", phone:"010-9967-2650", founded:"2023", age:"1~3년", location:"광주/전라", sector:"딥테크", web:"weaid.im", source:"검색", tagline:"딥테크 영역 기술 기업", glennScore:70, glennGrade:"B", glennNote:"마이크로프로텍트와 유사한 모델이나 최근 재무성장세가 인상적이어서 한번 확인해볼 필요있음"},
+  {no:40, name:"(주)헤시스", brand:"HESYS", ceo:"장상현", email:"jsh@hesysdh.com", phone:"010-3047-3129", founded:"2025", age:"1년 미만", location:"대전/충청", sector:"반도체 부품", web:"", source:"지인 추천", tagline:"반도체 부품 분야 초기 기업", glennScore:70, glennGrade:"B", isPortfolio:true},
+  {no:41, name:"주식회사 플렉스오더 (FlexOrder)", brand:"RoboTalk", ceo:"안호성", email:"ken@flexorder.net", phone:"010-7118-3701", founded:"2022", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"robotalk.io", source:"페이스북", tagline:"호텔 객실용 AI 음성 컨시어지 RoboTalk Hotel · 등록특허 1 + 출원 3건 (PCT·USI 포함)", glennScore:50, glennGrade:"D"},
+  {no:42, name:"(주)파운디", brand:"Foundy", ceo:"홍정수", email:"hong@foundy.kr", phone:"010-6320-0544", founded:"2020", age:"3~7년", location:"서울", sector:"글로벌 / 헬스케어 / 라이프스타일", web:"foundy.kr", source:"지인 추천", tagline:"디자인 웰니스 제품 제조·유통·판매 (하드웨어 기반 웰니스·글로벌 헬스테크)", glennScore:50, glennGrade:"D"},
+  {no:43, name:"아리카 주식회사", brand:"ARICA", ceo:"박인준", email:"tony.park@aricacorp.net", phone:"010-3290-0350", founded:"2022", age:"3~7년", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"arica.ai", source:"검색", tagline:"Neuro-Symbolic AI 기반 로봇 운영지능 플랫폼", glennScore:70, glennGrade:"B"},
+  {no:44, name:"주식회사 온코인", brand:"Oncoin", ceo:"김필조", email:"pkim@oncoin.co.kr", phone:"010-2794-0284", founded:"2022", age:"3~7년", location:"강원", sector:"딥테크 / 헬스케어", web:"oncoin.co.kr", source:"언론/미디어", tagline:"독자적 종양 바이오마커 플랫폼 · 암 환자 개인 맞춤형 항암제 선별 · 총 12억 투자 유치", hasIR:true, glennScore:55, glennGrade:"C", glennNote:"순수바이오로 평가하기 어려움"},
+  {no:45, name:"주식회사 더에이비오", brand:"슬루 (SleepsLue)", ceo:"강현규", email:"abo.kanghg@gmail.com", phone:"010-3455-9394", founded:"2024", age:"1~3년", location:"서울", sector:"딥테크 / 신소재", web:"sleepslue.com", source:"지인 추천", tagline:"신소재 침구 리빙 제조 회사", glennScore:50, glennGrade:"D"},
+  {no:46, name:"오디오가이(주)", brand:"AudioGuy", ceo:"최정훈", email:"audioguy@audioguyrecords.com", phone:"010-8260-3348", founded:"2019", age:"3~7년", location:"서울", sector:"딥테크 / AI 오디오", web:"audioguyrecords.com", source:"기관추천", tagline:"AI 공간음향 기술 기반 K-POP·순수예술 음원 대량 제작·유통 글로벌 음악기술 기업", glennScore:50, glennGrade:"D", glennNote:"AI / IP 어떤 방향으로도 완전한 해자를 갖추기 어려울 것으로 판단, 다만 산업리서치 차원에서의 IR은 필요하다면 진행가능"},
+  {no:47, name:"주식회사 포어텔마이헬스", brand:"ForetellMyHealth", ceo:"안태진", email:"ceo@foretell.bio", phone:"010-5859-0520", founded:"2022", age:"3~7년", location:"대구/경북", sector:"디지털 헬스케어", web:"foretell.bio", source:"기관추천", tagline:"혈소판 RNA 기반 바이오마커 + AI 분석으로 암 비침습 조기 진단", glennScore:50, glennGrade:"D"},
+  {no:48, name:"하나네트웍스(주)", brand:"HanaNet", ceo:"오승준", email:"osj8@smaled.com", phone:"010-7369-5055", founded:"2018", age:"7년 이상", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"hananet.co.kr", source:"그래비티벤처스 오픈채팅", tagline:"AI를 클라우드가 아닌 디바이스에서 실행하는 온디바이스 AI 인프라 플랫폼", glennScore:65, glennGrade:"C", glennNote:"온디바이스 AI로의 전환은 좋은 피봇팅인것 같으나, 실제로 동사 제품이 어떤 차별성을 갖출수 있는지에 대해서는 IR로 검증 필요함"},
+  {no:49, name:"주식회사 베드락", brand:"Bedrocks", ceo:"권상민", email:"ksm@kwonsangmin.net", phone:"010-5455-4497", founded:"2026", age:"1년 미만", location:"경기/인천", sector:"보험업 AI", web:"bdrcks.com", source:"지인 추천", tagline:"보험업 AI 솔루션 (신규 법인)", glennScore:65, glennGrade:"C"},
+  {no:50, name:"(주)에이피그린", brand:"에이피그린", ceo:"박태윤", email:"typark@apgreen.net", phone:"01039511681", founded:"2022", age:"3~7년", location:"광주/전라", sector:"딥테크 / 친환경 에너지", web:"apgreen.net", source:"링크드인", tagline:"C-POX 기반 저전력 온사이트 수소 개질기", glennScore:65, glennGrade:"C"},
+  {no:51, name:"(주)휴몬랩", brand:"휴몬랩 (교풀AI)", ceo:"조현상", email:"jo@huemone.com", phone:"010-6572-0214", founded:"2017", age:"7년 이상", location:"서울", sector:"딥테크 / 에듀테크", web:"gyopool.com", source:"류재언 변호사 추천", tagline:"AI 기반 교육 플랫폼 '교풀AI' 개발·운영 에듀테크", glennScore:70, glennGrade:"B"},
+  {no:52, name:"주식회사 에이풀", brand:"에이풀 (endoful)", ceo:"박대규", email:"dkpark@aful.io", phone:"01097923369", founded:"2024", age:"1~3년", location:"서울", sector:"딥테크 / 헬스케어 SaaS", web:"aful.io", source:"지인 추천", tagline:"의료기관 감염관리 자동화 SaaS · 내시경 세척·소독 이력 RFID 기반 디지털 전환", glennScore:50, glennGrade:"D"},
+  {no:53, name:"(주)마이크로픽스", brand:"마이크로픽스", ceo:"김효진", email:"hjkim@micropix.kr", phone:"010-3010-2594", founded:"2021", age:"3~7년", location:"대전/충청", sector:"Physical AI / 비전 센서", web:"micropix.kr", source:"지인 추천", tagline:"마이크로렌즈 어레이 분광 이미징 기술 — Physical AI 비전센서", glennScore:75, glennGrade:"B"},
+  {no:54, name:"피에로컴퍼니", brand:"피에로 (PHONEGO)", ceo:"박민진", email:"jacob@pierrot.company", phone:"010-4735-1891", founded:"2020", age:"3~7년", location:"서울", sector:"딥테크 / AI 인프라", web:"phonego.co.kr", source:"지인 추천", tagline:"AI 기반 글로벌 중고 IT기기 시세 인덱스·거래 인프라", glennScore:60, glennGrade:"C", glennNote:"사업아이템은 흥미로우나 밸류에이션이 너무 높음(Pre-200억원)"},
+  {no:55, name:"(주)레인보우핀토스미디어", brand:"RAINBOWPINTOSMEDIA", ceo:"김정욱", email:"jwkim@rainbowpintos.com", phone:"01034966601", founded:"2022", age:"3~7년", location:"대전/충청", sector:"광학 홀로그램 / 엔터테크", web:"rainbowpintos.com", source:"기관추천", tagline:"홀로그램 엔터테크 — 광학홀로그램 원천기술 기반 시각 경험", glennScore:85, glennGrade:"A", isPortfolio:true},
+  {no:56, name:"(주)에이인비", brand:"AINB", ceo:"박은영", email:"eunyoung.park@ainbsci.com", phone:"010-4764-6668", founded:"2022", age:"3~7년", location:"경기/인천", sector:"딥테크 / AI 바이오", web:"ainbsci.com", source:"기관추천", tagline:"자체 DB와 AI 모델 기반 항체 신약 후보 발굴 인공지능 바이오테크", glennScore:50, glennGrade:"D", glennNote:"항체 치료제 바이오테크 (Glenn 미팅 예정)"},
+  {no:57, name:"딥비전스", brand:"DeepVisions", ceo:"강봉수", email:"bskang@deepvisions.co.kr", phone:"010-9314-0010", founded:"2018", age:"7년 이상", location:"서울", sector:"딥테크 / 비전 AI", web:"deepvisions.co.kr", source:"기관추천", tagline:"비전 AI 기반 환경·농업 데이터 분석 및 현장 문제 해결", glennScore:50, glennGrade:"D"},
+  {no:58, name:"알리콘 주식회사", brand:"Alicorn", ceo:"조민희", email:"cho@alicorn.team", phone:"010-2672-6493", founded:"2015", age:"7년 이상", location:"서울", sector:"Physical AI / 공간 운영", web:"alicorn-space.ai", source:"언론/미디어", tagline:"출입·결제·시설제어·보안 통합 Physical AI 공간 운영 플랫폼", glennScore:65, glennGrade:"C"},
+  {no:59, name:"주식회사 비티이", brand:"BTE", ceo:"강혁진", email:"hjkang@bte-inc.co.kr", phone:"010-5323-3984", founded:"2020", age:"3~7년", location:"경기/인천", sector:"친환경 에너지 / 수소", web:"bte-inc.co.kr", source:"기관추천", tagline:"수소 모빌리티 충전장비·상업용 수소연료전지 발전기 전주기 솔루션", glennScore:80, glennGrade:"B"},
+  {no:60, name:"택로봇(가칭)", brand:"택로봇", ceo:"정하철", email:"hacher99@naver.com", phone:"010-5570-7373", founded:"2026", age:"1년 미만", location:"경기/인천", sector:"Physical AI / 로보틱스", web:"", source:"지인 추천", tagline:"반도체 기반 저가 촉각센서 + 로봇핸드·그리퍼 (창업 예정)", glennScore:65, glennGrade:"C", glennNote:"휴머노이드 향 부품이라 미팅해볼만은 하지만, 아직 사업개발 극초기"},
+  {no:61, name:"주식회사 하이캣", brand:"HAIcat (NeoSand)", ceo:"김성훈", email:"hunico@naver.com", phone:"010-8505-1436", founded:"2025", age:"1년 미만", location:"부산/경남", sector:"Physical AI / 펫 헬스케어", web:"haicat.co.kr", source:"창업 단톡방", tagline:"반려묘 화장실 접점 배뇨 데이터 측정 Physical AI 헬스케어 디바이스", glennScore:50, glennGrade:"D"},
+  {no:62, name:"(주)플라스뽀", brand:"Plaspeau", ceo:"김하리", email:"hkim@plaspeau.com", phone:"010-2515-5687", founded:"2025", age:"1년 미만", location:"대구/경북", sector:"딥테크 / NO 신소재", web:"plaspeau.com", source:"포스텍홀딩스 추천", tagline:"POSTECH 윤건수 교수 연구실 기반 초임계 유체 플라즈마 NO(산화질소) 신소재", glennScore:65, glennGrade:"C", glennNote:"중점영역은 아니지만 초기제품개발 성과를 보고 투자검토할만하다고 판단함 / 초기기업으로 TIPS도 가능"},
+  {no:63, name:"주식회사 토마스톤", brand:"ToMaStone", ceo:"이재영", email:"dentaljy@thomastone.co.kr", phone:"01050077061", founded:"2022", age:"3~7년", location:"대전/충청", sector:"딥테크 / 디지털 헬스케어", web:"thomastone.co.kr", source:"지인 추천", tagline:"AI 기반 구강건강 데이터 분석 · 치면착색·구강 이미지 분석 SaaS", glennScore:80, glennGrade:"B", isPortfolio:true},
+  {no:64, name:"주식회사 에이이에이씨바이오", brand:"AEAC bio", ceo:"양효정", email:"hyo@aeacbio.com", phone:"010-3813-8741", founded:"2024", age:"1~3년", location:"대전/충청", sector:"Physical AI / 온디맨드 제조", web:"aeacbio.com", source:"지인 추천", tagline:"AI + 온디맨드 디바이스 기반 실시간 퍼스널 제조 솔루션", glennScore:50, glennGrade:"D"},
+  {no:65, name:"(주) 이머틱스", brand:"이머틱스", ceo:"김기운", email:"kku900304@naver.com", phone:"01067365121", founded:"2025", age:"1~3년", location:"대전/충청", sector:"Physical AI / 로보틱스", web:"", source:"검색", tagline:"촉각 물리지능 AI 모델 + 로봇·우주·의료 산업 사업화", glennScore:50, glennGrade:"D"},
+  {no:66, name:"주식회사 알오지스틱스", brand:"ROgistics", ceo:"최낙은", email:"nakeeun@rogistics.co.kr", phone:"01054878124", founded:"2023", age:"3~7년", location:"대구/경북", sector:"Physical AI / 물류 로보틱스", web:"rogistics.co.kr", source:"기관추천", tagline:"국내 최초 좌·우 105도 굴절 무인지게차 로봇시스템", glennScore:50, glennGrade:"D"},
+  {no:67, name:"주식회사 업사이트", brand:"Upsight", ceo:"임강후", email:"khooo.kr@upsight.co.kr", phone:"010-6269-7072", founded:"2021", age:"3~7년", location:"서울", sector:"딥테크 / 건설 AI", web:"upsight.co.kr", source:"지인 추천", tagline:"건설 현장 영상·도면·공정 데이터 통합 AI 플랫폼 · 3D 현장 복원", glennScore:70, glennGrade:"B", glennNote:"제품 부가가치는 높아보이나, 실제 영업 및 스케일업 가능할지 확인필요"},
+  {no:68, name:"(주)세라오스", brand:"CeraOss", ceo:"박기현", email:"ceraossceo@gmail.com", phone:"01094792875", founded:"2023", age:"1~3년", location:"경기/인천", sector:"치과용 의료기기", web:"ceraoss.com", source:"지인 추천", tagline:"세라믹·고분자 신개념 임플란트 · 미국 FDA 품목신청 예정", glennScore:85, glennGrade:"A", isPortfolio:true},
+  {no:69, name:"팜펌 주식회사", brand:"Palmfirm", ceo:"권민성", email:"ms.kwon@palmfirm.com", phone:"01042224729", founded:"2019", age:"3~7년", location:"서울", sector:"딥테크 / 헬스케어 AI", web:"palmfirm.com", source:"지인 추천", tagline:"세계 최초 생체신호 기반 식사 자동 감지 AI 플랫폼", glennScore:50, glennGrade:"D"},
+  {no:70, name:"주식회사 지에스에프솔루션", brand:"GSF Solution", ceo:"이수연", email:"sylee@gsfsolution.com", phone:"01093600534", founded:"2022", age:"3~7년", location:"대전/충청", sector:"반도체 부품 / 딥테크", web:"gsfsolution.com", source:"기관추천", tagline:"첨단산업 공정·장비 이상 감지 및 예지보전 지능화 솔루션", glennScore:75, glennGrade:"B"},
+  {no:71, name:"피플즈리그 주식회사", brand:"PeoplesLeague", ceo:"류건희", email:"gunny@peoplesleague.co.kr", phone:"010-5391-9505", founded:"2021", age:"3~7년", location:"대전/충청", sector:"Physical AI / F&B 휴머노이드", web:"peoplesleague.co.kr", source:"검색", tagline:"패스트푸드 매장 운영 휴머노이드 — F&B 인력난 Physical AI 솔루션", glennScore:60, glennGrade:"C"},
+  {no:72, name:"(주)마이샵클라우드", brand:"마이샵클라우드", ceo:"김준우", email:"jun@myshopcloud.com", phone:"010-4894-2715", founded:"2021", age:"3~7년", location:"경기/인천", sector:"딥테크 / 산업 AI", web:"dasiwoorida.com", source:"언론/미디어", tagline:"건해산물 산업 품질·거래·공급망 데이터 기반 AI 솔루션", glennScore:50, glennGrade:"D"},
+  {no:73, name:"(주)포하우", brand:"4How", ceo:"구길자", email:"4how2022@naver.com", phone:"010-2543-4901", founded:"2022", age:"3~7년", location:"경기/인천", sector:"Physical AI / 산업 데이터", web:"4how.co.kr", source:"링크드인", tagline:"냉동·초저온 설비 30년 경험 기반 산업 현장 데이터→생산성 연결", glennScore:50, glennGrade:"D"},
+  {no:74, name:"클리 주식회사", brand:"Qli (단독닥)", ceo:"박찬호", email:"ch.park@qli.co.kr", phone:"010-5438-1624", founded:"2018", age:"7년 이상", location:"서울", sector:"건축 / 데이터", web:"dandoc.co.kr", source:"언론/미디어", tagline:"단독주택을 위한 관리사무소 운영", glennScore:50, glennGrade:"D"},
+  {no:75, name:"주식회사 젠티크엑스", brand:"MungAI (멍우프)", ceo:"남기훈", email:"louisnam@ddnapet.com", phone:"010-9586-3012", founded:"2022", age:"3~7년", location:"대구/경북", sector:"Physical AI / 펫 AI", web:"mungwoofai.com", source:"지인 추천", tagline:"반려동물 AI 행동 분석 모니터링 솔루션", glennScore:50, glennGrade:"D"},
+  {no:76, name:"(주)코브라", brand:"COBRA", ceo:"임병덕", email:"bdlim@cobrasys.co.kr", phone:"010-2530-2571", founded:"2020", age:"3~7년", location:"대구/경북", sector:"딥테크 / 방산", web:"cobrasys.co.kr", source:"기관추천", tagline:"HW 중심 레이다 → SW 기반 지능형 레이다 혁신 방산 테크", glennScore:70, glennGrade:"B", glennNote:"드론 방어시스템이라는 방향성은 적합한데 스케일업가능성/밸류에이션 면밀하게 점검 필요"},
+  {no:77, name:"Flux AI Asia Inc.", brand:"CRAISEE", ceo:"강지현", email:"julie@flux-asia.co", phone:"01047389194", founded:"2025", age:"1년 미만", location:"서울", sector:"Generative AI / Creative Workflow", web:"craisee.com", source:"링크드인", tagline:"아시아 거점 생성형 AI 플랫폼 · CRAISEE 글로벌 런칭 (2026.5)", glennScore:50, glennGrade:"D"},
+  {no:78, name:"카이로스 모빌리티", brand:"Kairos Mobility", ceo:"김의철", email:"euichuls@gmail.com", phone:"01094318632", founded:"2026", age:"1년 미만", location:"서울", sector:"딥테크 / 모빌리티 AI", web:"", source:"링크드인", tagline:"실도로 데이터 기반 AI 교통 솔루션 · 신흥시장 교통관리 시스템", glennScore:50, glennGrade:"D"},
+  {no:79, name:"(주)브이에스엘", brand:"VSL (FIT-VAC)", ceo:"강태욱", email:"sseoo@naver.com", phone:"010-6294-9024", founded:"2022", age:"3~7년", location:"대전/충청", sector:"반도체 / 분석 SW", web:"fit-vac.com", source:"충남청경 추천", tagline:"반도체 제조용 진공 시스템 시뮬레이션 SW 솔루션", glennScore:70, glennGrade:"B", glennNote:"아이템은 뾰족하나 차별성 파악필요"},
+  {no:80, name:"(주)마인드포지", brand:"MindForge", ceo:"채규열", email:"kychae@mindforge.kr", phone:"01042032085", founded:"2019", age:"3~7년", location:"서울", sector:"Physical AI / 온디바이스 비전", web:"mindforge.kr", source:"포스텍홀딩스 추천", tagline:"로봇·드론용 온디바이스 Vision AI 전문 기업", glennScore:60, glennGrade:"C"},
+  {no:81, name:"크레플 주식회사", brand:"CREFLE", ceo:"이완곤", email:"wg.lee@crefle.com", phone:"01089758320", founded:"2020", age:"3~7년", location:"경기/인천", sector:"Physical AI / 제조 AI", web:"crefle.com", source:"기관추천", tagline:"AI 비전+로봇 제어 기반 제조 현장 자율화 — Manufacturing AI Partner", glennScore:60, glennGrade:"C"},
+  {no:82, name:"(주)뉴런소프트", brand:"PassNote", ceo:"최영재", email:"koreasomoon@naver.com", phone:"010-6889-3386", founded:"2024", age:"1~3년", location:"서울", sector:"딥테크 / 에듀테크", web:"passnote.co.kr", source:"기관추천", tagline:"AI 모의고사 플랫폼", glennScore:50, glennGrade:"D"}
 ];
 
 // 드라이브 링크 데이터 (지원서 원본)
@@ -2100,6 +2411,128 @@ const MITFREUDE_IR = {
   ]
 };
 
+// 온코인 IR 데이터 (No.44)
+const ONCOIN_IR = {
+  tagline: "혈액검사로 환자 개인에게 적합한 항암제를 mRNA 발현량 기반 140개 바이오마커로 진단하는 종양 정밀치료 LDT 서비스 기업.",
+  basicInfo: [
+    ["대표자", "정양식 (CEO/CTO) · 연세대 원주의과대학 생화학교실 주임교수"],
+    ["임상총괄", "공지현 (CCO) · 원주세브란스기독병원 혈액종양내과 교수"],
+    ["설립연도", "2022년 (3~7년차)"],
+    ["분야", "딥테크 / 진단 / 헬스케어"],
+    ["소재지", "강원 (원주)"],
+    ["제품명", "ONCOin Panel (ONCOinCyte / ONCOut / ONCOtrace / ONCOtest) · ONCOtwin (개발 중)"],
+    ["핵심 기술", "qPCR/Digital PCR 기반 140개 mRNA 바이오마커 패널 + Digital Twin AI"],
+    ["인허가", "유전자검사기관 신고확인증 (질병청, 2025.5.23) · IRB 승인 (2025.12.24, 임상시험심사결과 통지)"],
+    ["웹사이트", "https://www.oncoin.co.kr / YouTube @ONCOin_0613"]
+  ],
+  problem: {
+    title: "기존 시장 현황 (회사 주장)",
+    bullets: [
+      "전 세계 매년 암 진단 약 1,930만 명, 사망 990만 명 (한국인 38/100, 남 2/5, 여 1/3 평생 암 진단 확률)",
+      "미국 FDA 승인 항암제 약 313종 (1·2세대 화학·표적 항암제 중심) · 국내 표적 항암제 평균 치료율 약 14% — IR 출처: 연세대 원주연세의료원",
+      "암 재발률 평균 약 30% — 재발 이후 효과적 대안 치료 제한 (방광암 50%, 췌장암 36~46% 등)",
+      "국내 원발 암 환자 약 86%는 개인 맞춤형 항암 치료제 혜택 미수혜 (회사 주장) — 허가초과(off-label) 항암요법은 절차적으로 까다롭고 전액 비급여",
+      "베트남 등 일부 아시아 시장은 off-label 규제가 약해 초기 진출 용이 (회사 판단)"
+    ]
+  },
+  technology: {
+    title: "기술 / 제품 구성 (IR 기재)",
+    bullets: [
+      "ONCOin Panel: 환자 종양/혈액에서 mRNA 추출 → cDNA 역전사 → 140개 유전자 qPCR/ddPCR 발현량 측정 → 환자 맞춤 항암제 제시 (TAT < 48시간, IR 기재)",
+      "측정 방식: 정량적·정성적 (mRNA 발현량 + 돌연변이) — 경쟁 NGS 기반 진단의 정성적 한계 보완 주장",
+      "타겟 약물 수: IR에서 '약 300여 종 항암제 중 최적 후보 매칭' 명시. 패널 유전자는 140개",
+      "ONCOtwin (개발 중): Digital Twin 기반으로 N=1 환자 결과를 N=100 가상 환자 모델로 확장 → AI로 약물 반응 Pathway 분석 후 on-label 항암제 추천 (상용화 시점은 IR에 미명시)",
+      "샘플 요구량: 혈액 0.2~2 mL (IR 명시) · 가격대 $1,000~4,000"
+    ]
+  },
+  efficacy: {
+    title: "제시된 임상 검증 데이터 (IR 기재)",
+    bullets: [
+      "재발암 모니터링 성능: 암 환자 30명 vs 정상인 58명 비교 — Sensitivity 93.3% / Specificity 100% / Accuracy 97.5% / AUC 0.996 / Cutoff 5 upregulated genes (IR 슬라이드 기재)",
+      "환자 사례 1: 림프종 환자 1명 — 10개 바이오마커 진단 후 13종 치료제 후보 제시. IR에 치료 전·후 PET/CT 영상 비교 (FDG uptake 감소, 림프절 크기 감소) 게재. 단일 환자 사례",
+      "13명 환자 / 6개 암종 비교: ONCOin Panel은 13명 모두에게 항암제 후보 3~13개 제시 vs NGS는 3명에서 치료 적용 결과 없음 (IR 비교 차트)",
+      "임상시험 IRB 승인 완료: '위·대장암 수술 환자 대상 유전자 기반 MRD 분석을 이용한 재발 예측 및 기존 종양표지자와의 비교에 관한 전향적 관찰 연구' (2025.12.24 승인) — 500명 모집 목표, 5년 추적"
+    ]
+  },
+  market: {
+    title: "사업 모델 / 시장 진입",
+    bullets: [
+      "수익 구조: 유전자 검사기관 LDT 서비스 + 향후 시약 키트 제조업 (3등급 의료기기, 식약처 인허가 추진)",
+      "초기 시장: 원주연세의료원과 MOU 기반 in-house 임상 검증 → 원주 지역 cash-cow → 신촌·강남 세브란스, 서울아산병원 진단검사실 (자문위원 채널) → 대한진단검사의학회·대한병리학회 통한 저변 확대",
+      "글로벌 진출: 미국(휴스턴 MD Anderson Kurie 교수, 달라스 UT Southwestern Minna 교수 채널 → CLIA 인증 추진) + 베트남(Vu 박사 본국 귀국 후 동아대 교수 임용, 자체 유전자검사기관 설립 추진)",
+      "Cash-cow 후보: 국민건강보험공단 통한 '암 선별' 건강검진 확대 (전 국민 대상) — 신의료기술 인증(NECA) 후 단계"
+    ]
+  },
+  team: [
+    { role: "정양식 CEO/CTO", desc: "연세대 원주의대 생화학교실 주임교수 · UT Southwestern Pharmacology 박사 · MD 앤더슨 연구원 · LG 화학종합기술원 출신 · SCI 논문 27편(인용 2,035, IF 합 172) · 특허 출원 9(PCT 1)/등록 7 · 2025년 보건복지부 장관상 수상" },
+    { role: "공지현 CCO/임상총괄", desc: "원주세브란스기독병원 혈액종양내과 교수·과장 · 이화여대 의학박사 · 에모리대 윈십 암센터 연수 · 2018~2022 원주세브란스 암센터 소장" },
+    { role: "차승규 COO", desc: "연세대 원주의대 생리학교실 주임교수 · BK21FOUR 교육연구단장 · 세포소기관의학선도연구센터(MRC) 부센터장" },
+    { role: "김필조 CQO", desc: "품질관리/유전자검사센터 총괄 · UNT Health Science Center 약리학 석사 · 의료기기 임상시험·안전성 모니터링 책임연구원 경력" },
+    { role: "VO THI ANH VU", desc: "선임연구원(Ph.D.) · 베트남 하노이 약대 → 노바티스 베트남 MSL → 2025.8 베트남 동아대 교수 임용 예정, 베트남 진출 책임자" },
+    { role: "외부 자문", desc: "원주세브란스 김익용(외과)·김주원(진단검사)·이태식(가정의학)·예병일(의학교육·베트남) 교수 · 서울아산 이우창(진단검사) 교수 · 특허법인 지원 심성렬 변리사 · 노바IP 김보민 변리사(약사) · 법무법인 YK 위광복 변호사 (2025.7 MOU)" }
+  ],
+  competition: [
+    "ONCOin Platform: qPCR/dPCR · mRNA 140 genes · 모든 암 (>250종) 대상 · TAT 1~3일 · Sensitivity 70%(목표 90%) · Specificity 70%(목표 95%) · 가격 $1,000~5,000 · 결과물: 돌연변이/발현량 → 맞춤형 항암제 추천",
+    "Guardant Health: NGS · 표적 유전자 돌연변이만 · 대장암 중심 · 혈액 40 mL 필요 · 민감도 <60%, 특이도 ~87% · TAT 수 주~수 개월 · $1,000",
+    "Foundation Medicine: NGS · 24~344 유전자 돌연변이 · 폐암 등 다수 암종 · TAT 수 주~수 개월 · $5,800 · 동반진단 약 20종 항암제만 매칭",
+    "Thermo Fisher Oncomine Dx Target Test: NGS 23개 유전자 · 일부 급여 · $1,950",
+    "국내 Novomics(nProfiler1): qPCR · 6 genes · 위암 예후예측 · 비급여 / 젠큐릭쓰: dPCR · 6 genes · 7종 키트 · 비급여 / NGeneBio: NGS 분석서비스",
+    "회사 주장: 'mRNA 발현량 기반으로 약 300종 항암제 매칭' 관점에서 IR 비교표상 ONCOin Panel과 직접 동등한 경쟁사는 없다고 기재 (회사 평가)"
+  ],
+  roadmap: {
+    title: "Target Road Map (TRM) — 회사 제시 일정",
+    bullets: [
+      "2022.6 창업 → 2025.5 유전자검사기관 신고 완료(질병청)",
+      "2026.2 Series A 라운드 / 국내 서비스 시작 (① 암 재발 모니터링 ② 말기 암성복수)",
+      "2027.12 글로벌 진출 (미국 CLIA, 베트남 LDT) + 신의료기술 인증(NECA) 추진",
+      "2028.6~12 식약처 제조업 허가 추진 (3등급 시약키트) + 국내 서비스 추가 (③ 암 선별 건강검진 ④ 약물 재창출)",
+      "2029.12 Series B / EXIT 1 — 암 재발 모니터링 글로벌 기술이전",
+      "2030.6 Series C / EXIT 2 — 암성복수 기술이전",
+      "2031.6 EXIT 3 — IPO"
+    ]
+  },
+  funding: {
+    title: "투자 라운드 (시리즈 A 추진)",
+    rows: [
+      ["라운드", "단계", "금액", "이전 트랙레코드"],
+      ["Seed", "완료", "포스코 IMP Seed Funding (2022.10) + 기보 Pre-A 투자", "TIPS 선정(2023.5, 2년) · TIPS 창업사업화(2024.11) · 누적 약 12억(외부 발언, IR 본문에는 시리즈A 금액만 명시)"],
+      ["Series A", "추진 중", "40억 원 목표 (2026~2027 2년 사용)", "—"]
+    ],
+    usage: [
+      "회사 운영 인력 12명 추가 (마케팅 2 / RA 1 / R&D 박사급 2 / 의뢰서비스 5 / 행정 2): 12억 (30%)",
+      "운영자금 (2년): 4억 (10%)",
+      "R&D — CRO·컨설팅 3억 + GMP 시설·Digital PCR 장비 9억: 합 12억 (30%)",
+      "임상시험 — 연구자 주도 임상 (n=10): 5억 (12.5%)",
+      "인허가·해외 — 미국 CLIA 2억 + 베트남 진출 5억: 합 7억 (17.5%)",
+      "총 40억 원 (100%)"
+    ]
+  },
+  facts: [
+    "특허: SCI 논문 27편 (인용지수 합 2,035, IF 합 172) · 특허 출원 9건 (PCT 1건 포함) / 등록 7건 · 상표 3건 / 디자인 1건 / 기술이전 3건 (대표 누적 실적, IR 기재)",
+    "인증: 유전자검사기관 신고확인증 (질병청, 2025.5.23) · 연구소기업 등록증 · 벤처기업확인서 · TIPS·TIPS 창업사업화 선정 · 기보 기보벤처캠프 수료",
+    "수상: 2025.9 제8회 지식재산의 날 보건복지부 장관상 (정양식 대표)",
+    "MOU: 원주연세의료원과 공동 임상연구 협약 · 법무법인 YK 와의 운영 자문 MOU (2025.7)",
+    "임상 IRB: 위·대장암 수술 환자 MRD 분석 IRB 승인 (2025.12.24, 의뢰번호 2025-0564-001) · 12개월 추적 · 위험수준 Level I",
+    "성능 (재발암 모니터링): N=88(암 30/정상 58)에서 Sn 93.3% · Sp 100% · Acc 97.5% · AUC 0.996 (회사 데이터)",
+    "환자 사례: 림프종 1명 + 13명/6개 암종 비교 데이터 (IR 기재). 대규모 다기관 검증 임상은 IRB 승인 직후 단계",
+    "TAM 로드맵 (회사 기재): 국내 LDT → 미국 CLIA → 베트남 자체 LDT → 약물 재창출 → 전 국민 암 선별 건강검진"
+  ],
+  checklist: [
+    "'100% 매칭' '전 세계 유일' 등 마케팅 표현 — 슬라이드 본문 (Sn 93.3% / Sp 70% 목표→90%) 수치와의 정합성 점검 필요",
+    "재발암 모니터링 성능 N=88 — 다기관·전향적 검증 데이터로 확대 시점 (IRB 승인 임상 500명 모집 진행 상황)",
+    "임상적 유효성 검증 사례 (림프종 환자 1명, 13명/6암종 비교) — n수 확대 및 동료심사 논문화 여부",
+    "'약 300종 항암제 매칭' 주장의 알고리즘 근거 — 140개 mRNA 패널이 어떻게 300종 약물 추천으로 확장되는지 매핑 로직",
+    "ONCOtwin (Digital Twin AI) 개발 단계 — 'N=1 → N=100' 모델의 임상적 검증 여부, 학습 데이터 출처(공공 vs 자체)",
+    "Series A 40억 원 밸류에이션 / 기존 누적 투자 (포스코 IMP Seed + 기보 Pre-A) 규모 — 정확한 금액과 기존 주주 구성",
+    "신의료기술 인증(NECA) 신청 시점 및 예상 검토 기간 — 로드맵상 2027년 추진이지만 NECA는 통상 2~3년 소요",
+    "식약처 제조업 허가 (3등급 의료기기) 임상시험 설계 및 비용 — IR에는 'CRO·컨설팅 3억'만 기재, 실제 인허가용 임상은 별도 규모",
+    "글로벌 진출 — 미국 CLIA 인증 (현실 최소 1~2년 + 변호사·컨설팅 비용 IR 추정 2억 적정성), 베트남 LDT 설립 (Vu 박사 단독 의존도)",
+    "팀 — 의대 교수 4명(겸직) + 연구원 5명 구조에서 풀타임 헌신도, 영업/사업개발 인력 부재",
+    "경쟁 — Guardant Health Shield(혈액검사 대장암 진단)는 동반진단이 아니라 IR의 '항암제 진단과 무관' 비교는 정확하나, 패널 진단 영역에서 NGS 동반진단 시장 (Foundation Medicine F1 CDx 등)과의 직접 경쟁 강도",
+    "사업화 시점 매출 시뮬레이션 — IR에는 매출 추정치 미기재, Cash-cow 시나리오의 단가·검사 건수 가정 필요"
+  ]
+};
+
 // ========================================================================
 // 상태 관리
 // ========================================================================
@@ -2107,7 +2540,7 @@ let currentReviewer = null;
 let currentCompany = null;
 let reviewData = {};  // { companyNo: { scores:{id:score}, opinions:{strength,weakness,risk,comment} } }
 let currentFilter = "all";
-let currentSort = "default";
+let currentSort = "glenn-desc"; let currentGlennFilter = "all";
 let currentSearch = "";
 let allReviewers = [];
 
@@ -2393,6 +2826,16 @@ function renderStats() {
     }
   }
 
+  // Glenn 1차 분류 집계
+  let gA = 0, gB = 0, gC = 0, gD = 0, gP = 0;
+  for (const c of COMPANIES) {
+    if (c.glennGrade === "A") gA++;
+    else if (c.glennGrade === "B") gB++;
+    else if (c.glennGrade === "C") gC++;
+    else if (c.glennGrade === "D") gD++;
+    if (c.isPortfolio) gP++;
+  }
+
   const bar = document.getElementById("statsBar");
   bar.innerHTML = `
     <div class="stat-card">
@@ -2405,20 +2848,29 @@ function renderStats() {
       <div class="stat-value">${evaluated}<span class="unit">/ ${totalCompanies}</span></div>
       <div class="stat-sub">${currentReviewer ? `${currentReviewer} 심사자` : "심사위원 미선택"}</div>
     </div>
-    <div class="stat-card">
-      <div class="stat-label">A 등급</div>
-      <div class="stat-value" style="color:var(--grade-a)">${gradeA}</div>
-      <div class="stat-sub">85점 이상 · 우선 선발</div>
+    <div class="stat-card glenn-stat">
+      <div class="stat-label">Glenn 1차 분류 <span style="font-size:9px;color:var(--silver-dim);font-weight:400">참고용</span></div>
+      <div class="stat-value">
+        <div class="stat-glenn-cell"><span class="num A">${gA}</span><span class="label">A</span></div>
+        <div class="stat-glenn-cell"><span class="num B">${gB}</span><span class="label">B</span></div>
+        <div class="stat-glenn-cell"><span class="num C">${gC}</span><span class="label">C</span></div>
+        <div class="stat-glenn-cell"><span class="num D">${gD}</span><span class="label">D</span></div>
+        <div class="stat-glenn-cell"><span class="num P"><i class="fa-solid fa-star" style="font-size:14px"></i></span><span class="label">${gP} PF</span></div>
+      </div>
+      <div class="stat-sub">A·B 우선 검토 권장 (${gA + gB}개)</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">B 등급</div>
-      <div class="stat-value" style="color:var(--grade-b)">${gradeB}</div>
-      <div class="stat-sub">70~84점 · 후보</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">C / D</div>
-      <div class="stat-value"><span style="color:var(--grade-c)">${gradeC}</span> <span style="color:var(--silver-dim);font-size:24px">/</span> <span style="color:var(--grade-d)">${gradeD}</span></div>
-      <div class="stat-sub">재검토 / 부적격</div>
+      <div class="stat-label">심사 등급 (A/B/C/D)</div>
+      <div class="stat-value" style="font-size:22px">
+        <span style="color:var(--grade-a)">${gradeA}</span>
+        <span style="color:var(--silver-dim);font-size:18px">/</span>
+        <span style="color:var(--grade-b)">${gradeB}</span>
+        <span style="color:var(--silver-dim);font-size:18px">/</span>
+        <span style="color:var(--grade-c)">${gradeC}</span>
+        <span style="color:var(--silver-dim);font-size:18px">/</span>
+        <span style="color:var(--grade-d)">${gradeD}</span>
+      </div>
+      <div class="stat-sub">심사위원 평가 기반</div>
     </div>
   `;
 }
@@ -2435,6 +2887,13 @@ function matchesFilter(c) {
   return true;
 }
 
+function matchesGlennFilter(c) {
+  if (currentGlennFilter === "all") return true;
+  if (currentGlennFilter === "portfolio") return c.isPortfolio === true;
+  if (["A","B","C","D"].includes(currentGlennFilter)) return c.glennGrade === currentGlennFilter;
+  return true;
+}
+
 function matchesSearch(c) {
   if (!currentSearch) return true;
   const q = currentSearch.toLowerCase();
@@ -2446,8 +2905,25 @@ function matchesSearch(c) {
 }
 
 function getFilteredCompanies() {
-  let list = COMPANIES.filter(c => matchesFilter(c) && matchesSearch(c));
-  if (currentSort === "score-desc") {
+  let list = COMPANIES.filter(c => matchesFilter(c) && matchesGlennFilter(c) && matchesSearch(c));
+  if (currentSort === "glenn-desc") {
+    list = [...list].sort((a,b) => {
+      const sa = a.glennScore ?? -1, sb = b.glennScore ?? -1;
+      if (sb !== sa) return sb - sa;
+      // 동점이면 기 투자기업 우선, 그다음 회사번호 순
+      if ((b.isPortfolio?1:0) !== (a.isPortfolio?1:0)) return (b.isPortfolio?1:0) - (a.isPortfolio?1:0);
+      return a.no - b.no;
+    });
+  } else if (currentSort === "glenn-grade") {
+    const ord = {A:0, B:1, C:2, D:3};
+    list = [...list].sort((a,b) => {
+      const ga = ord[a.glennGrade] ?? 4, gb = ord[b.glennGrade] ?? 4;
+      if (ga !== gb) return ga - gb;
+      const sb = b.glennScore ?? -1, sa = a.glennScore ?? -1;
+      if (sb !== sa) return sb - sa;
+      return a.no - b.no;
+    });
+  } else if (currentSort === "score-desc") {
     list = [...list].sort((a,b) => (calcTotal(b.no) ?? -1) - (calcTotal(a.no) ?? -1));
   } else if (currentSort === "score-asc") {
     list = [...list].sort((a,b) => {
@@ -2482,8 +2958,13 @@ function renderCompanyGrid() {
     else if (hasIR) { statusText = "IR 요약 준비됨"; statusClass = "has-ir"; }
     else { statusText = "IR 요약 준비 중"; statusClass = ""; }
 
+    const glennCls = c.glennGrade ? `glenn-${c.glennGrade}` : '';
+    const glennBadge = c.glennGrade ? `<span class="glenn-badge glenn-${c.glennGrade}">Glenn ${c.glennGrade} · ${c.glennScore}</span>` : '';
+    const portfolioBadge = c.isPortfolio ? `<span class="portfolio-badge"><i class="fa-solid fa-star"></i>Portfolio</span>` : '';
+
     return `
-      <div class="company-card" onclick="showDetail(${c.no})">
+      <div class="company-card ${glennCls}" onclick="showDetail(${c.no})">
+        <div class="card-glenn-row">${glennBadge}${portfolioBadge}</div>
         <div class="card-header">
           <div>
             <div class="card-status">
@@ -2552,6 +3033,8 @@ function showDetail(companyNo) {
       </div>
     </div>
 
+    ${renderGlennDetailPanel(c)}
+
     <div class="detail-split">
       <div class="detail-panel">
         <div class="panel-header">
@@ -2591,10 +3074,43 @@ function updateNextButtonLabel(companyNo) {
   }
 }
 
+function renderGlennDetailPanel(c) {
+  if (!c.glennGrade) return '';
+  const grade = c.glennGrade;
+  const score = c.glennScore;
+  const note = c.glennNote;
+  const isPortfolio = c.isPortfolio;
+
+  const gradeLabel = {A:"최우선 검토", B:"우선 검토", C:"추가 검토 가능", D:"1차 심사 제외 권고"}[grade] || "";
+
+  return `
+    <div class="glenn-detail-panel grade-${grade}">
+      <div class="glenn-detail-score">
+        <div class="glenn-detail-score-label">Glenn 1차</div>
+        <div class="glenn-detail-score-value ${grade}">${score}</div>
+        <div class="glenn-detail-score-grade">${grade}등급</div>
+      </div>
+      <div class="glenn-detail-content">
+        <div class="glenn-detail-header">
+          <span class="glenn-detail-title">Glenn 1차 사전 분류</span>
+          <span class="glenn-badge glenn-${grade}">${gradeLabel}</span>
+          ${isPortfolio ? `<span class="portfolio-badge"><i class="fa-solid fa-star"></i>기 투자기업</span>` : ''}
+        </div>
+        ${note ? `<div class="glenn-detail-note"><div class="note-label">Glenn의 의견</div>${escapeHtml(note)}</div>` : ''}
+        <div class="glenn-detail-disclaimer">※ Glenn의 1차 사전 분류이며, 본 심사에 영향을 주지 않습니다. 심사위원의 독립적 판단을 우선합니다.</div>
+      </div>
+    </div>
+  `;
+}
+
 function renderIRContent(c) {
   let body;
-  if (c.hasIR && c.no === 6) {
+  if (c.no === 6) {
     body = renderMitfreudeIR();
+  } else if (c.no === 44) {
+    body = renderOncoinIR();
+  } else if (typeof RICH_IR_MAP !== 'undefined' && RICH_IR_MAP[c.no]) {
+    body = renderRichIR(RICH_IR_MAP[c.no]);
   } else {
     body = renderDefaultIR(c);
   }
@@ -2751,6 +3267,1546 @@ function renderMitfreudeIR() {
       <ul class="ir-bullets">${ir.facts.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
       <h4>추가 확인이 필요할 수 있는 항목</h4>
       <ul class="ir-bullets">${ir.checklist.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+    </div>
+  `;
+}
+
+// =================== Rich IR Data — Part 1 (No.1, 4, 15, 16, 21) ===================
+
+const HOP_IR = {
+  tagline: "GPS 불가 지역(지하·터널·배관)에서 정밀 위치 제어와 무인 로봇 운영을 가능케 하는 RF 기반 실내 측위(CereVellum) + AI 안전점검(Heimdallr) 딥테크.",
+  basicInfo: [
+    ["대표자", "이노크 (Enoch) — CEO · 한성과학고 조기졸업 / 연세대 기계공학 석사(로봇제어)"],
+    ["설립연도", "1~3년차"],
+    ["분야", "Physical AI / 로보틱스 (실내 측위 + AI 안전점검)"],
+    ["소재지", "경기/인천"],
+    ["제품명", "CereVellum (실내 측위 센서) / Heimdallr OS (안전점검 AI)"],
+    ["핵심 기술", "RF(전파) 기반 비전 위치 제어 + Hardware-Agnostic AI"],
+    ["주요 검증", "CES 혁신상 (AI 드론) / Hyundai·Korean Air·LOTTE E&C·국방부 PoC 다수"],
+    ["TESORO AC", "$100k SAFE 확정 (2026.3) — TSMC 피닉스 진입 예정"],
+    ["웹사이트", "hopcorporation.com"]
+  ],
+  problem: {
+    title: "GPS·통신 불능 구역의 위치 데이터 부재 (회사 주장)",
+    bullets: [
+      "전 세계 산업 현장의 40%가 GPS 및 통신 불능 구역 (지하·터널·배관)",
+      "기존 산업용 4족 보행 로봇 $300k 수준 — 고가 전용 SDK 종속, 단일 기기 중심의 낮은 확장성",
+      "LiDAR/Stereo Vision: 어둠·분진·연기 환경에서 자율 이동 불가",
+      "건설 메가프로젝트 98%가 공기 지연 또는 예산초과 / 77%가 40% 이상 지연 (McKinsey)",
+      "전문 파일럿 인건비·위험 노출로 무인화 작업 지체"
+    ]
+  },
+  solution: {
+    title: "RF 기반 비전 위치 제어 + Hardware-Agnostic 무인 점검 솔루션",
+    bullets: [
+      "CereVellum: RF 기반 실내 측위 센서 — 어둠·분진·연기에서도 5~30cm 정밀 위치 제어",
+      "Heimdallr OS: 기성 로봇 군집 자율 데이터 수집 + AI 위험 예측·자가 점검",
+      "Hardware-Agnostic AI: 제조사 무관 SDK 불필요, Boston Dynamics SPOT·Unitree Go2·DJI 등 10+ 기종 즉시 적용",
+      "비용 89% 절감: 산업용 4족 $300k → 중국제 보급형 + CereVellum $32k",
+      "5,000평 기준 ₩27.5억 (LiDAR ₩87.6억, Stereo Vision ₩150억 대비)",
+      "ROI 330% — 야간 순찰 인력 3명 ₩1.5억 → ₩4,500만으로 대체"
+    ]
+  },
+  market: [
+    {label: "TAM", value: "$1.3T", desc: "글로벌 디지털 트윈 건물 점검 (Gartner / McKinsey)"},
+    {label: "SAM", value: "$520B", desc: "안전 점검 모니터링 시장"},
+    {label: "SOM", value: "$30B", desc: "한국·중동·미국·일본 공장·특수 건물 점검"}
+  ],
+  gtm: [
+    {track: "국내 (직접 판매)", desc: "건설사·제조업체 대상 PoC 기반 본계약 전환. Hyundai·Korean Air·LOTTE E&C·EcoPro·정부청사·한화오션·국방부 등 7곳 PoC 검증"},
+    {track: "미국 (TESORO AC)", desc: "$100k SAFE 확정(2026.3) → TSMC 피닉스 반도체 공장 무인 순찰 진입 예정. Tesla 배터리 납품업체 EcoPro PoC 동시 진행"},
+    {track: "일본 (Sea-Node)", desc: "오키나와 현 협력 'Sea-Node' 프로젝트 (2026.4) — 수중 쓰레기 수거 PoC. Liberaware 상용 드론 자율 비행 제어 협력"},
+    {track: "유럽·중동", desc: "Siemens (유럽 철도·석유·물류), Saudi Aramco (석유 플랜트), Bathurst (뉴질랜드 석탄광), Honeywell (미 공장·발전) 등 글로벌 PoC"}
+  ],
+  traction: {
+    production: [
+      "Hyundai Motor 지하철 건설 디지털 트윈 — PoC 완료, 50회 반복 테스트 통과 (15cm 호버링 정확도)",
+      "Korean Air 격납고 천장 행거 균열 점검 — PoC 완료, 0.38mm 초소형 균열 탐지",
+      "LOTTE E&C 야간 무인 순찰 — PoC 완료, 붕괴·낙하물 실시간 알람",
+      "정부 청사 지하 주차장 — PoC 완료, 차량 탑재형 Mapper Sensor",
+      "EcoPro HN 배터리 공장 — PoC 진행, 고온/유해가스 24시간 자동 순찰",
+      "한화오션 수중 드론 수색 구조 — PoC 진행, 수중 3D 좌표 자동 위치 공유",
+      "국방부 Smart Helmet 비상구 네비게이션 — PoC 진행 (군함·지하시설 재난 대응)"
+    ],
+    brand: [
+      "TESORO AC (미국) — $100k SAFE 확정 (2026.3), 지분 전환 조건 미공개",
+      "Honeywell — 미국 공장·발전 설비 무인 점검 협력 (초기 단계)",
+      "Siemens — 유럽 철도/석유/물류 안전 관리 시스템 협력 논의",
+      "Saudi Aramco — 석유 플랜트 무인 안전·순찰 협력 중",
+      "Bathurst Resources (뉴질랜드) — 석탄광 무인 점검",
+      "Liberaware (일본) — 상용 드론 자율 비행 제어 협력"
+    ],
+    other: [
+      "CES 혁신상 수상 (AI 드론 분야)",
+      "2026 매출 전망 $0.37m: 국내 건설사 $0.28m + 해외 $0.07m + RaaS 구독 $0.02m",
+      "2031 IPO 시점 누적 매출 $46.25m 목표 (5년 124배 성장 가정, 모두 E)",
+      "특허 등록 상태 IR 미기재 — RF 위치 제어 IP 보호 검증 필요"
+    ]
+  },
+  team: [
+    {name: "이노크 (Enoch)", role: "CEO", desc: "Robotics Veteran", items: ["연세대 기계공학 석사 (로봇제어)", "로봇 분야 12년 (HILEBEN, Reset Company, NearthLAB)", "Siemens·GE·BP·ORIX 해외 대기업 프로젝트 총괄", "CES 혁신상 수상 (AI 드론)"]},
+    {name: "기령 (Ki-Ryum)", role: "CTO", desc: "Server AI / Backend", items: ["연세대 경영학과 졸업", "NHN NEXT (NAVER) 수료", "APP/Backend 10년 개발 경력", "서버 기반 AI 프로그램 개발 전담"]},
+    {name: "수익 (Suik)", role: "Senior Engineer", desc: "Drone Specialist", items: ["광운대 무인항공학과 졸업", "실내 자율 비행 드론 3년 개발", "육군 드론 경연대회 수상"]},
+    {name: "석영 (Seok-Young)", role: "COO", desc: "Strategy & Sales", items: ["전략·영업 10년 경력", "Delivery Hero (Head of Merchant Strategy)", "Snackfor (Head of Sales & Strategy)", "BFactory / ASWEMAKE INC (Strategy Director)"]},
+    {name: "소영 (So-Young)", role: "CEO Staff", desc: "Global Strategy", items: ["고려대 행정학과 졸업", "중국·미국 해외 전략 경험", "경영 및 전략 분야 지원"]},
+    {name: "코셋트 (Cosette)", role: "R&D Staff", desc: "Field Operations", items: ["수상 구조 훈련 수료", "4족 보행 로봇·실내 위치 실험 보조"]}
+  ],
+  plan: [
+    ["구분", "2026", "2027", "2028~2030", "2031"],
+    ["라운드", "Series A", "Series B", "Series C", "IPO"],
+    ["매출 (E)", "$0.37m", "$3.04m", "$8.56~23.44m", "$46.25m"],
+    ["국내/해외", "76 / 24", "54 / 46", "40 / 60", "45 / 55"],
+    ["투자 누적", "$4M", "$10M", "$200M", "$216M"],
+    ["주요 마일스톤", "TSMC 피닉스 / 국내 PoC 상용화", "Sea-Node 완료 / 일본·유럽 진출", "글로벌 SaaS 확대 / 다중 산업 통합", "상장 / 글로벌 확장"]
+  ],
+  facts: [
+    "5년간 7개 대형사 PoC 완료 — Hyundai Motor (15cm 호버링), Korean Air (0.38mm 균열), LOTTE E&C 등",
+    "비용 혁신: 5,000평 기준 ₩27.5억 (LiDAR 대비 31.4%, Stereo Vision 대비 18.3%)",
+    "ROI 330% — 야간 순찰 인력 3명 연 ₩1.5억 → ₩4,500만으로 대체 효과",
+    "TESORO AC $100k SAFE 확정 (2026.3 전환) — TSMC 피닉스 진입 예정",
+    "누적 투자 전략: Pre-A $2M(진행) → Series A $4M → Series B $10M → Series C $200M",
+    "글로벌 협력: Honeywell·Siemens·Saudi Aramco·Bathurst·Liberaware 등 5개국 진행 중",
+    "2031 IPO 시점 매출 $46.25m 목표 — 연 87% CAGR 가정 (5년 124배)"
+  ],
+  checklist: [
+    "실측 매출 검증 — 2025/2026 실측 또는 상용 계약 체결 현황, 고객사별 계약금·기간",
+    "기술 IP 보호 — CereVellum RF 위치 제어 특허 출원/등록 국가 및 상태",
+    "재무제표 — 손익계산서, 대차대조표, 현금 소진율 및 런웨이",
+    "글로벌 파트너 단계 — TESORO SAFE 조건 (지분율/전환 시점), Siemens/Liberaware/Aramco MOU/PoC/계약 구분",
+    "팀 보강 — R&D 헤드카운트, CFO/글로벌 BD 영입 일정, 키맨 리스크 완화 방안",
+    "규제·인증 — RF EMC/CE, 항공 드론 운용 규제(FAA/EASA/KASA), 방위 기술 수출 규제, ISO 13849",
+    "5년 124배 매출 전망의 현실성 — $30B SOM 중 0.15% 점유 시나리오 검증"
+  ]
+};
+
+const FREEGROW_IR = {
+  tagline: "산업 현장 위치 인프라 + AI 운영 자동화를 결합한 Physical AI 딥테크. UWB+GPS-RTK+RFID 하이브리드 센서로 23.05cm 정밀도 + 구축비 1/5 달성, 현대글로비스·삼성물산·포스코 PoC 검증 완료.",
+  basicInfo: [
+    ["대표자", "김영식 (Youngsik Kim) — 연세대 기계공학, 로봇 제어 / FPGA HW/SW 통합 6년 + 사업기획 10년"],
+    ["설립연도", "2019.02.11 (7년 이상)"],
+    ["분야", "Physical AI / 로보틱스 (산업 위치 측위 + AI 운영 자동화)"],
+    ["소재지", "부산 동구 중앙대로 288, 7층"],
+    ["임직원", "12명 (R&D 8명)"],
+    ["누적투자", "20억원"],
+    ["제품명", "SpaceModem (위치 인프라) + Auto-Logging + AI Agent + Closed Loop"],
+    ["주요 검증", "현대글로비스 23개 사이트, 삼성물산 6개 사이트, 포스코·풍산·볼보 PoC 완료"],
+    ["웹사이트", "grow-space.io"]
+  ],
+  problem: {
+    title: "산업 현장의 '데이터 공백' (회사 주장)",
+    bullets: [
+      "물류/야적장: 자산 탐색 수기 기록, 차량 처리 평균 15분 소요",
+      "건설/플랜트: 작업자 위치 파악 불가, 중대재해 리스크",
+      "제조/철강: 자재 위치 파악 어려움, 동선 밀집",
+      "GPS 한계: 실내·금속 환경 신호 왜곡 (10m+ 오차), 실내외 연속측위 불가",
+      "RTLS(능동형 UWB) 한계: 고가 태그(수만원), 배터리 관리 부담, 금속 반사 환경 실패",
+      "비용-효율 트레이드오프: 고정밀도→극도로 고가 / 저가→낮은 정밀도"
+    ]
+  },
+  solution: {
+    title: "4-Layer Physical AI 플랫폼",
+    bullets: [
+      "Layer 1 — SpaceModem: UWB+GPS-RTK+RFID 하이브리드 센서 + CIR 알고리즘으로 금속 환경에서도 23.05cm 정밀도, 구축비 1/5",
+      "Layer 1 핵심: 300원짜리 패시브 RFID 스티커 + 능동형 추적 센서 — 배터리 없음, 유지보수 불필요",
+      "Layer 2 — Auto-Logging: 위치 감지 → 이벤트 자동 생성 → ERP/MES 직접 연동, 차량 탐색 15분 → 30초 (98% 단축)",
+      "Layer 3 — AI Agent (2026 배포): MILP+RL 하이브리드, 7초 이내 의사결정 (900만 가지 조합)",
+      "Layer 4 — Closed Loop: 실행 결과 피드백 → 자동 학습 및 최적화",
+      "재무: 2025년 매출 12.55억 (+150%), 영업이익 +0.38억, 순이익 +0.10억 (흑자전환)"
+    ]
+  },
+  market: [
+    {label: "TAM", value: "약 42조원", desc: "글로벌 실내외 측위 인프라 시장 ($28B)"},
+    {label: "SAM", value: "약 2,123억원", desc: "국내 7개 핵심산업분야 (3년 누적)"},
+    {label: "SOM", value: "약 396억원", desc: "SAM 중 영업 진행 사이트 × 성사확률"}
+  ],
+  gtm: [
+    {track: "1차 — 완성차 물류 (현대글로비스)", desc: "23개 사이트, 86.9억원 규모. 신차 3,000대 야적장 23.05cm 정밀도 검증, 인프라 권역 내 타사업장 확산 전환율 90%. 최대 단가: 구축 3~4억 + 구독 0.4억/년"},
+    {track: "2차 — 건설 (삼성물산)", desc: "6개 사이트, 21.9억원 규모. 시공현장 PoC → Main 전환, Phase 4 추가 도입 진행"},
+    {track: "3차 — 제조/철강 (포스코·풍산·볼보)", desc: "10개 사이트, 20.8억원 규모. 제조 현장 검증 완료, POSCO Pilot 진행 중"},
+    {track: "4차 — SI 파트너 채널", desc: "126.4억원 규모. 중소·중견 산업현장 140억원 + SI 파트너 네트워크 통한 확장"}
+  ],
+  traction: {
+    production: [
+      "현장 배포 40개+ (2024년 기준), 4개 산업 섹터 (완성차·건설·제조·물류)",
+      "누적 데이터 1.2B+ 데이터 포인트 (2년 축적, 지수 성장)",
+      "차량 처리 시간 15분 → 30초 (-98%) / 오배송 월평균 → Zero",
+      "작업자 대기시간 3분 → 즉시 (Instant) / 일일 처리량 +30% 이상",
+      "재무: 2023년 7.37억 → 2024년 5.02억 → 2025년 12.55억 (+150%, 흑자전환)"
+    ],
+    brand: [
+      "현대글로비스 — 계약+PoC 완료, 23개 사이트 확산 진행, 전환율 90%",
+      "삼성물산 — PoC → Main 전환, 6개 사이트, Phase 4 추가 도입",
+      "포스코·풍산·볼보 — PoC 완료, 10개 사이트 제조 현장 검증",
+      "POSCO — Pilot 진행 중, 신규 기회 확보"
+    ],
+    other: [
+      "정부 R&D 자금 30.5억원 수령 (사용 계획·회계 처리 미공개)",
+      "특허: CIR 기반 NLOS 필터링 / Closed-Loop 작업지시 구조 / AI 성과보수 BM (출원/등록 국가 미상)",
+      "더인벤션랩 동남아 네트워크 기반 글로벌 진출 준비",
+      "Samsara 벤치마크 — Phase 3 목표 매출 1,500억+ (Samsara 연매출 1,650억 수준)"
+    ]
+  },
+  team: [
+    {name: "김영식", role: "CEO", desc: "Founder · 로봇 제어", items: ["연세대 기계공학", "FPGA HW/SW 통합 설계 6년", "사업기획 10년", "비행역학 및 제어 연구"]},
+    {name: "공원우", role: "전략 Lead", desc: "Business Strategy", items: ["사업운영 10년", "PoC 투자 지원 경험", "제안/설계 경력"]},
+    {name: "이은별", role: "H/W Lead", desc: "Hardware", items: ["광운대 무인항공", "PCB+현장장비 개발 6년", "F/W 안정화 담당"]},
+    {name: "S/W & Platform 5명", role: "Software", desc: "5명 팀", items: ["대시보드 개발", "백엔드", "API", "데이터 처리"]},
+    {name: "Service & Design 3명", role: "Service", desc: "3명 팀", items: ["서비스 기획", "운영 지원", "디자인"]},
+    {name: "Sales & Operations 3명", role: "Operations", desc: "3명 팀", items: ["영업", "사업기획", "운영관리"]}
+  ],
+  plan: [
+    ["구분", "2025A", "2026E", "2027E", "2028E", "Phase 2 (2030)", "Phase 3 (2030~)"],
+    ["하드웨어", "10.5억", "18억", "25억", "30억", "—", "—"],
+    ["구독/서비스", "2억", "12억", "35억", "70억", "—", "—"],
+    ["전체 매출", "12.55억", "30억", "60억", "100억", "450~750억", "1,500억+"],
+    ["성장률", "—", "+140%", "+100%", "+67%", "—", "—"],
+    ["구독 비중", "16%", "40%", "58%", "70%", "—", "—"]
+  ],
+  facts: [
+    "Series A 30억 (Q3 2026) 목표 — R&D 40% / 제품 20% / GTM 15% / 인력 15% / 운영 10%",
+    "Series B (2028 예정), IPO 2029년 검토 (기술특례상장 T3+)",
+    "Phase 2 동아시아 확장: 글로비스 해외 96거점, 삼성물산 해외 활용",
+    "BEP 달성 KPI: Q4 2026",
+    "5년치 실측 데이터 학습 AI — 데이터 Lock-in (1차 방어선)",
+    "특허 — CIR NLOS 필터링·Closed-Loop·BM 특허 (2차 방어선)",
+    "고객 신뢰·스위칭 비용 — 현대·삼성 검증 없이 교체 불가 (3차 방어선)"
+  ],
+  checklist: [
+    "39개 사이트 실제 구독 매출 (연 15.3억원 달성 여부)",
+    "신규 고객사 진입 파이프라인 — 현재 상태 & 계약 확률",
+    "CIR 알고리즘 특허 출원/등록 국가 및 상태 (Sewio·Ubisense 추격 대응)",
+    "재무 투명성 — 손익·대차·현금흐름 3년, 정부 R&D 자금 30.5억 회계 처리",
+    "글로벌 진출 실행력 — 동남아 파트너십 구체화 일정, Honeywell/Siemens MOU/PoC/계약 구분",
+    "조직 — R&D 팀 AI/최적화 담당자 수·경력, CFO/글로벌BD 채용 일정",
+    "규제·인증 — RF EMC/CE, 드론 운용(FAA/EASA/KASA), 국방·보안 수출 규제",
+    "성과보수 모델 검증 — 현대글로비스 절감액 측정 데이터, Palantir 모델 적용성"
+  ]
+};
+
+const WHEREABLE_IR = {
+  tagline: "공항·항만·조선소·물류센터 등 실내 대형 공간에 특화된 자율주행 AI 로봇(linq) 개발사. CES 2026 혁신상 2개 부문 수상 + 육군 195억 정부과제 선정.",
+  basicInfo: [
+    ["대표자", "백두산 (CEO & Co-founder) — 토르드라이브 CTO, 서울대 전기공학부 박사"],
+    ["설립연도", "2024.01 (1~3년차)"],
+    ["분야", "Physical AI / 로보틱스 (실내 자율주행)"],
+    ["소재지", "서울 영등포구"],
+    ["임직원", "총 20명 (CEO/CTO/CSO 포함 핵심 18명 + Staff 2명)"],
+    ["제품명", "linq (실내 승객운송 로봇) / 군수용 PBV / SPM SW 라이선스 / FMS"],
+    ["핵심 기술", "E2E (Backbone+Expert), Self-supervised Learning, ARC Escort Autonomy"],
+    ["주요 검증", "CES 2026 혁신상 2개 부문 (Smart Communities, Accessibility & Longevity), LG SUPERSTART 선정"],
+    ["웹사이트", "whereable.ai"]
+  ],
+  problem: {
+    title: "기존 자율주행 기술의 실내 공간 적용 한계 (회사 주장)",
+    bullets: [
+      "공항·항만·조선소·물류센터 등 실내 복합 환경에서 HD map·규칙기반 시스템 적용 불가",
+      "GPS 미작동, 환경 변화 빈번, 비정형 차단 환경 대응 어려움",
+      "특정 산업 맞춤형 솔루션 부재로 고가 도입 장벽 + 운영 비효율",
+      "지방항공사 파산/AOC 상실 등 운송 인프라 공백"
+    ]
+  },
+  solution: {
+    title: "Physical AI 기반 차세대 자율주행 통합 솔루션",
+    bullets: [
+      "linq — 실내 승객운송 로봇: 공항·쇼핑센터·리조트 등 안전·편리 자동주행 운송",
+      "군수용 자율주행 차량(PBV): 화물·병력 수송 환경 특화, 정부자원금 195억원 (육군)",
+      "자동주행 SW 라이선스: TEXTRON·Kalmar 등 OEM 제조사에 자율주행 SW 공급",
+      "Fleet Management System (FMS): 다수 자율주행체 운영·모니터링·의사결정 지원 플랫폼",
+      "차별 기술: E2E (Backbone+Expert), Self-supervised Learning, ARC Escort Autonomy로 실내 복합 환경 특화"
+    ]
+  },
+  market: [
+    {label: "TAM (2030)", value: "395조원", desc: "전체 시장 — Forklift, Earthmoving 포함"},
+    {label: "SAM (2030)", value: "85조원", desc: "운송 시장 — LSV, 군수, GSE, SPMT, Tugger, YT 등"},
+    {label: "SOM (2030)", value: "5,386억원", desc: "공항·항만 승객운송 (Top 10 490억, Top 20 884억, 전 세계 5,386억)"}
+  ],
+  gtm: [
+    {track: "1단계 — 정부 과제", desc: "육군 국방기술 PBV 195억원 (2024.12 선정, 2027 하반기 완성). 국방·정부 검증으로 기술 신뢰도 확보"},
+    {track: "2단계 — 공항", desc: "인천공항 T2 자율셔틀 운송 (2024.05 도입), 쇼핑몰 운송 확대 검토 중. 공항 운영사 확대"},
+    {track: "3단계 — 항만/조선소/물류", desc: "해군·한진·SNCT 등 협력 추진. 더현대 부산 PoC 예정 (2027)"},
+    {track: "글로벌 — SPM OEM", desc: "Easymile·Aurrigo·Oxa·Outrider·Forterra 경쟁사 대비 실내 특화 차별. TEXTRON·Kalmar 등 OEM 라이선스 진행"}
+  ],
+  traction: {
+    production: [
+      "CES 2026 혁신상 — Smart Communities, Accessibility & Longevity 2개 부문 수상 (국제 검증)",
+      "E2E (Backbone+Expert, Self-supervised) 기반 실내 자동주행 시스템 개발 완료 및 운영 중",
+      "인천공항 T2 자율셔틀 운송 운영 중 — 쇼핑몰 스타트업 육성사업 선정",
+      "2026년 매출 4.86억 (실측 기반), 이후 모두 예상치 (E)"
+    ],
+    brand: [
+      "인천공항 (2024.05) — T2 자율셔틀 운송 + 쇼핑몰 확대 검토",
+      "육군 국방기술 (2024.12) — 군수용 자율주행 PBV1 정부자원금 195억원",
+      "QUAD/Naver/Postech (2025.01) — Seed 투자 유치 20억원 규모 (인천공항 서빙 PoC 예정)",
+      "LG SUPERSTART (2025.09) — TIPS 선정 (LG 전자 스타트업 육성)"
+    ],
+    other: [
+      "학계·산업 파트너: 서울대학교, KAIST, POSTECH, Unmanned Solution, AIMMO",
+      "Naver Cloud 기술 협력 (구체 매출 발생 여부 미기재)",
+      "특허·IP 포트폴리오 상세 정보 미기재 — E2E·Self-supervised·ARC Escort Autonomy 특허 보호 검증 필요"
+    ]
+  },
+  team: [
+    {name: "백두산", role: "CEO & Co-founder", desc: "Autonomous Driving Veteran", items: ["서울대 전기공학부 박사", "토르드라이브 CTO (연구주임)", "서울대 자율주행 연구원"]},
+    {name: "허우솔", role: "CTO & Co-founder", desc: "AI/SW Architect", items: ["POSTECH 전기전자공학과 박사", "서울대 전기공학부 박사", "자동주행 데이터 국가표준 위원"]},
+    {name: "김재환", role: "CSO", desc: "Policy & Regulation", items: ["에이모 CSO/DaaS 부문장", "경기도 자율주행 센터 선임", "자동주행 정책·규제 전문"]},
+    {name: "서석교", role: "Principal Engineer", desc: "Industry Expert", items: ["토르드라이브 이사", "우토노머스 매니저", "현대오토에버 책임연구원", "민도 자동화 업체 고문"]},
+    {name: "김현태", role: "Principal Engineer", desc: "Robot Platform", items: ["자동주행 시스템 로봇 플랫폼 개발", "어린이 풀혼석 선임연구원", "웹젯대학교 자동주행 과제 참여"]},
+    {name: "배병웅", role: "Principal Engineer", desc: "Software", items: ["에이모 자동주행 그룹 SE", "토르드라이브 핵심 기술팀 참여", "국가 자동주행 조정대원회 자문"]}
+  ],
+  plan: [
+    ["구분", "2026", "2027", "2028", "2029", "2030"],
+    ["배포 대수", "4대", "12대", "—", "—", "—"],
+    ["매출 (E)", "4.86억", "20.6억", "107억", "209억", "358억"],
+    ["주요 마일스톤", "인천공항 레퍼런스 / 쇼핑몰 PoC", "인천공항 셔틀 확대 / 더현대 부산", "PBV1 완료 / 항만·조선소 확장", "SPM 글로벌 진출", "IPO 또는 전략적 Exit"],
+    ["라운드", "Pre-A 50억(예정)", "Series A 100억", "—", "—", "Series B 209억"]
+  ],
+  facts: [
+    "Seed 20억 (2025.01) 유치 완료 — QUAD/Naver/Postech",
+    "Pre-A 라운드 진행 중 (2026.06 예정, 50억 목표)",
+    "2026~2030 CAGR 약 185% 추정 (대부분 예상치)",
+    "기업가치 목표: 최소 3,580억원 이상 (매출 기반 추정)",
+    "주요 파트너: 서울대·KAIST·POSTECH·Unmanned Solution·AIMMO + 인천공항·육군·LG·Naver Cloud",
+    "Product 확장: PBV2 기획 중(2027+), AI 기반 애플리케이션 개발",
+    "글로벌 진출: 유럽·미국·아시아 SPM 시장 OEM 라이선스 전략"
+  ],
+  checklist: [
+    "2027~2030 매출 E 산출 근거 — 인천공항·정부과제 PoC 실제 매출 전환 시점·규모, CAGR 185% 달성 가능성",
+    "linq 제품 시장 성숙도 — 인천공항 외 3~4개 공항 또는 항만 PoC 추가 수주 일정",
+    "글로벌 진출 — Easymile·Aurrigo·Oxa 대비 기술 우위 벤치마크, TEXTRON·Kalmar OEM 계약 현황",
+    "정부 과제 의존도 완화 — 육군 PBV 195억 외 추가 정부과제 또는 민간 고객 확보 전략",
+    "팀 확충 — CEO/CTO 외 비즈니스·마케팅·글로벌 영업 핵심 인재, 20명 → 100명+ 확충 로드맵",
+    "특허·IP — E2E·Self-supervised·ARC Escort Autonomy 국내·국제 특허 현황",
+    "규제·인증 — 공공 도로(항만·공항 내부) 자동주행 인증·규제 대응 계획"
+  ]
+};
+
+const DOLBOMDREAM_IR = {
+  tagline: "공기압-심탄도(Pneumatic BCG) 센서 기반 시니어 24시간 비침습 건강 모니터링 통합 시스템. 99% Retention·실제 13명 생명 구조 검증 + Series A 15억 확보.",
+  basicInfo: [
+    ["대표자", "김지훈 (CEO) — KAIST 기술경영·창업융합전문석사 / Forbes Asia 30 Under 30 Social Impact"],
+    ["설립연도", "2020.03 (3~7년차)"],
+    ["분야", "딥테크 / 헬스케어 (시니어 모니터링)"],
+    ["소재지", "대전/충청"],
+    ["제품명", "Carearly Band / Wear / Mattress + AI 통합 관제 플랫폼"],
+    ["핵심 기술", "공기압-심탄도(Pneumatic BCG) 비접촉 센서 + HRV 기반 기저질환 예측"],
+    ["주요 검증", "CES 2022·2026 혁신상, Edison Awards 2024, KOLAS 100% 정확도, ISO 27001"],
+    ["웹사이트", "dolbomdream.com"]
+  ],
+  problem: {
+    title: "초고령화 사회 사전 예방형 돌봄 패러다임 전환 필요 (회사 주장)",
+    bullets: [
+      "시니어 사망 원인의 30%가 '조기 발견 실패'",
+      "시니어 90% 이상 자택 거주 희망 → 가정 내 연속 모니터링 단절",
+      "스마트워치/링: 60세 이상 90% 미착용 — 장착 거부감",
+      "CCTV: 사생활 침해 / 레이더·AI 스피커: 실내 한정·능동 도움요청 불가",
+      "2030년 시니어 헬스케어 시장 168조 규모 예상"
+    ]
+  },
+  solution: {
+    title: "공기압 BCG + AI 통합 관제 시스템",
+    bullets: [
+      "공기압 BCG 센서: 피부 비접촉·무자각 24시간 측정, 의료기기 대비 98% 유사도 (KOLAS 100% 인증)",
+      "디바이스 라인업: Carearly Band (밴드) / Wear (조끼) / Mattress (매트리스) — 일상 밀착형",
+      "AI 통합 관제 플랫폼: 실시간 라이프로그 수집, 이상 탐지 알림, 119 출동 연계",
+      "보호자/기관 App·Web 모니터링 — 양방향 정보 공유",
+      "HRV 기반 기저질환 예측: 고려대 의료원 기술이전 (관상동맥 질환), KISTI 치매 예측 연계 예정",
+      "글로벌 빅테크 미상용화 영역 — Apple Watch·OMRON·Philips·Medtronic 모두 접촉식·통합관제 부재"
+    ]
+  },
+  market: [
+    {label: "TAM (2030 진입)", value: "40.5조원", desc: "글로벌 바이오 센서 시장"},
+    {label: "SAM (2028 진입)", value: "12.5조원", desc: "글로벌 비침습 센서 시장"},
+    {label: "SOM (2026 진입)", value: "2,546억원", desc: "국내 디지털 헬스케어 건강관리 기기 (MS 3.3% 목표)"}
+  ],
+  gtm: [
+    {track: "B2G — 중앙·17개 시도 사회서비스원·지자체", desc: "30곳+ 정부부처/지자체/복지관 운영 중. 홍천군 시범사업 5년 계약 연장 확정 (연 4억), 고흥군 10억 사업비 논의, 충남대전 5,000명 잠재 매출 연 54억"},
+    {track: "B2B — 요양병원·재가복지·실버타운", desc: "1,500명 시니어 운영 중. 일평균 착용 8.02h, 만족도 96.9점, Retention 99%"},
+    {track: "B2C — 효도 마케팅", desc: "크라우드펀딩, 아마존·알리바바 채널. 미국 RMHC Korea 매출 5% 기부 유통계약"},
+    {track: "사업 확장", desc: "건설노동자용 조끼 (한국도로공사·공항공사 1만 대·50억 가능), 차량 운전자 안전벨트, 반려동물 의류, 웨어러블 로봇"}
+  ],
+  traction: {
+    production: [
+      "30곳+ 정부부처/지자체/복지관 — 과기정통부·보건복지부·홍천군·중앙사회서비스원·경상남도사회서비스원",
+      "1,500명 시니어 대상 운영 중",
+      "홍천군 시범사업 5년 계약 연장 확정 (연 4억)",
+      "일평균 착용시간 8.02h (목표 4h+), 만족도 96.9점 (목표 80점+)",
+      "Retention Rate 99%, 비상 대처 100%, 실제 생명 구조 약 13명",
+      "매출 추이: 2021년 1억 → 2025년 10.6억 (연평균 100%+ 성장), 2025년 누적 30억 실매출"
+    ],
+    brand: [
+      "삼성전자 — 갤럭시워치 데이터 실시간 공유, AI 알고리즘 고도화, 사내 CSR",
+      "Google for Startups — APAC Cloud Academy, 서버 비용 절감",
+      "SK텔레콤 ESG AI Care팀 — 연 500억 국가 R&D 플랫폼 API 연동, 2027~ 5~10% 수익쉐어",
+      "메트라이프생명 — 디지털 헬스케어 보험 연계 MOU, 공동 보험상품 진행",
+      "글로벌 진출: 미국(RMHC Korea), 싱가포르(현지법인+투자유치 완료), 일본(H.C.R 박람회)"
+    ],
+    other: [
+      "특허 15건+ 기술이전, 특허가치 평가 20.7억원, T5+ 등급",
+      "CES 2회·Edison Awards·Seoul Design Award 등 국제 수상",
+      "B Corp 인증, 약자동행 기술박람회 우수상, 발달장애인 압박의류 특허",
+      "보건복지부·고용노동부·과기정통부·서울시 장관/시장상 다수"
+    ]
+  },
+  team: [
+    {name: "김지훈", role: "CEO", desc: "Founder · Social Impact", items: ["KAIST 기술경영학·창업융합전문석사", "Forbes Asia 30 Under 30 Social Impact", "前 지식콘텐츠 스타트업 '오아시스' 대표", "대전시 최중증 발달장애인 도전적 행동지원사업 자문위원"]},
+    {name: "유민혁", role: "CSO", desc: "Strategy & Operations", items: ["고려대 전기전자공학부", "前 삼성물산 상사부문", "프로젝트 운영·PO 경력"]},
+    {name: "김석현", role: "CTO", desc: "Biosignal & AI Veteran", items: ["동의대 정보통신공학·세종사이버대 정보보호 공학석사", "前 미국 삼성전자·부전전자 18년", "생체신호·AI·무선통신·풀스택"]}
+  ],
+  plan: [
+    ["구분", "2025", "2026", "2027", "2028", "2029"],
+    ["매출", "10.6억", "37.4억(E)", "85.3억(E)", "—", "—"],
+    ["영업이익", "—", "—", "15억(E)", "—", "—"],
+    ["라운드", "Series A 30억 (15억 확보)", "—", "Series B/C 100억", "—", "코스닥 기술특례상장"],
+    ["주요 마일스톤", "조달청 혁신제품 / 지자체 SaaS 확산", "B2G/B2B 레퍼런스 확대", "미·일 현지법인 / B2C 글로벌", "의료기기 2등급 인증 / IPO 준비", "기업가치 약 2,000억"]
+  ],
+  facts: [
+    "누적 9억원 투자 완료 (롯데벤처스·한국사회투자·행복나눔재단·신용보증기금)",
+    "Series A 30억 진행 중 (15억 확보) — 50% 기술/양산, 33% 세일즈, 12% IP·인증, 5% 공장",
+    "공기압 BCG는 글로벌 빅테크 (Apple·삼성·OMRON·Medtronic) 미상용화 원천기술",
+    "KOLAS 98% 정확도 인증, 의료기기 대비 검증",
+    "전국 226개 기초자치단체 — 5%(11개) 점유 시 연 50억 / 100% 점유 시 900억",
+    "노인장기요양보험 요양급여비 매년 10%+ 성장 (2030년 20조 → 2065년 200조)",
+    "2028.12 코스닥 기술특례상장 신청 예정"
+  ],
+  checklist: [
+    "2026년 매출 37.4억의 기 확정분 vs 파이프라인 비중",
+    "Series A 잔여 15억 유치 일정 및 투자자 후보",
+    "의료기기 2등급 인증 진행 단계 및 예상 완료 시점 (IPO 트리거)",
+    "신규 지자체 수주 파이프라인 (홍천·고흥 외)",
+    "글로벌 진출 (미·싱·일) 실매출 발생 시점 및 현지법인 운영 현황",
+    "사업 확장 라인업 (건설/차량/펫/로봇) 우선순위 및 자원 배분",
+    "B2G 의존도 — 정권 교체·예산 삭감 시 직격 리스크 완화 방안",
+    "미확정 매출 가정 (OO 위원 공약 5,000명·54억, 고흥군 10억 논의 중) 보수 평가"
+  ]
+};
+
+const TOFF_IR = {
+  tagline: "전기비행기 + 고중량 드론 유통·인증·정비·운항서비스 통합 솔루션. 2025.11 아시아 최초 전기비행기 안전성인증 (검토 88종/557일) + 2026.02 국내 최초 고중량 드론 도입.",
+  basicInfo: [
+    ["대표자", "정찬영 — 켄코아에어로스페이스 UAM 전략/R&D 총괄, 미국 FAA 조종사, 국토부 K-UAM 실무분과"],
+    ["설립연도", "2023.07.07 (1~3년차)"],
+    ["분야", "딥테크 / UAM (전기비행기·고중량 드론)"],
+    ["소재지", "서울 강서구 하늘길 70 항공지원센터 2층 (지점: 고양·춘천·수색비행장)"],
+    ["임직원", "상근 10명 + 고문 4명 = 14명"],
+    ["제품명", "전기비행기 (2·9·13인승 라인업) + 고중량 드론 + EV Air Care 구독 + AI MRO"],
+    ["핵심 검증", "아시아 최초 전기비행기 안전성인증 (2025.11), 국내 최초 고중량 드론 도입 (2026.02)"],
+    ["웹사이트", "toffmobility.com"]
+  ],
+  problem: {
+    title: "비수도권 이동·재난 대응의 구조적 한계 (회사 주장)",
+    bullets: [
+      "비수도권 이동수단 한계: 장거리 우회 버스, 단거리 항공 부재 → 이동시간 과다",
+      "기존 항공 구조 붕괴: 국제선 중심 정책 + 9개사 과잉 경쟁 + 지방노선 70% 탑승률 한계 → 지방항공사 파산/AOC 상실 (하이에어 '23, 코리아익스프레스 '20)",
+      "산불 골든타임 40% 놓침 — 유인 헬기 출동지연·기상제약·조종사 안전리스크",
+      "초고층 화재 사다리차 53m vs 25층 72m 물리적 한계"
+    ]
+  },
+  solution: {
+    title: "전기비행기 + 고중량 드론 + 인증·정비·DATA 통합",
+    bullets: [
+      "전기비행기 (2·9·13인승): 운용비 40% 절감 (시간당 $200 vs 내연 $800), 좌석당 $22 vs B737 $30",
+      "고중량 드론: 헬기 대비 1/10 운용비, 무인 기반 인명 리스크 제거, 야간·강풍·연기 즉시 투입",
+      "인증·정비·DATA 플랫폼: Turnaround 120분 → 30분, 배터리 교체 해외 3~4개월 → 국내 자체 2~7일",
+      "예지정비 + SMS 기반 AOC 대비 체계 구축",
+      "확장: '27년 9인승 내연기관 리스 → AOC 운항증명 → 초소형 항공사 (단거리 정기노선 B2C/B2B + 전용기 멤버십)"
+    ]
+  },
+  market: [
+    {label: "글로벌 AAM", value: "$1.3조→$1조", desc: "'24→'30년 (CAGR 8.2%, K-UAM '40년 109조)"},
+    {label: "Cargo Drone", value: "$19.6억→$105억", desc: "'25→'30년 (CAGR 39.9%, Asia Pacific Fastest)"},
+    {label: "국내 소형항공기", value: "13조→20조", desc: "'24→'30년, 조종사 훈련기관 27%(57대) 교체 필요"}
+  ],
+  gtm: [
+    {track: "직접운영", desc: "전기비행기 훈련 서비스 ('25 런칭, 베트남 수출 20만불), 관광·체험 비행 (1시간 4명 60만원, 1대 연 7.5억/순익 3억), 제주 전용 비행장 ('26 상반기)"},
+    {track: "유통", desc: "Pipistrel 전기비행기·충전기 독점유통권 (10% 마진), ZC aviation 고중량 드론 유통사 ('25.08 확정)"},
+    {track: "솔루션 (구독)", desc: "EV Air Care 구독 (월 100만원, 유통·인증·배터리 진단·점검·교환), AI MRO + 운영 DATA 사업"},
+    {track: "확장", desc: "'27년 AOC 운항증명 → 초소형 항공사 (울릉도·강원 등 단거리 정기노선), '28년 PAV·대형 드론 산업 확대, '27 베트남·필리핀·인도네시아·중동·태국 진출"}
+  ],
+  traction: {
+    production: [
+      "2025.11 아시아 최초 전기비행기 안전성인증 — 국토부·KIAST 협업 (검토문서 88종/557일/규제신속확인 1건/법령해석 2건)",
+      "2026.02 국내 첫 고중량 드론 도입 (경상남도 고성), 특별감항증명 신청",
+      "Turnaround 120분 → 30분 (1/4 단축), 배터리 교체 3~4개월 → 2~7일 국내 자체화",
+      "'25 상반기 훈련 서비스 런칭, 베트남 수출 20만불",
+      "재무: 2023년 0.83억 → 2025년 18.2억 (당기순익 3.37억, 수익률 16%) — 흑자전환"
+    ],
+    brand: [
+      "Pipistrel — 전기비행기·충전기 독점유통권 보유",
+      "ZC aviation — 고중량 드론 유통사 확정 ('25.08), 구매계약 체결",
+      "국토부 산불드론 사업 ('25.09 선정) — KIAST 협업, 산불 얼라이언스 (행안부·국토부·산림청·소방청)",
+      "지자체 협력: 고양·충남·제주·강원·경북 비행장 구축 협력",
+      "베트남 수출 실적 20만불 (전기비행기 훈련 서비스)",
+      "신용보증기금 '리틀펭귄' 선정 완료"
+    ],
+    other: [
+      "SEED 3.5억 ('24) + TIPS 7억 ('24) = 누적 10.5억 투자",
+      "고중량 드론 운영 훈련 수료 — 국내 유일",
+      "글로벌 경쟁 환경: 전기비행기 글로벌 400개 업체 6,984대 선주문, 11개국 상용화 (140대 이상 운용)",
+      "고중량 드론 경쟁: ElroyAir·Pyka·MightyFly 등 헬리콥터급 FAA/EASA 인증 추진 중 ('25 H2)"
+    ]
+  },
+  team: [
+    {name: "정찬영", role: "CEO", desc: "Aviation Veteran", items: ["켄코아에어로스페이스 UAM 총괄", "FAA 조종사", "국토부 K-UAM 실무분과", "제주항공·이스타항공 안전/보안", "항공대 미래항공교통 석사 (10년 전문경력)"]},
+    {name: "정재훈 (A)", role: "이사", desc: "Aircraft Engineer", items: ["대한항공 엔지니어", "FAA 조종사", "비행기 정비사", "항공대 기계과"]},
+    {name: "한민", role: "팀장", desc: "Aviation Maintenance", items: ["대한민국 항공정비 부사관", "배셀에어로스페이스 KLA-100 총조립·정비·조종사", "FAA/사업용 조종사", "경상국립대"]},
+    {name: "김재천 (고문)", role: "경영", desc: "AK플라자 대표", items: ["제주항공 부사장", "서울대 MBA"]},
+    {name: "최수경 (고문)", role: "법률", desc: "Legal & Aviation", items: ["법무법인 혜강 대표", "AK홀딩스 법무", "제주항공 항공안전", "FAA 운항관리사"]},
+    {name: "최진혁·김정현 (고문)", role: "기술", desc: "Battery & Aerospace", items: ["최진혁: 한국전력 배터리팀장, 삼성SDI LIB, 서울대·KAIST 박사", "김정현: 세종대 교수, 조지아공대 박사, KARI, 美 아메리칸 항공"]}
+  ],
+  plan: [
+    ["구분", "2025A", "2026E", "2027E", "2028E", "2030E"],
+    ["매출", "18.2억", "31억", "121억", "650억", "1,337억"],
+    ["순익", "3.37억(16%)", "5.58억(18%)", "—", "—", "—"],
+    ["라운드", "SEED+TIPS 10.5억", "Pre-A 20억", "Series-A 90억", "—", "Series-B 200억"],
+    ["주요 마일스톤", "전기비행기·드론 인증", "제주 비행장 / AOC 추진 / 산불 실증", "AOC 운항증명 / 9인승 리스 3대 / 단거리 노선", "6개 노선 25대 / 멤버십 전용기", "글로벌 진출 / 50대 / IPO"]
+  ],
+  facts: [
+    "Pre-A 20억 ('26 목표) — 드론·비행기 5억 + 인건비·운영 5억 + 제주 인프라 7억 + AOC 3억",
+    "전기비행기 탄소 90% 절감, 소음 10배 저감",
+    "정책 부합: 국토부 K-UAM, 조종사 훈련기관 전기비행기 도입 권고('24.03), 드론특별자유화구역, 새 정부 5개년 계획 (드론·UAM 재난·산불·물류 핵심 인프라 160억)",
+    "FAA MOSAIC 규제 개선 ('25) — 글로벌 본격 성장 발판",
+    "1대 관광 매출 가정: 5h 비행 × 250일 운영 × 탑승률 100% = 연 7.5억",
+    "2030년 글로벌 진출 (유럽), 50대 운영, UAM 본격 확장",
+    "산불 골든타임 즉시 투입 — 헬기 대비 1/10 운용비"
+  ],
+  checklist: [
+    "'26~30 매출 전망 공격성 — '25 18억 → '30 1,337억 성장 검증 ('27 +290%, '28 +437%)",
+    "AOC 불확실성 — '27 운항증명 Fast Track 전략 실행 가능성 (前 지방항공사 파산·상실 사례)",
+    "'25 18.2억 매출 구성 (유통·훈련·솔루션 비중)",
+    "관광 1대 연 7.5억 가정의 현실성 (5h·250일·100% 탑승률 전제)",
+    "드론 매출 근거 — 대당 판매가, 용역 단가, 지자체 계약 규모",
+    "Pre-A 20억 자금일정 — '26.02 드론 도입·제주 인프라 착공 전 클로징 가능성, LOI/Term Sheet 확보율",
+    "글로벌 진출 — '27 동남아·중동 진출 구체 LOI",
+    "규제 변동 리스크 — AOC·감항증명 강화·지자체 예산 축소 대응"
+  ]
+};
+
+
+// =================== Rich IR Data — Part 2 (No.23, 25, 27, 28) ===================
+
+const PREDICTION_IR = {
+  tagline: "전기차 Fleet 운용 전주기 실시간 배터리 헬스케어 AI Foundation Model 기반 SaaS. 톱티어 학·연 (서울대 박사+삼성SDI / KAIST 박사+연세대·POSTECH 교수) 창업진의 First Mover 카테고리.",
+  basicInfo: [
+    ["대표자", "김두호 (CEO) — 서울대 공학박사 / 現 경희대 기계공학과 교수 / 前 삼성SDI 책임연구원 (배터리 15년)"],
+    ["설립연도", "2024.02.01 (1~3년차)"],
+    ["분야", "전동화 모빌리티 / 딥테크 (배터리 진단 AI)"],
+    ["소재지", "본사: 경기 과천 / 부설연구소: 수원 (창업보육센터)"],
+    ["임직원", "10명 (석·박사 8명)"],
+    ["제품명", "EView — 실시간 배터리 헬스케어 AI 기반 EV Fleet 운용 효율화 SaaS"],
+    ["핵심 기술", "AI Foundation Model — 원시 데이터 기반 배터리 이상진단/건강상태 예측 (4세대 진화)"],
+    ["주요 검증", "KCL 납품·성능평가 완료 / 인텔 글로벌 협업 / 산자부 / TIPS 선정 (25.11) / 특허출원 (24.5)"],
+    ["웹사이트", "eview.im"]
+  ],
+  problem: {
+    title: "물류/유통 EV Fleet의 배터리 고장·화재 운영 손실 (회사 주장)",
+    bullets: [
+      "글로벌 전기 트럭 재고: 2024년 58.2만 → 2030년 350만 대 (IEA STEPS), 6배 성장",
+      "물류 전기화물차는 일반 EV 대비 최대 5배 운행 (154,872km vs 30,662km) → 배터리 급격 악화",
+      "고장·화재 시 평균 2~4주 운영 공백, 1대당 수리비 약 2,291만원, 화재 시 추정불가 피해",
+      "BMS 임계치 추종 방식: 고장 발생 '후'에만 작동",
+      "EIS: 사용 후 배터리 정적 측정만 가능, 운행 중 적용 불가",
+      "→ 운용 단계 실시간 진단 솔루션 부재의 시장 공백"
+    ]
+  },
+  solution: {
+    title: "Battery-diagnostics-driven EV Fleet Management ('EView' 플랫폼)",
+    bullets: [
+      "AI Foundation Model: 원시 데이터 기반, 차종·연식·제조사 무관, 4세대 다차종 모델 진화",
+      "실시간 운용 전주기 관제: 셀 단위 전압 모니터링, Threshold 3단계 선제 이상감지 — 고장 발생 '전' 진단",
+      "EView SaaS: 배터리 건강상태 3단계(정상/주의/정비·교체) 자동 판정, 자산 처분 워크플로우 통합",
+      "Seamless 사업/DB 연계: 배터리 재제조(포엔)·중고트럭(iTruck) 등 후방 사업과 데이터 연동 → 매각/업사이클링 자동화",
+      "구독료 — Basic 16,900원/월 / Standard 23,900원/월 / Premium 49,900원/월 (대당)"
+    ]
+  },
+  market: [
+    {label: "글로벌 EV 트럭", value: "58.2만→350만대", desc: "2024→2030년 (6배 성장, IEA STEPS)"},
+    {label: "국내 EV 비율", value: "2.6→15.05%", desc: "2024→2030년 (환경부)"},
+    {label: "차량 타겟 (마일스톤)", value: "40만→10억대", desc: "2026년 40만 대 → 2033년 10억 대 (※ 공격적)"}
+  ],
+  gtm: [
+    {track: "1단계 (2026) — 국내 물류/유통", desc: "물류·유통 전기 화물차 운용 효율화 PoC, 차량 40만 대 타겟. 이마트·쿠팡·롯데마트·CJ대한통운·GS·일양로지스 — 잠재 파이프라인"},
+    {track: "2단계 (2027~28) — 글로벌 물류", desc: "DHL·UPS·FedEx·SF, 차량 1억~2억 대 타겟"},
+    {track: "3단계 (2029~30) — 글로벌 공유차", desc: "Grab·Gojek·Uber·Lyft·Bolt, 차량 3억~4억 대 (100% EV 전환 시점)"},
+    {track: "4단계 (2031~33) — 자율주행", desc: "Waymo·Mobileye·Zoox·Pony.ai, 차량 6억~10억 대"}
+  ],
+  traction: {
+    production: [
+      "KCL (한국건설생활환경시험연구원) — AI 모델 납품 및 성능평가 완료 (공공기관 검증)",
+      "협력기업 운영 데이터 제공 계약 (완료 표기)",
+      "실측 매출·영업이익 IR 미기재 — 차량대수 타겟만 제시",
+      "KPI (모두 목표치): 차량 데이터 50+ → 2,000+, 누적 주행 100,000km → 50,000,000km, 정확도 95% → 99%+",
+      "Fleet 가동률 99.9% / Downtime 손실 600만 → 50만 / 연간 TCO 4,000만 → 2,000만 목표"
+    ],
+    brand: [
+      "일양로지스 — 친환경 물류 EV 충전/배터리 AI솔루션 MOU (25.8)",
+      "EVAR — MOU (24.8), 충전 인프라",
+      "포엔 (POEN) — 배터리 재제조 MOU (25.10)",
+      "Pit-in — PoC 시작 (24.5)",
+      "잠재 파이프라인: 쿠팡·이마트·롯데마트·CJ대한통운·GS THE FRESH·대한통운 (계약 미체결)"
+    ],
+    other: [
+      "인텔 글로벌 협업 과제 선정 (24.4) — 진행 단계 미상",
+      "미국 댈러스 우버 미팅 — 2026.7 이후 예정",
+      "퓨처링크 강남 자율주행 택시 OBD 도입 검토 — 2026.2 말경 예정",
+      "현대 코나 EV 시범사업 OBD 장착 — 2026.3 이후 예정",
+      "벤처기업 인증 (25.3), 중기부 TIPS (25.11), 산자부 소재부품 이종융합 과제",
+      "특허 출원 1건 (24.5) — 배터리 상태진단 기술"
+    ]
+  },
+  team: [
+    {name: "김두호", role: "CEO", desc: "Battery Veteran", items: ["서울대 공학박사", "現 경희대 기계공학과 교수", "前 삼성SDI 연구소 책임연구원 (배터리 15년)"]},
+    {name: "신원용", role: "CAO", desc: "AI Architect", items: ["KAIST 공학박사", "現 연세대 계산과학공학과 교수", "現 POSTECH AI대학원 겸직교수 (AI 20년)"]},
+    {name: "양성일", role: "CTO", desc: "Full-stack Engineer", items: ["25년 풀스택 엔지니어", "다수 SW 솔루션 개발", "『사물인터넷을 위한 자바』 저자", "前 쿨클라우드 부장"]},
+    {name: "최광현", role: "부대표(사업)", desc: "Business", items: ["경희대 공학석사", "이차전지 시스템"]},
+    {name: "황준철", role: "부대표(연구)", desc: "Research Director", items: ["경희대 공학석사", "이차전지 인공지능", "現 프리딕션 연구소장"]},
+    {name: "실무진 (5명)", role: "Engineering", desc: "이차전지·AI 석박사급", items: ["김태수·이석현·신승운·한승준 리더 + 박찬미 매니저", "이차전지·AI 시스템 전문"]}
+  ],
+  plan: [
+    ["구분", "2026", "2027~28", "2029~30", "2031~33"],
+    ["타겟 시장", "국내 물류/유통", "글로벌 물류", "글로벌 공유차", "자율주행/EV"],
+    ["주요 고객", "이마트·쿠팡·CJ·GS·일양", "DHL·UPS·FedEx·SF", "Grab·Gojek·Uber·Lyft·Bolt", "Waymo·Mobileye·Zoox·Pony.ai"],
+    ["차량 대수 타겟", "40만 대", "1억~2억 대", "3억~4억 대", "6억~10억 대"],
+    ["매출액·영업이익", "IR 미기재", "IR 미기재", "IR 미기재", "IR 미기재"]
+  ],
+  facts: [
+    "직원 10명 중 석·박사 8명 — R&D 밀도 매우 높음",
+    "AI Foundation Model 4세대 진화 로드맵 (다차종 모델까지)",
+    "다층 BM: SaaS 구독료 + 재제조 수수료 + 중고차 커미션 + 공유차 데이터 트래픽",
+    "공유차 데이터 트래픽 수수료: 건당(요청 0.5 + 제공 0.5) 과금",
+    "파트너 네트워크: 삼성SDI(셀)·포엔(재제조)·KOTMI(사용후 배터리)·EVAR(충전기)·MAK(충방전기)·일양로지스·Pit-In·iTruck·KCL·블루포인트파트너스",
+    "Seed 투자 (24.12) — 블루포인트파트너스, 금액 미기재",
+    "TIPS 선정 (25.11) — 정확한 라운드 단계 미기재"
+  ],
+  checklist: [
+    "2024~2025년 실측 매출·영업이익·수주 잔고 (PoC 매출 포함)",
+    "Seed 라운드 투자 금액·현재 진행 라운드 규모·밸류에이션·런웨이",
+    "MOU 4건 (일양로지스·EVAR·포엔·Pit-In)의 실계약 전환 일정과 예상 매출 규모",
+    "2026년 40만 대 타겟의 구체적 고객사별 LOI/계약 진행 현황",
+    "AI FM 모델의 현재 정확도 실측치 (목표 99% 대비) 및 학습 데이터 50대 → 2,000대 확장 계획",
+    "CEO·CAO 교수 겸직 IP 귀속 관계 및 풀타임 전환 계획",
+    "글로벌 동종 AI 배터리 진단 스타트업 (TWAICE, ACCURE 등) 대비 기술·BM 차별점",
+    "자금 사용 계획 상세 (R&D/마케팅/인건비) 및 IPO·M&A Exit 시나리오"
+  ]
+};
+
+const COFA_IR = {
+  tagline: "반도체 어드밴스드 패키징용 차세대 언더필(Underfill) 접착소재. 일본 Namics·독일 Henkel 95% 과점 시장의 국산화 — Tg 125~129°C 우위 + 이중경화 특허 + 월 1만 개 양산 Capacity.",
+  basicInfo: [
+    ["대표자", "박기남 (CEO) — 한양대 화학공학·재료 석사 / 산업용 접착제 제조 9년 / 중기부 R&D·TIPS 주도"],
+    ["설립연도", "2025년경 (1~3년차, 벤처기업확인서 2026.01.28~2029.01.27)"],
+    ["분야", "반도체 소재 (언더필 / 어드밴스드 패키징)"],
+    ["소재지", "경기 안산 시화공단 미드 스마트스퀘어 F동 305호"],
+    ["제품명", "CFA 4000F 시리즈 — Flipchip(2.5D/3D) 본딩 + HBM 패키징용 (Heat cure 7 / UV+Heat 1 / UV cure 3, 총 11종)"],
+    ["핵심 기술", "이중경화(Dual-cure) + Multiphysics 시뮬레이션 사전 예측 (COMSOL/Ansys/Synopsys-Cadence)"],
+    ["주요 검증", "벤처기업확인서, 연구개발전담부서, 특허 등록 1건 (10-2916162), LIPAC社 LOI"],
+    ["웹사이트", "cofa.co.kr"]
+  ],
+  problem: {
+    title: "반도체 패키징 핵심 소재 해외 의존 (회사 주장)",
+    bullets: [
+      "일본 Namics, 독일 Henkel이 글로벌 언더필 시장 95% 과점",
+      "2019년 일본 수출 규제 사례에서 공급망 리스크 확인",
+      "국내 W사 기술력 글로벌 대비 50% 수준, 가격경쟁력 부족",
+      "국내 언더필 제조사 7곳 미만, 대부분 개발력 미흡",
+      "유리기판 PCB·고집적·미세 피치 시대 진입 — 기존 소재가 Warpage·Void·Flowability 충족 못함"
+    ]
+  },
+  solution: {
+    title: "3축 차별화 + 소재 국산화",
+    bullets: [
+      "이중경화 (Dual-cure): 블록이소시아네이트 기반, Flow+경화 동시 진행, 프리히팅 공정 생략 (기존 30~35분 → 30분)",
+      "Multiphysics 시뮬레이션: 양산 전 Warpage·Void·열응력 정량 예측 → Qual 통과 기간 단축",
+      "성능 우위: Tg 125~129°C (일본 N사 105, 독일 H사 108 대비), CTE·접착력 우수, 고객 맞춤 공급",
+      "제품 라인업 11종: Heat cure 7 / UV+Heat 1 / UV cure 3 — CFA 4000F 시리즈가 플립칩 핵심"
+    ]
+  },
+  market: [
+    {label: "TAM", value: "10~15조원", desc: "한·미·일·중 반도체 패키징용 점착제 ($80~110억)"},
+    {label: "SAM", value: "1.5~2조원", desc: "중국 플립칩 언더필 5% 점유 ($10~15억)"},
+    {label: "SOM", value: "2,000억원+", desc: "COFA 점유 가능 ($1.5억+)"}
+  ],
+  gtm: [
+    {track: "OSAT 우선 타겟팅", desc: "Adoption Power 보유, 신뢰성 평가 주체. 한 번 Qual 통과 시 공정 변경 불가 = Lock-in"},
+    {track: "장비업체 동반 진입", desc: "디스펜싱 장비·TC본더 장비사 MoU 기반 — 고객 공유"},
+    {track: "중국 시장 우선 공략", desc: "10대 OSAT사 + Major CCM사 신규 영업망 구축. TaiJi·JCET·HT-Tech·Tongfu·Foxconn·OFILM·Sunny Group·Truly"},
+    {track: "단계별 확장", desc: "Step 1: 국내·협력사 중심 연 200억 (CCM 점유율 10%) → Step 2: 수출 포함 연 2,000억+ (국내+중국 2.5D/3D 패키징)"}
+  ],
+  traction: {
+    production: [
+      "월 1만 개 생산 가능 Capacity 확보 (Mixer/5L Press/Brookfield Viscometer/Milling Machine/Dry Oven/Chiller)",
+      "제품 11종 라인업 출시 (Heat cure 7종, UV+Heat 1종, UV cure 3종)",
+      "R&D 데이터: CFA-4100F DMA(Tg 135°C)·TMA·MSL3·Manual Dispensing 결과 확보",
+      "Tg 125~129°C — 글로벌 대비 우위 (일본 N사 105, 독일 H사 108)",
+      "특허 등록 10-2916162 (이중경화 메커니즘 적용 고신뢰성 언더필 조성용, 2026.01)"
+    ],
+    brand: [
+      "LIPAC社 — 구매의향서(LOI) 확보, Flipchip CFA-4100FU 100개 QUAL 진행 중",
+      "협력 가능 (반도체 패키징): ENF, LG디스플레이, 하나마이크론, 솔브레인, SIMMTECH, 넵스, SK하이닉스, 삼성전자",
+      "협력 가능 (CCM 삼성 2차): 파트론, 재영, 파워로직스, 캠시스, 엠씨넥스, 삼성전기",
+      "협력 가능 (중국): TaiJi, JCET, HT-Tech, Tongfu, Foxconn, OFILM, Sunny Group, Truly"
+    ],
+    other: [
+      "벤처기업확인서 (혁신성장유형) 보유",
+      "연구개발전담부서 인정서 (과기정통부)",
+      "글로벌 플립칩 시장: 2024년 380억 달러 → 2030년 560억 달러 (CAGR 6~7%)",
+      "HBM 양강 대응: 하이닉스(MR-MUF) Namics 독점 → HBM 외 Flip Chip 공략 / 삼성(TC-NCF) SMT 폐기 → 자체 공급망 진입 기회"
+    ]
+  },
+  team: [
+    {name: "박기남", role: "CEO", desc: "Adhesive Manufacturing", items: ["한양대 화학공학(재료) 석사", "산업용 접착제 제조 9년", "중기부 R&D 사업 (산학연·TIPS) 주도", "패키지 사업 3건 수행 (초창·창중·예비)", "前 스타트업 CTO 2년"]},
+    {name: "봉민균", role: "COO", desc: "B2B Sales", items: ["KAIST 임팩트 MBA (소셜벤처)", "외국계 제조사 B2B 영업관리 7년", "前 스타트업 CEO 2년·부대표 1년", "접착제 국내 총판 법인 운영"]},
+    {name: "양승헌", role: "CTO", desc: "Adhesive R&D 20년", items: ["한국교통대 고분자공학", "산업용 접착제 개발 20년", "발명자 특허 3건 + 이중경화 출원 1건", "해외 스타트업 창업멤버", "반도체 Adhesive 기술영업 3년"]},
+    {name: "장건수 (Advisor)", role: "고문", desc: "Materials PhD", items: ["수원대 신소재공학부 교수", "Case Western Reserve University 박사", "前 삼성SDI·롯데케미칼·ETRI 연구원", "반도체 패키징용 기능성 하이브리드 접착소재 다수"]},
+    {name: "김태라", role: "CPO", desc: "Production", items: ["Production Manager"]},
+    {name: "Shahid Aziz", role: "Team Leader", desc: "Simulation", items: ["COMSOL Simulator Manager"]}
+  ],
+  plan: [
+    ["구분", "2026", "2027", "2028", "2029", "2030"],
+    ["총 매출", "1.1억", "11억", "55억", "95억", "255억"],
+    ["영업이익", "0.55억", "0", "16.15억", "27.45억", "54.75억"],
+    ["기업가치(매출×5)", "30억", "55억", "275억", "500억", "1,200억"],
+    ["주요 마일스톤", "CCM Adhesive 시작 / 플립칩 진입", "중국 OSAT/CCM 영업 / 시설 5.5억", "플립칩 본격 40억 / 시설 8.6억 / 미국 진출", "플립칩 80억 / 시설 15.3억", "플립칩 200억 + HBM 15억 + CCM 40억"]
+  ],
+  facts: [
+    "Exit 시나리오 BEST: HBM4 언더필·B-stage 상용화 → 매출 3,000억, EV 5,500억 (SKC/Toray/LG화학 수준)",
+    "Exit 시나리오 MEDIAN: 플립칩+CCM 점유 + 삼성 PoC → 매출 1,000억, EV 1,800억 (KOSDAQ IPO)",
+    "Exit 시나리오 BASE: CCM 중심·플립칩 5%·HBM 실패 → 매출 200억, EV 400억 (M&A)",
+    "글로벌 언더필 시장 380억 → 560억 달러 (CAGR 6~7%, 2.5D/3D/HBM 폭발 성장)",
+    "LIPAC社 외 협력 가능사 풀: 삼성전자·SK하이닉스·LG디스플레이·삼성전기 등 (실제 컨택 단계 미상)",
+    "2019년 일본 수출 규제 학습 효과 — 95% 과점 시장 국산화는 정부 우선 과제",
+    "2030년 본격 매출 단계에서 HBM 언더필 진입 가정 (15억) — 양강 진입 장벽 매우 높음"
+  ],
+  checklist: [
+    "LIPAC社 외 진행 중인 Qual 단계 고객사 수 및 단계별 진척도",
+    "2026년 매출 1.1억의 기 수주분 vs 파이프라인 비중",
+    "누적 시설투자 30억+ 자금 조달 계획 및 현재 자본금·런웨이",
+    "TIPS·소부장 강소기업·정부 R&D 과제 선정 이력",
+    "삼성전자·SK하이닉스 등 표기 협력가능사의 실제 컨택 단계",
+    "HBM 시장 진입 가정의 구체적 근거 (양강 대응 전략의 실행 가능성)",
+    "CCM(카메라 모듈) 매출의 삼성 2차 협력사 진입 단계 확인",
+    "공격적 매출 전망 (2026 1.1억 → 2030 255억) vs 보수적 OSAT 시장 진입 시간 압박"
+  ]
+};
+
+const A2US_IR = {
+  tagline: "정전분무(Electrospray) 기술 기반 수산화 라디칼 물(MEW, Magic Electro Water) — 세계 유일 오존 무발생 대량 •OH 생성 기술. CES 2025 Innovation Award 수상.",
+  basicInfo: [
+    ["대표자", "이승섭 (KAIST 박사급 연구원)"],
+    ["설립연도", "2022년 (3~7년차)"],
+    ["분야", "반도체 장비 / 환경 소재 (공기·물 정화)"],
+    ["소재지", "대전/충청 (KAIST 캠퍼스 기반 스핀오프)"],
+    ["제품명", "MEW (Magic Electro Water) — 공기청정기·가습기·혼합기·공기질 관리 시스템·반도체 공정 솔루션"],
+    ["핵심 기술", "폴리머 미세 노즐 정전분무로 수산화 라디칼(•OH) 함유 나노 물방울 대량 생성"],
+    ["주요 검증", "2025 CES Innovation Award (MEW 공기청정기)"],
+    ["웹사이트", "a2us.co.kr"]
+  ],
+  problem: {
+    title: "기존 공기·물 정화 기술의 근본적 한계 (회사 주장)",
+    bullets: [
+      "가습기 살균제 참사 (2011년 약 1,400명 사망, 산업 신뢰 붕괴)",
+      "헤파 필터: 필터 교체·공기저항·소음·냄새/VOC 저성능",
+      "플라즈마/오존: 오존 발생으로 인체 유해, 살균 성능 불완전",
+      "광촉매·UV: 오존 발생, 초미세먼지·냄새·VOC 저성능",
+      "전기집진: 오존 발생, 유지보수 복잡, 고비용",
+      "AOP(고도산화공정): •OH 수명 극히 짧음(~나노초), 매우 적은 생성량, 높은 에너지 소모, 오존 발생"
+    ]
+  },
+  solution: {
+    title: "정전분무 기반 수산화 라디칼 물(MEW) 기술",
+    bullets: [
+      "MEW: 폴리머 미세 노즐 정전분무로 •OH 함유 나노 물방울 대량 생성",
+      "•OH는 천연 물질 — 유기화합물·냄새·VOC·박테리아·바이러스·곰팡이 제거 가능",
+      "인체에 무해 (대기 중 자연 존재, 생명진화 과정 동반)",
+      "오존 발생 없음 — 측정치 7 ppb @8kV (공기청정기 30 ppb 대비 76% 감소)",
+      "세계 유일: NASA·Panasonic은 공기 중 •OH (수명 짧음), AOP는 물 속 •OH (높은 에너지·낮은 생성률·오존 발생) — A2US만 폴리머 노즐 기반 대량 생성",
+      "3가지 모드: Cone Jet <0.1 mL/hr (공기정화) / Simple Jet 100~200 mL/hr (가습) / Multi Simple Jet >1 L/hr (물 정화)",
+      "핵심 구성: 폴리머 노즐 (고종횡비, 소수성 표면) + 원형 전극 전기장 집중 + 필름형 소자 최종 제품화"
+    ]
+  },
+  market: [
+    {label: "글로벌 공기청정", value: "~1,200조원", desc: "전 세계 공기청정 시장 (IR 기준)"},
+    {label: "공기질 관리 시스템", value: "120+200조원", desc: "기존 기술 120조 + 신규 시장 200조"},
+    {label: "반도체 공정", value: "9.5+19조원", desc: "세정·표면처리 기존 9.5조 + 신규 19조"}
+  ],
+  gtm: [
+    {track: "1단계 (2025~26) — 국내 가전", desc: "국내 가전업체·가습기 제조사 연계, CES 혁신상으로 글로벌 인지도 확보"},
+    {track: "2단계 (2026~28) — 소비자 + 산업", desc: "공기청정기 출시 (2026 휴대용) + 산업용 공기질 관리 시스템 B2B 수주"},
+    {track: "3단계 (2028~30) — 반도체 + 글로벌", desc: "반도체 공정 협력 확대 (세정·표면처리·전하 제거·스크러버) + 글로벌 가전 라이선싱 (Dyson·Panasonic·IQAir)"},
+    {track: "응용 다각화", desc: "공기청정기 → 가습기 → 혼합기 → 산업 → 방위(화생방 여과기) → 반도체 → 의료(피부 개선) → 폐수 처리"}
+  ],
+  traction: {
+    production: [
+      "오존 발생량: 7 ppb @8kV (공기청정기 30 ppb 대비 -76%)",
+      "미생물 살균: E. Coli·Staphylococcus aureus·Bacillus cereus 등 7종 박테리아 99.9% 제거 검증",
+      "TVOC 제거 실험 증명 (구체 수치 IR 미기재)",
+      "반도체 응용: 세정·표면처리 등 다양한 협업 진행 중 (초기 R&D 단계로 추정)",
+      "피부 개선 실험 데이터 제시 (의료 응용 검토 단계로 추정)",
+      "폐수 처리 개발 진행 중 (구체 진행 단계 미기재)"
+    ],
+    brand: [
+      "2025 CES Innovation Award 수상 (MEW 공기청정기) — 글로벌 가전 혁신 검증",
+      "협력 기관: KAIST 기반 대학 연구 (다수 대학 응용 연구 협력 진행 중으로 추정)",
+      "산업 협력: 국내 반도체·가전업체와 협력 진행 중 (구체 계약 미기재)",
+      "글로벌 진출 가능성: Dyson·Panasonic·IQAir 등 글로벌 가전사 OEM/라이선싱"
+    ],
+    other: [
+      "기술 개발 이력: 2016 가습기 살균제 문제 해결 연구 → 2020 팬데믹 시절 연구 → 2022 A2US 설립 → 2024 다양한 협업 → 2025 CES 혁신상",
+      "상용화 전 단계: 2026년 휴대용 공기청정기 출시 계획 (필름형 소자 최종 제품화 단계)",
+      "매출 실적 데이터 전무 (초기 스타트업 단계)",
+      "특허 보호 현황 미상세 — 국내·국제 출원/등록 여부 IR 미기재",
+      "팀 구성 정보 부족 — CEO 외 정보 전무"
+    ]
+  },
+  team: [
+    {name: "이승섭", role: "대표/창업자", desc: "KAIST Spinoff", items: ["KAIST 기반 박사급 연구자", "10년 이상 수산화 라디칼·정전분무 기술 연구", "MEW 기술 핵심 발명자"]},
+    {name: "기타 팀 구성", role: "—", desc: "정보 미기재", items: ["IR 자료에 팀 구성원 정보 전무", "비즈니스·마케팅·영업 경험자 현황 불명", "제품화·상용화 경험 정보 부족", "팀 규모 불명확"]}
+  ],
+  plan: [
+    ["구분", "2025 (현재)", "2026 (1단계)", "2027~28 (2단계)", "2029~30 (3단계)"],
+    ["주요 마일스톤", "CES 혁신상 / 프로토타입 완성", "휴대용 공기청정기 출시 / 초도 시장 진입", "가습기·혼합기 확대 / 산업용 B2B 수주", "반도체 공정 솔루션 상용화 / 글로벌 라이선싱"],
+    ["매출 전망", "IR 미기재", "IR 미기재", "IR 미기재", "IR 미기재"],
+    ["자금 조달", "정보 전무", "정보 전무", "정보 전무", "정보 전무"]
+  ],
+  facts: [
+    "세계 유일의 오존 발생 없는 대량 •OH 물 생성 기술 (NASA·Panasonic·AOP 대비)",
+    "필터 무필요 / 오존 무발생 / 모든 오염 동시 제거 (미세먼지·초미세먼지·냄새·VOC·미생물)",
+    "에너지 매우 저소비 / 유지보수 비용 제로",
+    "광범위한 응용 가능성: 공기·물 + 반도체 + 의료 + 방위산업",
+    "가습기 살균제 참사 극복 솔루션 — 사회적 신뢰 회복 기회",
+    "KAIST 스핀오프로 대학 기술 고도화 역량",
+    "CES 2025 Innovation Award로 국제 신뢰도 확보"
+  ],
+  checklist: [
+    "MEW 기술의 국내·국제 특허 출원/등록 현황 및 경쟁사(NASA, Panasonic, AOP) 차별점 벤치마크",
+    "2026년 휴대용 공기청정기 출시 확정 여부 / 프로토타입→양산 일정 / 초도 생산 규모",
+    "CEO 이외 핵심 팀 구성원 (기술·비즈니스·제조·마케팅), 제품 상용화 경험 인력",
+    "재정 현황 — 누적 투자 규모, 현재 현금, runway, 향후 Series A/B 계획",
+    "매출 전망 — 연도별 목표 (2026~2030), 1,200조 시장 중 목표 점유율, 가격 정책",
+    "고객 확보 — 초도 구매 의향서 또는 선주문, 협력 대기업 (가전사·반도체) 구체 계약",
+    "생산 능력 — 위탁 제조(OEM) 파트너 확보, 초기 생산 규모, 핵심 부품(폴리머 노즐) 공급",
+    "반도체 공정 협력 진행 — 협력 기업 명시, 적용 분야, 진행 단계 (R&D/PoC/파일럿/양산), •OH 안전성 입증",
+    "규제·인증 — 가습기 살균제 참사 후 인증 환경, 식약처·환경부, 국제 인증(CE, FCC), 안전성 테스트",
+    "경쟁 대응 — 글로벌 경쟁사(Panasonic·Dyson·IQAir) 진입 시 전략, 기술 모방 방지, 중국 저가 대응"
+  ]
+};
+
+const MACROACT_IR = {
+  tagline: "Physical AI 기반 데스크탑 4족 보행 로봇(MaiLab/마이캣) + ROS2/강화학습 교재 + 시뮬레이터 + 강사 파견 캠프 풀스택. CES 2022 Innovation Awards Honoree + 조달청 단가계약 129억 규모.",
+  basicInfo: [
+    ["대표자", "강의혁 (CEO) — 15년 한·독 ICT 프로젝트, 독일 로봇제조사 제어시스템 개발, AI 테스트베드 코리아 경진대회 최우수상"],
+    ["설립연도", "3~7년차 (2019)"],
+    ["분야", "Physical AI / 로보틱스 (K-12 공교육 에듀테크)"],
+    ["소재지", "경기/인천"],
+    ["제품명", "MaiLab (마이캣) — Hardware + Software + Content 풀스택 솔루션"],
+    ["핵심 기술", "데스크탑 4족 보행 로봇 + ROS2/강화학습 교재 + 시뮬레이터"],
+    ["주요 검증", "CES 2022 Innovation Awards Honoree, TIPS 선정, 조달청 혁신제품 + 단가계약 129억"],
+    ["웹사이트", "macroact.com"]
+  ],
+  problem: {
+    title: "고교학점제 도입으로 AI/로봇 교육 의무화됐으나 '도구' 부재 (회사 주장)",
+    bullets: [
+      "2025년 고교학점제 전면 도입 — <로봇 SW 개발>·<로봇과 공학세계>·<인공지능 기초> 과목 필수화",
+      "기존 옵션 양극화: 장난감 수준 블록코딩·아두이노·레고 (수준 미달) ↔ 산업용 로봇 (예산·공간·안전 불가)",
+      "고등학교는 '책상 위에서 안전하게 ROS2 실무를 가르칠 수 있는 검증된 교구·교재' 부재",
+      "고교학점제 도입에 따른 '교육 격차' 우려 (신문 기사 인용)"
+    ]
+  },
+  solution: {
+    title: "Hardware + Software + Content 에듀테크 스쿼드",
+    bullets: [
+      "마이캣 (로봇 교구): 2인 1조 책상 위 실습에 피팅된 데스크탑 4족 보행 로봇",
+      "자체 출판 교재: 『실용 로봇공학 — ROS2와 강화학습으로 완성하는 적응형 로봇』",
+      "시뮬레이터: ROS2 기반 가상 실습 환경 (학교 PC 제약 보완)",
+      "턴키 캠프: 강사 파견 + 로봇 + 교재 = 1,500만 원 패키지 (학교 결제 한 번에 도입)",
+      "경쟁사가 단기간 모방 어려운 통합 생태계 — 교사 입장에서 결제 한 번으로 도입 가능한 turn-key"
+    ]
+  },
+  market: [
+    {label: "TAM (2034)", value: "USD 18,346.91M", desc: "글로벌 STEM 교육 + Physical AI 로봇 (Polaris Market Research)"},
+    {label: "CAGR", value: "27.5%", desc: "2025–2034 글로벌 성장률"},
+    {label: "SAM/SOM", value: "정량 미기재", desc: "국내 B2G 공교육 로봇/AI + 교육 캠프 (정성적 정의만)"}
+  ],
+  gtm: [
+    {track: "Phase 1 (단기 캐시카우)", desc: "1,500만 원 턴키 캠프 (로봇+강사+교재) — 학교 운영비 예산 흡수"},
+    {track: "Phase 2 (중기 확장)", desc: "학교 '지능형 과학실 구축 예산' 활용한 학급 세트 정식 납품 (기자재비)"},
+    {track: "Phase 3 (장기 SaaS)", desc: "클라우드 시뮬레이터 + 커리큘럼 라이선스 ARR 모델"},
+    {track: "조달 채널", desc: "조달청 시범구매 (B2G 정부 예산 대납) → 우수조달물품 지정 → 수의계약 무제한 확대 → 대학/연구소(B2B) → 글로벌 에듀테크 수출"}
+  ],
+  traction: {
+    production: [
+      "조달청 단가계약 129억원 규모 — 한도이며 실 매출 환산액 IR 미기재 (시범구매 PoC 단계)",
+      "납품/실증 학교·기관: Mountain Cherry Academy(MCA), 세종고, 유성구청, KEAD, 전북특별자치도교육청, K-Innovation 조달, 성남시",
+      "사용자 증언: MCA 10–12학년·세종고 1–2학년 학생/교사 — '강화학습의 역사', 'ROS2와 Kinematics', 'Q-러닝/딥 Q-러닝 알고리즘 실제 공식과 함께 학습'",
+      "거점 고교 캠프 운영 — 2026년 100개 학교 목표 (현재 진행 중)",
+      "BOM 절감 54% (투자금 활용 후 목표)",
+      "제조 원가·재구매율·NPS 등 정량 KPI IR 미기재"
+    ],
+    brand: [
+      "조달청 — 혁신제품 지정 + 시범구매 + 단가계약 129억 규모",
+      "교육청: 시·도 교육청 다수 PoC 진행, 전북특별자치도교육청 등",
+      "한국장애인고용공단 (KEAD) — 납품 이력",
+      "성남시·유성구청 — 지자체 PoC",
+      "KAIST 전기 및 전자공학부 장동의 교수 자문"
+    ],
+    other: [
+      "CES 2022 Innovation Awards Honoree (글로벌 인지도)",
+      "TIPS 선정 (R&D 정부 자금)",
+      "특허·미국 디자인 특허 등록 (United States Design Patent)",
+      "상표등록 (maicat, maidynamics)",
+      "우수디자인(GD) 수상, 소셜벤처기업 인증, 벤처기업 인증",
+      "글로벌 진출은 *2028년 계획 단계* — 영문 교재 출판 및 북미/유럽 B2B STEM 진입"
+    ]
+  },
+  team: [
+    {name: "강의혁", role: "CEO", desc: "Robotics & ICT", items: ["15년 한·독 ICT 프로젝트", "독일 로봇제조사 제어시스템 개발 경력", "AI 테스트베드 코리아 경진대회 최우수상"]},
+    {name: "Marie Christine Kang", role: "COO", desc: "Operations", items: ["German Museum of Technology 근무", "전시회 등 이벤트 총괄", "프로젝트 및 제품 양산 관리"]},
+    {name: "장동의 (Advisor)", role: "고문", desc: "KAIST 교수", items: ["KAIST 전기 및 전자공학부"]}
+  ],
+  plan: [
+    ["구분", "2026 (1단계)", "2027 (2단계)", "2028 (3단계)"],
+    ["핵심 과제", "초기 시장 장악 / 100개 거점 고교 캠프", "매출 볼륨 극대화 / 우수조달물품 승격", "반복 매출 + 글로벌 / SaaS 전환"],
+    ["주요 활동", "조달청 시범구매 + 방학 캠프 영업, Lock-in 생태계 구축", "수의계약 확대 / 대학·공대 로봇 랩실 B2B 프로토타이핑", "ROS2 시뮬레이터 + 클라우드 + 심화 커리큘럼 구독, 영문 교재 + 북미/유럽"],
+    ["매출 전망", "IR 미기재", "IR 미기재", "IR 미기재"]
+  ],
+  facts: [
+    "Pre-A 30억 목표 — H/W Scale-up 12억(40%) + S/W Platform 9억(30%) + GTM·Sales 6억(20%) + Global 3억(10%)",
+    "H/W Scale-up: 정밀 금형 투자, 핵심 부품 선주문, BOM 54% 절감",
+    "S/W Platform: 클라우드 ROS2 시뮬레이터, 학교 PC 제약 없는 SaaS 매출 창출",
+    "GTM·Sales: 거점 공인 강사(TOT) 양성, 전국 B2G 캠프/조달 영업망",
+    "Global Expansion: 영문 교재 출판, 북미/유럽 B2B STEM 진출",
+    "B2G 진입 우위 — 조달청 혁신제품 + 단가계약 129억 = 공공조달 최강 사전 검증",
+    "시장 타이밍 정합 — 2025 고교학점제 전면 도입 = 정책 강제 수요"
+  ],
+  checklist: [
+    "최근 12개월 실제 매출 인식액 및 조달청 단가계약 발주율 (129억 대비 실 출하액 %)",
+    "5개년 매출/영업이익/EBITDA 정량 전망표 및 산정 가정 (학교 단가, 캠프 횟수, ARPU)",
+    "동일 학교의 재구매율·캠프 재계약률 — 1회성 vs 반복 매출 구조",
+    "현재 cash runway, burn rate, 누적 투자유치 금액 및 기존 LP",
+    "Pre-A 30억의 pre/post-money valuation 및 산정 근거",
+    "100개 거점 캠프 운영을 위한 강사/영업 인력 채용 계획·TOT 양성 일정",
+    "SaaS 전환(2028) 시 학교의 연간 구독료 WTP 정량 조사 결과",
+    "글로벌 경쟁사(Unitree Go2 EDU, Sphero RVR, UBTECH 등) 대비 가격·기능·교육 컨텐츠 정량 비교",
+    "미국·유럽 진출 시 제품 안전 인증(FCC, CE, RoHS) 일정 및 현지 채널 파트너",
+    "핵심 인력 보강 — CTO/CPO/B2G Sales Lead 후보군 및 영입 일정"
+  ]
+};
+
+
+// =================== Rich IR Data — Part 3 (No.30, 32, 33, 34) ===================
+
+const DICO_IR = {
+  tagline: "AI 기반 머신비전 검사 솔루션·장비 (반도체·디스플레이·2차전지·유리기판). 자체 개발 DL-100T 엔진(검출률 99%) + Line-Confocal 유리기판 내부 검출 + 정부 과제 다수.",
+  basicInfo: [
+    ["대표자", "황준철 — 공학석사 (디지털 영상신호처리), 머신비전 산업 강사, TAKT systems(도쿄) 영상신호처리 경험"],
+    ["설립연도", "2019년 (3~7년차)"],
+    ["분야", "Physical AI / 로보틱스 (AI 머신비전 검사)"],
+    ["소재지", "충청남도 (기업부설연구소 2020110681호)"],
+    ["제품명", "DL-100T (AI 엔진) + DAV-1000LC·DAV 시리즈 (비전검사 장비)"],
+    ["핵심 기술", "자체 개발 딥러닝 SW 엔진 (검출률 99%) + Line-Confocal 센싱 (유리기판 내부 검출)"],
+    ["주요 검증", "벤처기업, 소부장 전문기업, 국방벤처센터 협약, 글로벌 디딤돌 R&D, 스케일업 TIPS, 창업도약패키지(딥테크)"],
+    ["웹사이트", "dicoinc.co.kr"]
+  ],
+  problem: {
+    title: "AI 반도체 시대 초정밀 검사 장비의 기술적 한계 (회사 주장)",
+    bullets: [
+      "HBM 수요 증가 → 실리콘 기판 한계 (휨·발열) → 차세대 AI 반도체용 유리기판 도입 시 고정밀 결함 검출 필요성 급증",
+      "기존 2D AOI 장비의 평면 기반 판별 방식은 미세 결함 탐지에 한계",
+      "외산 고가 검사 장비(Saki·Viscom·Omron) 도입 시 높은 라이선스 비용 + 유지보수 어려움",
+      "국내 기업의 반도체/디스플레이 제조공정 불량률 개선 및 고수율 확보 필요"
+    ]
+  },
+  solution: {
+    title: "AI 기반 자동화 검사 솔루션 + 장비 플랫폼",
+    bullets: [
+      "DL-100T 딥러닝 엔진: 자체 개발 순수 국내 기술, 검출률 99% 이상 — 외산 라이선스 의존 제거",
+      "DAV-1000LC + DAV 시리즈: Line-Confocal + 자체 AI 엔진의 3D/2D 하이브리드 검사 장비, 유리기판 내부 이미지 획득 가능",
+      "외산 단가 80% 수준: $143,915/대 vs 외산 $200,000~300,000/대 (40~50% 저가)",
+      "현장 맞춤 SI: 기존 라인에 비전검사 기능 추가, 로봇 빈피킹 등 자동화 통합",
+      "GUI 기반 사용자 친화 SW: 비전문가도 사용, 낮은 데이터 양(수백~수천 장)으로도 고성능"
+    ]
+  },
+  market: [
+    {label: "TAM (글로벌 유리기판)", value: "3.2조→5.7조원", desc: "2023→2034년 (CAGR 6%+)"},
+    {label: "SAM", value: "정량 미기재", desc: "반도체·디스플레이 검사장비 시장"},
+    {label: "SOM (단기 1~3년)", value: "0.06%", desc: "국내 디스플레이·반도체 검사장비 시장 점유 목표"}
+  ],
+  gtm: [
+    {track: "1단계 (2025~26)", desc: "국내 디스플레이·반도체 제조사 (LG·삼성전기) PoC 및 초도 납품. 매출 20억원 목표"},
+    {track: "2단계 (2027~30)", desc: "유리기판 기반 반도체/디스플레이 메이저 고객 확대 + 해외(미국·대만·중국) 진출. 매출 250억원"},
+    {track: "3단계 (2030~35)", desc: "정밀부품·의료·소재 산업군까지 확장 + 글로벌 TOP5 공급업체 진입. 매출 570억원"},
+    {track: "수익 모델 고도화", desc: "HW+SW (현재 60%) → SW 라이선스 중심 (60% 목표) + 서비스 수익. DL-100T 단독 판매 + OEM 라이선스"}
+  ],
+  traction: {
+    production: [
+      "Reach Technology (미국) — 구매 의향서 확보 (검증된 미국 디스플레이 기업)",
+      "PT. Mahakarya Inti Technology (인도네시아) — MOU 체결 (스마트팩토리 솔루션, 정부기관·중견기업 거래 경험)",
+      "삼성전기 — 납품 실적 보유 (초도 물량 투자 기대)",
+      "LG, Valeo 등 대기업 — 다수 납품 및 양산 검증 경험 보유 (포트폴리오 보유)",
+      "2025~26년 매출 20억원은 예상치 (실측 데이터 미기재)"
+    ],
+    brand: [
+      "정부 과제 — 유리기판 결함 검사 AI Deep-Learning 검사장치 개발 (2025~26, 창업진흥원)",
+      "정부 과제 — 2차전지 검사 차세대 머신비전 시스템 개발 (2024~27, 중기부)",
+      "정부 과제 — Foldable OLED Panel 제조용 OCA 검사시스템 (2024~25, 중기부)",
+      "글로벌 디딤돌 R&D (2025~26), 스케일업 TIPS (2024~27), 창업도약패키지 딥테크 (2025~26)"
+    ],
+    other: [
+      "벤처기업 인증, 소부장 전문기업, 국방벤처센터 협약, 충남TP 성장기업상",
+      "산학협력: 충남국방벤처센터, 창신대·호서대·한국기술교육대 MOU",
+      "산 협력: 한국생산기술연구원 파트너기업, KOSME 연수원 강의 지정",
+      "국제 협력: 일본 TAKT systems, 인도네시아 PT. Mahakarya Inti Technology",
+      "특허 포트폴리오·논문 발표 현황 IR 미기재"
+    ]
+  },
+  team: [
+    {name: "황준철", role: "대표이사", desc: "Image Signal Processing", items: ["공학석사 (디지털 영상신호처리)", "머신비전 분야 산업 강사", "TAKT systems(도쿄) 영상신호처리 기술개발 경험"]},
+    {name: "황누완", role: "연구소장", desc: "Image Deep Learning", items: ["공학석사", "이미지 딥러닝 기술개발 전문가", "TAKT systems 경력"]},
+    {name: "누완", role: "연구 1팀장", desc: "Signal Processing", items: ["영상신호처리 전문가"]},
+    {name: "정수영", role: "연구 2팀장", desc: "—", items: ["구체 경력 IR 미기재"]},
+    {name: "핵심 인력", role: "Engineering", desc: "석사 이상", items: ["영상신호처리·머신비전·이미지 딥러닝 전문 연구원 다수", "구체 인원수 미기재"]}
+  ],
+  plan: [
+    ["구분", "2025~26 (1단계)", "2027~30 (2단계)", "2030~35 (3단계)"],
+    ["목표 매출", "20억원", "250억원", "570억원"],
+    ["시장 점유율", "국내 시장 0.06%", "디스플레이·반도체 0.06%", "글로벌 TOP5 진입"],
+    ["주요 마일스톤", "DAV-1000LC 고도화 / PoC / 초도 고객", "디스플레이·반도체 메이저 고객 + 미·대만·중국", "정밀부품·의료·소재 산업 + 글로벌 TOP5"],
+    ["자금 조달", "자기 0.5억 + TIPS 1.5억 + 자기 5억", "Series A 10억(2027) + Scale-up TIPS 30억(2028)", "전략적 투자 50억(2029+)"]
+  ],
+  facts: [
+    "DL-100T 자체 개발 AI 엔진 — 검출률 99% 이상, 외산 라이선스 의존도 완전 제거",
+    "Line-Confocal 기술로 유리기판 내부 이물 검출 가능 (기존 AOI 표면만 검사)",
+    "국산 장비 40~50% 수준 저가 — $143,915/대 vs $200,000~300,000/대",
+    "기존 고객 LG·삼성전기·Valeo 다수 납품 경험 — 디스플레이·반도체·2차전지 검증",
+    "유리기판 양산 일정: 2026~27년 시제품, 본격 양산 2027년 이후 (수요 시차 존재)",
+    "누적 조달 계획 약 96.5억원+ (2025~2029)",
+    "정부 과제 다수 확보 — AI·첨단 제조 정책 부합도 높음"
+  ],
+  checklist: [
+    "매출 전망 근거 — 2025~26년 20억, 2027~30년 250억, 2030~35년 570억의 산출 근거",
+    "Reach Technology·인도네시아 MOU 실제 계약 금액·납품 일정",
+    "유리기판 양산 일정 — 삼성·SKC·코닝·AGC의 양산 일정 및 검사장비 수요 시점",
+    "DL-100T 엔진의 구체 아키텍처·학습 알고리즘, 특허 포트폴리오 출원/등록 현황",
+    "팀 확충 — 비즈니스·마케팅 인력, 글로벌 영업 경험 인력, 20~30명 → 100명+ 로드맵",
+    "Series A 투자유치 진행 단계 / 참여 VC 또는 전략적 투자자",
+    "글로벌 진출 — 미국·대만·중국 진출 구체 계획, 현지 인증·규제 (ITAR, 반도체 기술 수출 규제)",
+    "경쟁 대응 — Saki·Viscom·Omron AI 고도화 / 중국·대만 저가 공략 / 특허 보호 전략"
+  ]
+};
+
+const NEARBRAIN_IR = {
+  tagline: "MRA 영상 기반 3D 뇌혈관 재구성·뇌혈류 정량 데이터 SW 'Dr. NEAR flow' — 비침습적 혈류 평가의 기술 공백을 공략하는 딥테크 의료기기. MFDS 1등급 + 분당서울대병원 데모 + 보건복지부 R&D 50억.",
+  basicInfo: [
+    ["대표자", "이태린 (PhD) — 성균관대 기계공학·나노과학기술 박사, Northwestern·Texas Medical Center 박사후, 삼성 제일모직·차세대융합기술연구원 책임"],
+    ["설립연도", "2022.11 (Pre-Seed 시점, 3~7년차)"],
+    ["분야", "의료기기 / 딥테크 (뇌혈류 정량 평가)"],
+    ["소재지", "서울 (2026.1 포항체인지업그라운드 부설연구소 설립)"],
+    ["제품명", "Dr. NEAR flow — MRA 기반 3D 뇌혈관 재구성·정량 혈류 SW"],
+    ["핵심 기술", "AI 세그멘테이션·스켈레톤화 + 혈류역학 시뮬레이션 (Hemodynamics CFD)"],
+    ["주요 검증", "2025.8 MFDS 1등급 / 2023 TIPS / 보건복지부 R&D 50억 / ETH 바젤대 / J&J JLABS Shanghai / HK Jumpstarter Top 5"],
+    ["웹사이트", "nearbrain.com"]
+  ],
+  problem: {
+    title: "연간 3,000만 뇌혈관 환자, 평가 도구가 모두 침습적이거나 부정확 (회사 주장)",
+    bullets: [
+      "연간 3,000만 명 뇌혈관 질환 환자 — 협착 부위 형태 + 혈류 속도 평가는 치료 계획의 핵심",
+      "TFCA(경대퇴동맥 뇌혈관조영술): 연간 300억 달러 시장이나 침습적 시술 — 부작용 위험 큼",
+      "TCD(경두개 도플러 초음파): 비침습적이나 혈류 측정 부정확 — 임상 신뢰도 한계",
+      "기존 MRA 영상은 혈관 형태 파악에만 그치고 정량적 혈류 속도 정보 미제공",
+      "비침습적 + 정확한 뇌혈류 평가 솔루션의 시장 공백 존재"
+    ]
+  },
+  solution: {
+    title: "MRA 영상을 실질적 뇌혈류 인사이트로 전환하는 SW 'Dr. NEAR flow'",
+    bullets: [
+      "AI 세그멘테이션 + 스켈레톤화: TOF/MIP DICOM 파일 → 3D 혈관 모델 재구성 → 3D 네트워크 형성 (자동화)",
+      "혈류역학 시뮬레이션: 3D 압력·유속 데이터 → 혈류 정보 정량화 — 협착 형태 + 정확한 혈류 속도 동시 제공",
+      "TCD 연동: 초음파 데이터와 병합하여 검증 정확도 향상",
+      "병원 전 과 적용: 응급실·신경외과·신경과·영상의학과·검진센터, MRA/CTA/3DRA 영상 모두 호환"
+    ]
+  },
+  market: [
+    {label: "TAM", value: "6조원", desc: "연 뇌혈관 환자 3,000만 × 20만원 (단순 곱셈, 출처 시점 미명시)"},
+    {label: "SAM", value: "한국 50억 / 아시아 2,000억 / 서구 6,000억", desc: "병원 수 기준 (근거 산출 방식 미명시)"},
+    {label: "SOM (Seed 목표)", value: "연 50억", desc: "연 100,000케이스, 2026~2028 2년 내"}
+  ],
+  gtm: [
+    {track: "건별 수가 (B2B2C)", desc: "환자 본인 부담 건별 수가 — 뇌질환 환자가 의료진 통해 Dr. NEAR flow 검사 비용 지불, 혈류 보고서 수령"},
+    {track: "장기 — 급여 수가 등재", desc: "건강보험 급여화로 보급 확대 — 핵심 트리거"},
+    {track: "지역 단계 (현재~2027)", desc: "국내 상급 종합병원 Reference 확대 + 수가반영 추진. 분당서울대 데모 운영 중"},
+    {track: "글로벌 (2027~2028)", desc: "아시아(CN·JP·SEA·HK) 의료기기 인증 (2027) → CE + FDA 510(k) 승인 (2028) → EU/US 진입 (각 20+ hospitals)"}
+  ],
+  traction: {
+    production: [
+      "MFDS 1등급 인허가 완료 (2025.8) — 규제 첫 허들 통과",
+      "분당서울대병원 신경외과 — 2022 MOU → 2026.2 데모 서비스 시작 (실명 운영)",
+      "양산 부산대병원 — TIPS 과제 협력 병원",
+      "병원 MOU/PoC 누적 8개소 (2025.12 기준, 실명 미공개)",
+      "특허 출원 12건 (2025.12)",
+      "재무 (그래프 독해): 2025년 매출 약 2억 원, 매출+연구비 약 10.3억, 당기순이익 +30백만원 (흑자 유지)"
+    ],
+    brand: [
+      "ETH Research Partnership (바젤대 신경외과) — 2024.5 선정, 공동 연구 단계",
+      "J&J JLABS Shanghai — 2025.11 선정, 프로그램 참여 단계",
+      "HK Jumpstarter Top 5 — 홍콩 법인 설립 완료 (2025.11)",
+      "보건복지부 2023 제1차 보건의료기술 R&D — 최종 선정 (약 50억)"
+    ],
+    other: [
+      "12회 정주영 창업경진대회 최우수상",
+      "포스텍홀딩스 Pre-Seed 3억 (2022.11) + SAFE 3억 (2025.12)",
+      "R&D 지원금 50억 누적 (보건복지부 포함) — 비희석 자금 확보",
+      "분당서울대 신경외과 김재용 교수·황기환 부교수 자문 — 임상 검증 신뢰도 ↑"
+    ]
+  },
+  team: [
+    {name: "이태린 (PhD)", role: "CEO", desc: "Founder · Mechanical PhD", items: ["성균관대 기계공학·나노과학기술 박사", "Northwestern Univ. + Texas Medical Center 박사후연구원", "삼성 제일모직 중앙연구소·차세대융합기술연구원 책임연구원"]},
+    {name: "김재용 (MD)", role: "Scientific Advisor", desc: "Neurosurgery", items: ["분당서울대학교병원 신경외과 교수"]},
+    {name: "황기환 (MD)", role: "Scientific Advisor", desc: "Neurosurgery", items: ["분당서울대학교병원 신경외과 부교수"]},
+    {name: "BD/PM 5명", role: "사업개발", desc: "황정원·양미기·김민영·유민재·손채원", items: ["이화여대·성균관대·건국대·홍익대·강원대", "사업개발·RA/QA·UI UX·DNT"]},
+    {name: "R&D 6명", role: "연구개발", desc: "방수빈·최대묵·유영린·이휘성·문태승·김영서", items: ["서울대(FE)·홍익대(BE)·한국항공대 박사(CFD)", "서울대(혈류분석)·연세대(DNF AI·DNT)"]}
+  ],
+  plan: [
+    ["구분", "2026 (현재~)", "2027~", "2028~", "2029"],
+    ["핵심 과제", "국내 상급 종합병원 Reference / 수가반영", "아시아(CN·JP·SEA·HK) 의료기기 인증", "CE + FDA 510(k) / EU·US 진입", "매출 확대 / IPO"],
+    ["케이스 수 목표", "—", "연 100,000건", "EU/US 각 20+ hospitals", "—"],
+    ["매출 (Seed 목표)", "—", "연 50억", "—", "—"],
+    ["라운드", "Seed 50억 (2026.7 예정)", "—", "—", "IPO"]
+  ],
+  facts: [
+    "Pre-Seed 3억 (포스텍홀딩스, 2022.11) + SAFE 3억 (2025.12) + R&D 50억 = 실질 운영자금 약 56억",
+    "2024~2025 당기순이익 흑자 유지 — 비용 통제 + 연구비 수입",
+    "Seed 50억 진행 중 (2026.7 목표) — 아시아 인증 + CE/FDA 510(k) + 글로벌 세일즈",
+    "2028년 이후 IPO 목표 (거래소 미명시)",
+    "비침습 뇌혈류 정량 SW 시장은 사실상 공백 — TFCA·TCD 대체 포지셔닝",
+    "HeartFlow(관상동맥 FFR-CT) 유사 개념이나 뇌혈관 특화 경쟁자 미기재",
+    "병원 채널: 응급실·신경외과·신경과·영상의학과·검진센터 전방위 적용"
+  ],
+  checklist: [
+    "분당서울대병원 데모의 유료 전환 조건·시점 및 계약 구조 상세",
+    "8개 병원 MOU/PoC 실명 및 각 병원의 진행 단계 (데모/PoC/유료 계약 구분)",
+    "Seed 50억 원 투자자 확보 현황 및 예상 클로징 일정",
+    "국내 급여 수가 등재 신청 일정 및 심사 진행 현황 — 급여화 없을 경우 환자 수용성 근거",
+    "FDA 510(k) 및 CE 인허가 임상 데이터 요건 충족 현황 (케이스 수·임상 설계)",
+    "CTO 또는 기술총괄 임원 채용 계획 및 현재 R&D팀 헤드카운트·역할 분담",
+    "HeartFlow 등 해외 경쟁사 대비 기술적 차별성의 객관적 데이터 (정확도 비교 논문·임상 결과)",
+    "TAM 6조원 산출 근거 — 실제 침투 가능 시장·가격 수용성·보험 적용 여부"
+  ]
+};
+
+const CYCLOID_IR = {
+  tagline: "배달라이더 대상 전기이륜차 구독 플랫폼 '바드림' — 8개월 300대 출고·확정매출 18.7억·ROI 49%·미납률 3.8% + 바이패스 SaaS 6개월 30% 점유 + 배민·HD현대·LG쿠루·환경부 거대 파트너 락인.",
+  basicInfo: [
+    ["대표자", "권준일 (CEO) — HD현대중공업그룹 15년 (선박엔진 엔지니어 8년·엔진 단독특허 2건·스마트십 관제센터장 2년) / 'OASEAS' 5억 매출 / 해수부장관상 / 이륜차 300대 직접 수리"],
+    ["설립연도", "2023.07 (1~3년차)"],
+    ["분야", "모빌리티 (전기이륜차 구독 + 보조금 자동화 SaaS + 정비)"],
+    ["소재지", "서울 (NEST 프론트원 입주)"],
+    ["제품명", "바드림 — 착한구독 (바이크+보험+무제한 배터리) + 바이패스 (보조금 SaaS) + 바드림케어 (정비 구독)"],
+    ["핵심 기술", "원격 시동차단 제어 + 마일리지 차감 + 보조금 자동화"],
+    ["주요 검증", "예비창업패키지 최우수(24.3) / 삼성화재×인포뱅크 INNO-WAVE(23.9) / TIPS(24.9) / 신보 퍼스트펭귄(25.3) / 환경부-울산-HD현대-LG쿠루 4자 협약(24.6)"],
+    ["웹사이트", "ba-dream.com"]
+  ],
+  problem: {
+    title: "배달라이더의 전기이륜차 진입 3대 페인포인트 (회사 주장)",
+    bullets: [
+      "배달플랫폼 시장 25조 (2025), 라이더 신규 유입 증가",
+      "진입 평균 초기자본 500~800만원 (바이크 50% + 보험 40% + 용품 10%) → 렌탈 중심 구조",
+      "전기이륜차는 경제성 우위 (유류·보험·유지·차량가 모두 ↓)이나 렌탈 자체가 어려움",
+      "① 불편한 렌탈료 조회 — 가격 사전 미공개, 영업점 방문/전화 필요",
+      "② 느린 바이크 출고 — 기존 렌탈사 2~3주 (보조금 신청 수작업)",
+      "③ 신용도 거절 — 라이더 다수 신용 리스크로 렌탈 거절"
+    ]
+  },
+  solution: {
+    title: "착한구독 + 바이패스 + 바드림케어 풀스택 플랫폼",
+    bullets: [
+      "착한구독: 바이크+보험+무제한 배터리 통합, 앱 5초 조회 + 100% 앱 신청 + 익일 집앞 배송",
+      "바이패스 (보조금 자동화 SaaS): 신청 업무 90% 감소 (전담인력 2~4명 → 자동화), 16개 제조사 계약, 출시 6개월 만에 시장점유율 30%",
+      "착한 마일리지 (40~50만원 페이백): 미납 시 차감 — 미수 리스크 최소화",
+      "원격 시동차단 제어: 미수금/도난 시 차량 원격제어로 회수 — 신용도 무관 시장 최저가 운영 가능",
+      "바드림연구소 (직영 정비센터): 전기이륜차 전문 정비 + 바드림케어 월 47,500원 구독형 소모품 무료교환",
+      "운영 효율: 업계 평균 50대당 1명 → 사이클로이드 300대당 1명 (6배 효율)"
+    ]
+  },
+  market: [
+    {label: "TAM (국내 이륜차)", value: "4.2조원", desc: "신차 1.5조 + 정비 0.4조 + 중고 2.3조 (오프라인 7,400억 + 렌탈 7,600억)"},
+    {label: "SAM", value: "25조원", desc: "배달플랫폼 이용자 약 4,000만명 (2025년 시장 규모)"},
+    {label: "SOM (2030)", value: "19,200대", desc: "국내 이륜차 대비 0.9% 점유 목표"}
+  ],
+  gtm: [
+    {track: "2025 — B2C 라이더 직접 영업", desc: "8개월 300대 출고, 확정매출 18.7억, ROI 49%, 미납률 3.8%"},
+    {track: "2026 — B2C → B2B 전환 (배대사 중심)", desc: "'0원 바이크' 캠페인으로 배대사가 고객으로 → 미수 리스크 제로화. 매출 86억, 1,200대"},
+    {track: "지역 확장", desc: "서울 → 전국. 바드림케어샵 50개 + LG쿠루 KS 표준 BSS 400대 + 대동모빌리티 공식 렌탈사"},
+    {track: "동남아 진출", desc: "베트남 — 보조금 사업 역량 기반 (2030년 이후 추정). 베트남 하노이/호치민 보조금 정책 + OKXE.VN 사례"}
+  ],
+  traction: {
+    production: [
+      "8개월 300대 출고 완료, 확정매출 18.7억원, ROI 49%, 미납률 5% 미만 (현재 3.8%)",
+      "출고 시간: 1일 (vs 업계 2~3주)",
+      "운영 효율: 300대/명 (vs 업계 50대/명, 6배)",
+      "보조금 신청 업무 감소: 90%",
+      "바이패스 시장점유율: 30% (출시 6개월)",
+      "재무: 2025 18.1억(실측) → 2030E 1,375억"
+    ],
+    brand: [
+      "배달의민족 — 단독 LED 바이크 계약 (2025년 100대 → 2026년 1,000대 추진), 단독 웨어존 바드림연구소 구축",
+      "광명 스마트시티 — 전기이륜차 60대 1년 운영 3.8억원 (우아한형제들 2025.9 제안요청서)",
+      "HD현대중공업 — 업무용 이륜차 33대 공급 완료, 직원 출퇴근 2만 대+ 공식 구매앱, 환경부-울산시 4자 협약",
+      "HD현대 필리핀·베트남 조선소 — 전기이륜차 공급 협의 중",
+      "LG쿠루 — 단독 배터리 요금제 16.5만원/월 → 11만원/월 (33% 할인)",
+      "바이패스 16개 제조사: 대동모빌리티·KR모터스·닷스테이션·블루샤크·와코·E3모빌리티·DNA모터스·맥모터스·핸디라이프·더좋은사람·킴스트·그린모빌리티·이브이모터스·샤오다오·가브리엘·ZEEHO"
+    ],
+    other: [
+      "2025년 매출 18.1억 실측 (확정 18.7억)",
+      "정부 트랙 풀하우스: 예창패 → TIPS → 초기창업 → 신보 퍼스트펭귄 → NEST 프론트원",
+      "AI 기반 수리처방전 발행 — 기존 3,765개 내연 수리점 활용",
+      "리스 승계 기능 (2025.12 오픈): 위약금 평균 120만원 → 0원",
+      "정책 부합: 2030 배민 25%, 2035 60% 전기 전환 정부 목표"
+    ]
+  },
+  team: [
+    {name: "권준일", role: "CEO", desc: "선박엔진 + 정비 실무", items: ["HD현대중공업그룹 15년", "선박엔진 엔지니어 8년", "엔진 단독특허 2건", "스마트십 관제센터장 2년", "OASEAS 플랫폼 5억 매출, 해수부장관상", "이륜차 300대 직접 수리 ('바이크 오타쿠')"]},
+    {name: "CTO", role: "기술총괄", desc: "Full-stack", items: ["더글라스컬리지 CSIS 학사", "前 HD현대그룹 앱/웹 풀스택 개발자"]},
+    {name: "본부장 (사업)", role: "Mobility BD", desc: "바이크뱅크 출신", items: ["비즈니스 모빌리티 플랫폼 '바이크뱅크' 창립 멤버", "Mobility Strategy & Planning 7년", "GOGORO·BYD 등 글로벌 파트너십 경력"]},
+    {name: "개발자 2명·디자이너", role: "Engineering", desc: "—", items: ["서울시립대 수학과 (웹 풀스택 5년)", "가구유통 '착한유통UFO'", "홍익대 디자인컨버전스, '취미공유 OMO'"]},
+    {name: "정비 2명", role: "Maintenance", desc: "정비 7년+호주 2년", items: ["모터사이클 정비센터 7년", "호주 Top Two Motorcycles 2년"]},
+    {name: "기술고문", role: "Advisor", desc: "서울대 박사", items: ["서울대 학·석·박사", "HD한국조선해양 미래기술연구원 책임", "아비커스 R&D팀·조종제어연구팀 팀장", "서울대 해양시스템공학연구소 책임"]}
+  ],
+  plan: [
+    ["구분", "2025", "2026E", "2027E", "2028E", "2029E", "2030E"],
+    ["출고대수", "250대", "1,200대", "2,400대", "4,800대", "9,600대", "19,200대"],
+    ["매출", "18.1억", "86억", "175억", "347억", "691억", "1,375억"],
+    ["주요 마일스톤", "300대·18.7억·ROI 49%·미납 3.8%", "B2C→B2B / 케어샵 50개 / 배민 1,000대", "전국 확대", "동남아 본격", "—", "글로벌 + IPO"],
+    ["라운드", "Pre-A 진행 중", "—", "—", "—", "—", "—"]
+  ],
+  facts: [
+    "8개월 300대·18.7억·ROI 49%·미납 3.8% — Pre-A 단계 우수 트랙션",
+    "3-Sided Moat: 바이패스 SaaS 30% 점유 (제조사) + 착한구독 (라이더) + 바드림케어 (정비)",
+    "구조적 미수 리스크 해소 — 원격 차단 + 마일리지 차감 + 자동 회수",
+    "운영 효율 6배 (업계 50대/명 → 사이클로이드 300대/명)",
+    "Pre-A 목표 금액·자금 사용·valuation IR 미기재",
+    "2030년 19,200대 운영 시 차량 자산 약 670억 추정 (대당 350만원) — 자산 SPV 구조 미기재",
+    "바이패스 16개 제조사 계약 — 시장점유 30% (출시 6개월)"
+  ],
+  checklist: [
+    "Pre-A 목표 투자 유치 금액, pre/post-money valuation, 자금 사용 세부 분배표",
+    "누적 투자유치 금액 및 기존 LP/엔젤 명단 (시드, INNO-WAVE, 신보 등)",
+    "배민 2026년 1,000대 확대 계약 단계 — MOU vs LOI vs 본계약, 단가·수수료 구조",
+    "19,200대 (2030) 운영 시 차량 자산 조달 구조 — SPV·자산금융사·리스금융 파트너십",
+    "2026년 86억 매출 가정 분해 — 구독 ARPU, 바이패스 수수료, 바드림케어, 신차판매 비중",
+    "B2C→B2B 전환의 '0원 바이크' 단가 모델 — 배대사 관리비 단가, 라이더 보조금 분담",
+    "바드림케어샵 50개 전국 확대 직영/가맹 비율, 셋업 cost, 운영비, BEP",
+    "운영 효율 300대/명의 19,200대 스케일 검증 — 단계별 인력 채용 계획",
+    "동남아(베트남) 진출 — 현지 파트너·인허가·KS BSS 호환성·시점",
+    "바이패스 SaaS 단가 구조 — 16개 제조사 수수료율, 제조사당 ARR",
+    "미납률 3.8% 산정 기준 — 매출 대비 vs 계약 건수 대비, 회수율 포함 여부",
+    "AI 수리처방전·드림Talk·중고매매 등 부가 사업 상용화 일정·매출 기여도"
+  ]
+};
+
+const SNE_IR = {
+  tagline: "농산물 예측 AI(가격·작황·생육) + B2B 선도거래 + 베트남 무역 'End-to-End AgTech' 딥테크. ISO 25023 국제공인 2건(국내 최초) + 다중위성 멀티 레이어 IP + 베트남 정부기관 7개 MOU.",
+  basicInfo: [
+    ["대표자", "장세훈 CEO — 연세대 국문, KAIST 미래전략대학원 경영학 석사 / 서울신문 논설위원 등 기자 20년 / 듀크대 방문연구원 / 대통령 표창·행정자치부 장관 표창"],
+    ["설립연도", "2020.08.12 (3~7년차)"],
+    ["분야", "딥테크 / Ag-tech (농산물 AI 예측 + 선도거래 + 무역)"],
+    ["소재지", "서울 서초구 매헌로16길 32, AI양재허브 희경재단 F동 302호"],
+    ["임직원", "총 15명 (상근 13명 + 비상근 2명, 25.12 기준)"],
+    ["제품명", "B·good — Price Index (가격) / 작황예측 / 생육예측 / SaaS / 선도거래 플랫폼 / 무역"],
+    ["핵심 검증", "ISO/IEC 25023 국제공인 2건 (가격 25.1·작황 25.8 — 국내 최초), KS X 9701 제정 참여, 2025 APEC 하노이 발표"],
+    ["웹사이트", "bgood.co.kr"]
+  ],
+  problem: {
+    title: "글로벌 농업 낮은 기술 성숙도 + 농산물 유통과 IT 미스매치 (회사 주장)",
+    bullets: [
+      "국내: 기존 솔루션은 IoT·HW 중심, 농가 활용성 저조",
+      "해외: 개도국 데이터 환경 열악, 선진국 고령화로 생산성 하락",
+      "농산물 경매유통(현물거래) vs 식자재 수요기업(예산 기반 선도거래) → 구조적 불일치",
+      "못난이(등급외) 농산물의 가격결정·유통 체계 부재",
+      "판매(농가)·구매(기업)·수급(정부) 의사결정용 양질의 예측 데이터 부재 (KREI·aT는 적시성·신뢰성 한계)"
+    ]
+  },
+  solution: {
+    title: "AI 솔루션 + 무역 융합 'End-to-End' + 3대 BM",
+    bullets: [
+      "AI 가격예측 (B·good Price Index): 빅데이터 (가격 10만건+, 일별 100만건+ 자동수집), 상위 30대 D+7일 평균오차 5.5%, 주요 10대 3.3% (MAPE)",
+      "AI 작황예측: 세계 최초 다중위성(멀티 레이어) 기반 IP, 통계청 5.2% 오차 대비 0.2% — 26배 정확 ('23년 쌀 생산량)",
+      "AI 생육예측: 작물 이미지 9만개+ 벡터화 멀티모달 AI, 성숙기 탐지율 94.7%, 정확도 85% (장비 없이 휴대폰 GPS+이미지)",
+      "DX & AX (Agentic AI): 다국어 OCR (베트남어 필기체 84.9%) + 농업도메인 NLP, RAG 기반 AIM",
+      "B2B 선도거래 플랫폼: 선매입→선주문, 못난이 농산물 거래 체계화, 다단계 유통 제거 → 재고비용 Zero"
+    ]
+  },
+  market: [
+    {label: "글로벌 AI 솔루션", value: "397조→1,228조원", desc: "2025→2032년 (CAGR 17.5%, Fortune Business Insights)"},
+    {label: "한국 시장", value: "2.75조→3.8조원", desc: "2025→2026년 (CAGR 38.2%, IDC Korea)"},
+    {label: "농업 AI", value: "$17억→$47억", desc: "2023→2028년 (CAGR 23%)"}
+  ],
+  gtm: [
+    {track: "① 상품거래 (무역)", desc: "국내 B2B 선도거래 + 베트남↔한국 수출입 (수수료·차익). '25년 매출 54.2억 (선도거래) + 4.76억 (무역)"},
+    {track: "② 데이터구독 (BPI)", desc: "가격·작황 예측 데이터 API/구독료. '24~25 누적 2.04억, 매출이익률 51%, '25 4Q 구독기업 8개"},
+    {track: "③ AI SaaS (B·good SaaS)", desc: "농가·기업 대상 월 약 10만원 구독료. '24 캐나다 1구독 → '25 베트남 15농가(1구독) → '26말 4국가·100농가(10구독)"},
+    {track: "④ 무역 플랫폼 수수료", desc: "수출액의 0.1% 예정 + 특허 라이선스. 'Vietnam-to-Global' — 베트남 → 동남아(말레이·태국) → 일본 → 북미·글로벌"}
+  ],
+  traction: {
+    production: [
+      "국내 B2B 선도거래: '25년 매출 54.2억, 가입 농가 22,280개·기업 680개",
+      "데이터 구독: '24~25 누적매출 2.04억, 매출이익률 51%, '25 4Q 구독기업 8개·매출 29백만",
+      "무역 (베트남): '23~25 누적 4.82억, '25년 4.76억 (수출 3품목 + 수입 캐슈넛 1품목), WinMart 등 바이어 6곳",
+      "SaaS: '24 캐나다 1국가·1농가 → '25 베트남 15농가(1구독) → '26말 4국가·100농가(10구독) 목표",
+      "재무 추이: '21 5.5억 → '25 59.3억 (5년 약 11배, CAGR 81%). 단 '25 소폭 역성장(60.3→59.3)"
+    ],
+    brand: [
+      "베트남 정부기관 MOU 7곳: RETAQ(VietGAP), CETDAE, NIAPP, IAS, CESTI, 달랏 과학기술청, AGROINFO(계약 체결)",
+      "Tran Thai Group, WinMart 등 베트남 바이어 6곳",
+      "캐나다 Galaxy AG Ventures 합작법인 MOU (24.2)",
+      "일본: SUHO 등 마케팅 파트너십 2곳, 이토추상사 등 수출 실무협의 (PoC '26 추진)",
+      "홍콩 맥심스그룹 등 수출 실무협의 중"
+    ],
+    other: [
+      "ISO/IEC 25023 국제공인 2건 (가격 25.1·작황 25.8 — 국내 최초)",
+      "KS X 9701 제정 참여사 (24.11)",
+      "2025 APEC 하노이 컨퍼런스 초청 발표",
+      "SCI 기술등급 T4, 기술보호 선도기업 지정",
+      "특허: 등록 4건 + 출원 14건 + 저작권 19건 + 상표 2건 (40개+ IP)",
+      "수상·정부과제: 농식품부·중기부·환경부·과기부 다수, 신한·우리·CJ·기보 액셀러레이팅 누적"
+    ]
+  },
+  team: [
+    {name: "장세훈", role: "CEO", desc: "Founder · 미디어/전략", items: ["연세대 국문, KAIST 미래전략 경영학 석사", "서울신문 논설위원 등 기자 20년", "듀크대 방문연구원, 대통령 표창", "못난이 농산물 거래가격·역경매가격 알고리즘 직접 설계"]},
+    {name: "CSO/CFO", role: "(공석)", desc: "채용 예정", items: ["IR 시점 핵심 공백", "보강 필요"]},
+    {name: "한상돈", role: "영업 본부장 (상근)", desc: "Food Sales 23년", items: ["SPC·샘표·푸드머스 등 식품·식자재 영업 23년"]},
+    {name: "김창수", role: "베트남 사무소장 (상근)", desc: "Vietnam Operations", items: ["하얼빈공대 기업관리 석사", "해외컨설팅 10년", "베트남 법인장 7년"]},
+    {name: "문영상·김영도", role: "이사 (비상근)", desc: "기술·데이터 자문", items: ["문영상: 숭실대 교수, ISO TC 171 전문위원, S전자 음성인식 자문", "김영도: 한국금융연구원 선임, 연세대 겸임, UC San Diego 경제학 박사"]},
+    {name: "Advisors 4명", role: "고문", desc: "ML·플랫폼·CV·글로벌", items: ["박재혁(KDI), 양희승(연세대), 양현주(서강대), 류철(KDI)", "머신러닝 알고리즘, 플랫폼 영향 평가, 위성영상·CV, 글로벌 시장"]}
+  ],
+  plan: [
+    ["구분", "2025", "2026E", "2027E", "2028E"],
+    ["매출", "59.3억", "102억", "185억", "360억"],
+    ["순이익", "-11억", "-9억", "+4.2억", "+60억"],
+    ["주요 마일스톤", "ISO 인증 2건 / Pre-B 투자유치", "베트남 법인 전환 / BEP / 시리즈 B 목표", "작황예측 글로벌 표준 / 흑자전환", "베트남 우수농산물 인증 10% (5만 농가)"],
+    ["라운드", "Pre-시리즈 B 진행", "시리즈 B (규모 미기재)", "—", "—"]
+  ],
+  facts: [
+    "누적 투자 65억 — 시드-Pre A-브릿지-시리즈 A-Pre 시리즈 B (기보 투자옵션부보증 15억 포함)",
+    "주요 주주: 장세훈 대표 43.4% / 서울신문 20.8% / 비엔케이-경남 3.9% / 연세대기술지주 3.0% / 신한카드 2.6% / 라이프코어-CNH 신기술투자조합 4호 2.6%",
+    "다중위성 멀티 레이어 작황예측 IP — 글로벌 IP 전수조사 결과 공백 영역",
+    "통계청 대비 26배 정확도 (0.2% vs 5.2%, '23년 쌀)",
+    "ESG Impact Report 영국·한국 동시 발간 — 못난이 농산물 265,790kg 구조, 온실가스 240,023kg CO2e 감축",
+    "보험·금융사 대상 작황 예측 데이터 판매 / KADX 등 데이터 플랫폼 협력 확장",
+    "특허 라이선스 매출 ('27년 5억 E)"
+  ],
+  checklist: [
+    "'25년 매출 소폭 역성장 (60.3→59.3억) 원인과 '26년 102억(+72%) 전망의 구체 근거",
+    "베트남 SaaS 월 10만원 구독료 가정의 시장 검증 자료 (PoC 15농가 중 실제 구독 전환율, 갱신율)",
+    "'27~28년 해외 기술매출 5억→5억, 특허 라이선스 5억의 구체 파이프라인·LOI",
+    "시리즈 B 목표 라운드 규모, 현재 LOI/Term Sheet 확보율, 자금사용계획",
+    "CSO/CFO 채용 진행 상황 및 상근 CTO 보강 계획",
+    "누적 65억 중 '25년말 잔여 현금 및 월 burn rate, 런웨이 (시리즈 B 클로징 전 생존 가능 기간)",
+    "다중위성 작황예측 IP 글로벌 권리 범위 (PCT 출원, 미국·EU·동남아 진입국 출원)",
+    "무역 플랫폼 수수료 0.1% 가정의 시장 표준 대비 합리성, 수출기업 수용 의향"
+  ]
+};
+
+
+
+// 회사번호 → IR 데이터 매핑
+const RICH_IR_MAP = {
+  1: HOP_IR,
+  4: FREEGROW_IR,
+  15: WHEREABLE_IR,
+  16: DOLBOMDREAM_IR,
+  21: TOFF_IR,
+  23: PREDICTION_IR,
+  25: COFA_IR,
+  27: A2US_IR,
+  28: MACROACT_IR,
+  30: DICO_IR,
+  32: NEARBRAIN_IR,
+  33: CYCLOID_IR,
+  34: SNE_IR
+};
+
+// 공통 풍성 IR 렌더 함수 (미트프로이데 구조 그대로 활용)
+function renderRichIR(ir) {
+  return `
+    <div class="ir-callout">
+      <strong>한줄 소개</strong><br>${escapeHtml(ir.tagline)}
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">1</span>기본 정보</h3>
+      <dl class="ir-info-grid">
+        ${ir.basicInfo.map(([k,v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join("")}
+      </dl>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">2</span>Problem &amp; Solution</h3>
+      <h4>${escapeHtml(ir.problem.title)}</h4>
+      <ul class="ir-bullets">${ir.problem.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+      <h4>${escapeHtml(ir.solution.title)}</h4>
+      <ul class="ir-bullets">${ir.solution.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">3</span>시장 &amp; GTM 전략</h3>
+      <h4>시장 규모</h4>
+      <div class="ir-market-grid">
+        ${ir.market.map(m => `
+          <div class="ir-market-card">
+            <div class="label">${escapeHtml(m.label)}</div>
+            <div class="value">${escapeHtml(m.value)}</div>
+            <div class="desc">${escapeHtml(m.desc)}</div>
+          </div>`).join("")}
+      </div>
+      <h4>GTM 전략</h4>
+      ${ir.gtm.map(g => `
+        <div style="margin-bottom:10px">
+          <div style="font-size:12px;font-weight:600;color:var(--blue-light);margin-bottom:2px">${escapeHtml(g.track)}</div>
+          <div style="font-size:12px;color:var(--silver);line-height:1.5">${escapeHtml(g.desc)}</div>
+        </div>
+      `).join("")}
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">4</span>트랙션 &amp; 시장 검증</h3>
+      <h4>주요 성과·실적</h4>
+      <ul class="ir-bullets">${ir.traction.production.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+      <h4>고객·파트너십</h4>
+      <ul class="ir-bullets">${ir.traction.brand.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+      <h4>기타 검증·이력</h4>
+      <ul class="ir-bullets">${ir.traction.other.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">5</span>팀 구성</h3>
+      <div class="ir-team-grid">
+        ${ir.team.map(t => `
+          <div class="ir-team-card">
+            <div class="name">${escapeHtml(t.name)}</div>
+            <div class="role">${escapeHtml(t.role)} · ${escapeHtml(t.desc)}</div>
+            <ul>${t.items.map(i => `<li>${escapeHtml(i)}</li>`).join("")}</ul>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">6</span>성장 계획 &amp; 투자 유치</h3>
+      <table class="ir-table">
+        <thead>
+          <tr>${ir.plan[0].map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr>
+        </thead>
+        <tbody>
+          ${ir.plan.slice(1).map(row => `
+            <tr>${row.map((v, i) => i === 0 ? `<td style="color:var(--silver-dim);font-weight:600">${escapeHtml(v)}</td>` : `<td>${escapeHtml(v)}</td>`).join("")}</tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">7</span>IR 자료 주요 팩트</h3>
+      <h4>IR에 명시된 주요 수치·근거</h4>
+      <ul class="ir-bullets">${ir.facts.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+      <h4>심사 시 추가 확인 권장 사항</h4>
+      <ul class="ir-bullets">${ir.checklist.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>
+    </div>
+  `;
+}
+
+function renderOncoinIR() {
+  const ir = ONCOIN_IR;
+  return `
+    <div class="ir-callout">
+      <strong>한줄 소개</strong><br>${escapeHtml(ir.tagline)}
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">i</span>기본 정보</h3>
+      <dl class="ir-info-grid">
+        ${ir.basicInfo.map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join("")}
+      </dl>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">ii</span>${escapeHtml(ir.problem.title)}</h3>
+      <ul class="ir-bullets">
+        ${ir.problem.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">iii</span>${escapeHtml(ir.technology.title)}</h3>
+      <ul class="ir-bullets">
+        ${ir.technology.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">iv</span>${escapeHtml(ir.efficacy.title)}</h3>
+      <ul class="ir-bullets">
+        ${ir.efficacy.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">v</span>${escapeHtml(ir.market.title)}</h3>
+      <ul class="ir-bullets">
+        ${ir.market.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">vi</span>팀 구성</h3>
+      <div class="ir-team-grid">
+        ${ir.team.map(t => `
+          <div class="ir-team-card">
+            <div class="ir-team-role">${escapeHtml(t.role)}</div>
+            <div class="ir-team-desc">${escapeHtml(t.desc)}</div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">vii</span>경쟁 환경 비교 (IR 기재)</h3>
+      <ul class="ir-bullets">
+        ${ir.competition.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">viii</span>${escapeHtml(ir.roadmap.title)}</h3>
+      <ul class="ir-bullets">
+        ${ir.roadmap.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">ix</span>${escapeHtml(ir.funding.title)}</h3>
+      <table class="ir-funding-table">
+        <thead><tr>${ir.funding.rows[0].map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr></thead>
+        <tbody>
+          ${ir.funding.rows.slice(1).map(row => `<tr>${row.map(c => `<td>${escapeHtml(c)}</td>`).join("")}</tr>`).join("")}
+        </tbody>
+      </table>
+      <div style="margin-top:14px; font-size:13px; color:var(--silver-dim); font-weight:600; letter-spacing:0.05em;">자금 사용 계획 (Series A 40억, 2026~2027)</div>
+      <ul class="ir-bullets" style="margin-top:8px">
+        ${ir.funding.usage.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="ir-section">
+      <h3><span class="section-num">x</span>IR 자료 주요 팩트</h3>
+      <ul class="ir-bullets">
+        ${ir.facts.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="ir-section ir-checklist">
+      <h3><span class="section-num"><i class="fa-solid fa-circle-question"></i></span>추가 확인이 필요할 수 있는 항목</h3>
+      <ul class="ir-bullets">
+        ${ir.checklist.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
     </div>
   `;
 }
@@ -3009,6 +5065,16 @@ function escapeHtml(s) {
 }
 
 function bindEvents() {
+  // Glenn 필터 이벤트 바인딩
+  document.querySelectorAll(".filter-chip-glenn").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".filter-chip-glenn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentGlennFilter = btn.dataset.glenn;
+      renderCompanyGrid();
+    };
+  });
+
   document.getElementById("searchInput").oninput = (e) => {
     currentSearch = e.target.value;
     renderCompanyGrid();
