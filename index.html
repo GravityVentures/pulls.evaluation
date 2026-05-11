@@ -940,31 +940,6 @@ main {
 </style>
 </head>
 <body>
-<!-- Reviewer Modal -->
-<div class="modal-overlay" id="reviewerModal">
-  <div class="modal modal-reviewer-select">
-    <h3 id="modalTitle">심사위원 선택</h3>
-    <p id="modalDesc">본인의 이름을 선택하고 휴대폰 번호 마지막 4자리를 입력해주세요.</p>
-    <div class="reviewer-select-grid" id="reviewerSelectGrid"></div>
-    <div id="pinSection" style="display:none">
-      <div class="pin-selected-name">
-        <i class="fa-solid fa-user-check"></i>
-        <span id="pinSelectedName"></span>
-        <button class="pin-change-btn" onclick="resetReviewerSelection()">변경</button>
-      </div>
-      <label style="font-size:12px;color:var(--silver-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:16px;display:block;margin-bottom:8px">휴대폰 번호 마지막 4자리</label>
-      <input type="password" id="pinInput" placeholder="● ● ● ●" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
-      <div id="pinError" class="pin-error" style="display:none">
-        <i class="fa-solid fa-mobile-screen-button"></i>
-        <span>휴대폰 번호 마지막 4자리를 입력해주세요</span>
-      </div>
-      <div class="modal-actions" style="margin-top:20px">
-        <button class="modal-btn secondary" onclick="resetReviewerSelection()">뒤로</button>
-        <button class="modal-btn primary" id="modalConfirm">입장하기</button>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="save-indicator" id="saveIndicator">
   <i class="fa-solid fa-check-circle"></i>
   <span>저장되었습니다</span>
@@ -982,11 +957,6 @@ main {
       <i class="fa-solid fa-circle"></i>
       <span id="storageStatusText">자동 저장 중</span>
     </span>
-    <button class="reviewer-pill" id="reviewerPill" onclick="openReviewerModal(true)">
-      <div class="reviewer-pill-avatar" id="reviewerAvatar">?</div>
-      <span id="reviewerName">심사위원 선택</span>
-      <i class="fa-solid fa-chevron-down"></i>
-    </button>
     <div class="backup-btn-group">
       <button class="backup-btn" onclick="exportReviewerData()" title="현재 심사 진행 상태를 JSON 파일로 백업합니다 (다른 컴퓨터로 옮길 때 사용)">
         <i class="fa-solid fa-file-arrow-down"></i>
